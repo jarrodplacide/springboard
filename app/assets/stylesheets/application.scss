@@ -1,0 +1,12 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+#admin-interface {
+  > .container-fluid {
+    padding: 70px;
+  }
+}
+
+.single-column-form {
+  width: 70%;
+}

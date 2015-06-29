@@ -1,0 +1,20 @@
+<div class="jumbotron">
+  <header id="page-title">
+    <h1 class="text-center">Springboard Academy System Administration</h1>
+  </header>
+  <section id="content" class="center-block text-center">
+    <p class="text-center">Please select an option from the menu below</p>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        Subjects <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><%= link_to 'View Subjects', admin_subjects_path %></li>
+        <li><%= link_to 'Add New Subject', new_admin_subject_path %></li>
+        <li><%= link_to "Add New Subject Section", "#" %></li>
+      </ul>
+    </div>
+    <br/><br/>
+    <%= link_to "Log Out", "#", method: :delete, class: "btn btn-large btn-primary" %>
+  </section>
+</div>

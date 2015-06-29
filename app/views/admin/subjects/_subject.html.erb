@@ -1,0 +1,13 @@
+<% if subject.available
+     available = 'Yes'
+   else
+     available = 'No'
+   end
+%>
+<tr>
+  <td><%= subject.name %></td>
+  <td><%= available %></td>
+  <td><%= link_to 'Edit', edit_admin_subject_path(subject), class: 'btn btn-large btn-primary' %></td>
+  <td><%= link_to 'Delete', admin_subject_path(subject), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %></td>
+  <td><%= link_to 'View Sections', '#', class: 'btn btn-large btn-primary' %></td>
+</tr>

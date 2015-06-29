@@ -1,0 +1,12 @@
+<h1 class='text-center'>Add New Subject</h1>
+<%= form_for [:admin, @subject], html: {class: 'single-column-form center-block'} do |f| %>
+    <%= f.label :name, 'Subject Name' %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <div class="checkbox">
+      <%= f.check_box :available %> Available to Registered Users?
+    </div>
+    <br/>
+
+    <%= f.submit "Add Subject", class: 'btn btn-large btn-primary' %>
+<% end %>
