@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
 
   namespace :admin do
+  get 'instructors/index'
+  end
+
+  namespace :admin do
+  get 'instructors/new'
+  end
+
+  namespace :admin do
+  get 'instructors/edit'
+  end
+
+  devise_for :instructors
+  namespace :admin do
     root :to => 'static_pages#home'
     resources :subjects do
       resources :sections do
