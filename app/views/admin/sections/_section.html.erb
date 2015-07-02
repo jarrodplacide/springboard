@@ -1,0 +1,32 @@
+<%
+    if section.open
+      available = 'Yes'
+    else
+      available = 'No'
+    end
+%>
+<tr>
+  <td><%= section.codename %></td>
+  <td><%= available %></td>
+  <td><%= section.start_date.strftime('%D, %r') %></td>
+  <td><%= section.end_date.strftime('%D, %r') %></td>
+  <td>
+    <div class='btn-group'>
+      <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Options <span class='caret'></span>
+      </button>
+      <ul class='dropdown-menu'>
+        <% if section.open %>
+            <li><%= link_to 'Close Section', close_admin_subject_section_path(section.subject, section) %></li>
+        <% else %>
+            <li><%= link_to 'Open Section', open_admin_subject_section_path(section.subject, section) %></li>
+        <% end %>
+        <li><%= link_to 'Edit Section', edit_admin_subject_section_path(section.subject, section) %></li>
+        <li><%= link_to 'Delete', admin_subject_section_path(section.subject, section), method: :delete, data: {confirm: 'Are you sure?'} %></li>
+        <li role='separator' class='divider'></li>
+        <li><%= link_to 'View Section Statistics', '#' %></li>
+        <li role='separator' class='divider'></li>
+      </ul>
+    </div>
+  </td>
+</tr>

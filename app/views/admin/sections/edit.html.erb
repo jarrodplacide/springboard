@@ -1,0 +1,21 @@
+<h1 class='text-center'>Edit Section <%= @section.codename %></h1>
+<%= form_for [:admin, @subject, @section], html: {class: 'single-column-form center-block'} do |f| %>
+    <%= f.label :codename, 'Section Name' %>
+    <%= f.text_field :codename, class: 'form-control' %>
+    <br/><br/>
+    <%= f.label :start_date, 'Start Date' %>
+    <%= f.datetime_select :start_date, ampm: true %>
+    <br/><br/>
+    <%= f.label :end_date, 'End Date' %>
+    <%= f.datetime_select :end_date, ampm: true %>
+    <br/><br/>
+    <%= f.label :instructor_id, 'Instructor' %>
+    <%= f.text_field :instructor_id, class: 'form-control' %>
+
+    <div class="checkbox">
+      <%= f.check_box :open %> Available?
+    </div>
+    <br/>
+
+    <%= f.submit 'Save Changes', class: 'btn btn-large btn-primary' %>
+<% end %>

@@ -1,0 +1,13 @@
+<h1 class="text-center"><%= @subject.name %>: Sections</h1>
+<table class="table table-striped">
+  <thead>
+    <th>Section Name</th>
+    <th>Open?</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <%= render @subject.sections %>
+  </tbody>
+</table>

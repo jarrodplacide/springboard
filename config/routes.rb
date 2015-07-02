@@ -2,7 +2,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root :to => 'static_pages#home'
-    resources :subjects
+    resources :subjects do
+      resources :sections do
+        member do
+          get 'open'
+          get 'close'
+        end
+      end
+    end
   end
 
 
