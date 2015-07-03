@@ -1,5 +1,7 @@
 <h2 class="text-center">Register for Springboard Academy!</h2>
 
+<%= render partial 'layout/messages' %>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'center center-block'}) do |f| %>
   <%= devise_error_messages! %>
 

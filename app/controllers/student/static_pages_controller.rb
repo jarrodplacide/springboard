@@ -3,4 +3,7 @@ class Student::StaticPagesController < ApplicationController
 
   def verification_required
   end
+
+  def password_reset
+  end
 end

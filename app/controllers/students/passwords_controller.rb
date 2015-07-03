@@ -1,4 +1,5 @@
 class Students::PasswordsController < Devise::PasswordsController
+  layout 'student_auth'
   # GET /resource/password/new
   # def new
   #   super
@@ -31,6 +32,10 @@ class Students::PasswordsController < Devise::PasswordsController
   # end
 
   def after_resetting_password_path_for(resource)
-    new_student_session_path
+    student_portal_path
+  end
+
+  def after_sending_reset_password_instructions_path_for(resource_name)
+    student_password_reset_instructions_sent_path
   end
 end
