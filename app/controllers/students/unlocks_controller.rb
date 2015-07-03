@@ -25,4 +25,7 @@ class Students::UnlocksController < Devise::UnlocksController
   # def after_unlock_path_for(resource)
   #   super(resource)
   # end
+  def after_unlock_path_for(resource)
+    new_student_session_path
+  end
 end
