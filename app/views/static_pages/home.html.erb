@@ -1,3 +1,22 @@
+<%
+   @page_id = 'home'
+   @pagetitle = 'Welcome to Springboard Academy'
+%>
+
 <%= render partial: 'layouts/messages' %>
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+
+<div id="home-panel">
+  <div class="panel-column" id="about-springboard">
+    <%= image_tag 'small-logo.png', alt: 'Springboard Academy' %>
+  </div>
+  <div class="panel-column" id="features">
+    Features
+  </div>
+  <div class="panel-column" id="pricing">
+    Pricing
+  </div>
+  <div class="panel-column" id="subjects">
+    Subjects
+  </div>
+  <div class="clearfix"></div>
+</div>

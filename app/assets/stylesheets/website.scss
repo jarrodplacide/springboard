@@ -1,5 +1,7 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
 
 .student-auth {
   #topbar-logo {
@@ -48,3 +50,4 @@
 }
 
 @import 'student/static_pages';
+@import 'static_pages';

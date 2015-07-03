@@ -1,3 +1,60 @@
-// Place all the styles related to the static_pages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.static {
+  background: white asset_url('home-bg.jpg') no-repeat 0 0;
+  background-size: cover;
+
+  .topbar {
+
+    margin: 20px 0 0;
+
+    .link {
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: black;
+    }
+
+    #logo {
+      text-align: center;
+
+      img#logo-image {
+        width: 400px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  #home-panel {
+    width: 1010px;
+    height: 204px;
+    margin: 40px auto;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    border: 1px solid blue;
+
+    .panel-column {
+      width: 25%;
+      font-family: 'Raleway', sans-serif;
+      font-weight: bold;
+      color: blue;
+      text-align: center;
+      height: 202px;
+      float: left;
+      background-size: cover;
+    }
+
+    #about-springboard {
+      background: white;
+    }
+
+    #features {
+      background: asset_url('features-panel-bg.jpg') no-repeat 0 0;
+    }
+
+    #pricing {
+      background: asset_url('pricing-panel-bg.jpg') no-repeat 0 0;
+    }
+
+    #subjects {
+      background: asset_url('subjects-panel-bg.jpg') no-repeat 0 0;
+    }
+  }
+}

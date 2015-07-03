@@ -8,7 +8,9 @@
 
   <%= csrf_meta_tags %>
 </head>
-<body id="website-interface" class="static">
+<body id="website-interface" class="static" id="<%= yield(:page_id) %>">
+
+<%= render partial: 'shared/topbar' %>
 
 <div class="container-fluid">
   <%= yield %>
