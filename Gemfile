@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
+# Use Annotate for Model Documentation
+gem 'annotate', '2.6.6'
 # Use Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.5'
 # Use SCSS for stylesheets
