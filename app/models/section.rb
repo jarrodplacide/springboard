@@ -1,4 +1,6 @@
 class Section < ActiveRecord::Base
+  scope :newest, -> { order(start_date: :desc) }
+
   # Belongs to a Subject
   belongs_to :subject, inverse_of: :sections
 

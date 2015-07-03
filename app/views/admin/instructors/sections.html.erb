@@ -1,0 +1,12 @@
+<h1 class="text-center"><%= @instructor.name %>: Sections</h1>
+<table class="table table-striped">
+  <thead>
+      <th>Section Name</th>
+      <th>Open?</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+  </thead>
+  <tbody>
+    <%= render partial: 'admin/instructors/section', collection: @instructor.sections %>
+  </tbody>
+</table>

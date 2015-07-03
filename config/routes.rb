@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'instructors/index'
-  end
-
-  namespace :admin do
-  get 'instructors/new'
-  end
-
-  namespace :admin do
-  get 'instructors/edit'
-  end
-
   devise_for :instructors
   namespace :admin do
     root :to => 'static_pages#home'
@@ -21,6 +9,11 @@ Rails.application.routes.draw do
           get 'open'
           get 'close'
         end
+      end
+    end
+    resources :instructors do
+      member do
+        get 'sections'
       end
     end
   end

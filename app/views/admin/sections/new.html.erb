@@ -10,7 +10,7 @@
     <%= f.datetime_select :end_date, ampm: true %>
     <br/><br/>
     <%= f.label :instructor_id, 'Instructor' %>
-    <%= f.text_field :instructor_id, class: 'form-control' %>
+    <%= f.collection_select :instructor_id, Instructor.all, :id, :name, {include_blank: 'None Assigned'}, {class: 'form-control'} %>
 
     <div class="checkbox">
       <%= f.check_box :open %> Available?

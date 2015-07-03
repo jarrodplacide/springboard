@@ -1,2 +1,11 @@
-<h1>Admin::Instructors#index</h1>
-<p>Find me in app/views/admin/instructors/index.html.erb</p>
+<h1 class="text-center">Instructors</h1>
+<table class="table table-striped">
+  <thead>
+    <th>Name</th>
+    <th>Contact Number</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <%= render @instructors %>
+  </tbody>
+</table>

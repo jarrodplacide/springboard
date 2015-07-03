@@ -6,4 +6,9 @@ class Instructor < ActiveRecord::Base
 
   # Can be associated with many sections
   has_many :sections, inverse_of: :instructor
+
+  # Convenience Methods
+  def name
+    first_name + ' ' + middle_initial + ' ' + last_name
+  end
 end

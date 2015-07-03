@@ -34,7 +34,7 @@ class Admin::SectionsController < ApplicationController
   end
 
   def index
-    @subject = Subject.includes(:sections).find(params[:subject_id])
+    @subject = Subject.includes(sections: :instructor).find(params[:subject_id])
   end
 
   def destroy

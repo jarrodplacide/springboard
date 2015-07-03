@@ -1,2 +1,20 @@
-<h1>Admin::Instructors#new</h1>
-<p>Find me in app/views/admin/instructors/new.html.erb</p>
+<h1 class="text-center">Add New Instructor</h1>
+<%= form_for [:admin, @instructor] do |f| %>
+    <%= f.label :first_name, 'First Name' %>
+    <%= f.text_field :first_name, class: 'form-control' %>
+
+    <%= f.label :middle_initial, 'Middle Initial' %>
+    <%= f.text_field :middle_initial, class: 'form-control' %>
+
+    <%= f.label :last_name, 'Last Name' %>
+    <%= f.text_field :last_name, class: 'form-control' %>
+
+    <%= f.label :contact_no, 'Contact Number' %>
+    <%= f.text_field :contact_no, class: 'form-control' %>
+
+    <%= f.label :email, 'E-Mail Address' %>
+    <%= f.email_field :email, class: 'form-control' %>
+    <br/><br/>
+
+    <%= f.submit 'Add Instructor', class: 'btn btn-large btn-primary' %>
+<% end %>

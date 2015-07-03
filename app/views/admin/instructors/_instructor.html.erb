@@ -1,0 +1,22 @@
+<tr>
+  <td><%= instructor.name %></td>
+  <td><%= instructor.contact_no %></td>
+  <td>
+    <div class="btn">
+      <div class='btn-group'>
+        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          Options <span class='caret'></span>
+        </button>
+        <ul class='dropdown-menu'>
+          <li><%= link_to 'View', admin_instructor_path(instructor) %></li>
+          <li><%= link_to 'Edit Instructor', edit_admin_instructor_path(instructor) %></li>
+          <li><%= link_to 'Delete', admin_instructor_path(instructor), method: :delete, data: {confirm: 'Are you sure? This will delete their user account as well.'} %></li>
+          <li role='separator' class='divider'></li>
+          <li><%= link_to 'View Assigned Sections', sections_admin_instructor_path(instructor) %></li>
+          <li role='separator' class='divider'></li>
+          <li><%= link_to 'Send E-Mail to Instructor', '#' %></li>
+        </ul>
+      </div>
+    </div>
+  </td>
+</tr>

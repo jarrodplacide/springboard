@@ -1,0 +1,13 @@
+<%
+   if section.open
+     available = 'Yes'
+   else
+     available = 'No'
+   end
+%>
+<tr>
+  <td><%= section.codename %></td>
+  <td><%= available %></td>
+  <td><%= section.start_date.strftime('%D, %r') %></td>
+  <td><%= section.end_date.strftime('%D, %r') %></td>
+</tr>

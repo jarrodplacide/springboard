@@ -7,6 +7,13 @@
 %>
 <tr>
   <td><%= section.codename %></td>
+  <td>
+    <% if section.instructor_id.nil? %>
+        None Assigned
+    <% else %>
+        <%= link_to section.instructor.name, admin_instructor_path(section.instructor) %>
+    <% end %>
+  </td>
   <td><%= available %></td>
   <td><%= section.start_date.strftime('%D, %r') %></td>
   <td><%= section.end_date.strftime('%D, %r') %></td>
