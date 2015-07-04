@@ -1,22 +1,44 @@
 <%
-   @page_id = 'home'
+   @page_class = 'home-page'
    @pagetitle = 'Welcome to Springboard Academy'
 %>
 
 <%= render partial: 'layouts/messages' %>
 
+<div id="background-container">
+  <%= image_tag 'home-bg.jpg', id: 'about-springboard-image' %>
+  <%= image_tag 'features-bg.jpg', id: 'features-image' %>
+  <%= image_tag 'pricing-bg.jpg', id: 'pricing-image' %>
+  <%= image_tag 'subjects-bg.jpg', id: 'subjects-image' %>
+</div>
+
 <div id="home-panel">
   <div class="panel-column" id="about-springboard">
-    <%= image_tag 'small-logo.png', alt: 'Springboard Academy' %>
+    <div class="inner-panel"><%= image_tag 'small-logo.png', alt: 'Springboard Academy' %></div>
   </div>
   <div class="panel-column" id="features">
-    Features
+    <div class="inner-panel">Features</div>
   </div>
   <div class="panel-column" id="pricing">
-    Pricing
+    <div class="inner-panel">Pricing</div>
   </div>
   <div class="panel-column" id="subjects">
-    Subjects
+    <div class="inner-panel">Subjects</div>
   </div>
   <div class="clearfix"></div>
+</div>
+
+<div id="content-panel">
+  <div id="about-springboard-content" class="text-content">
+    <p>This is the sample content that will be used to describe Springboard Academy</p>
+  </div>
+  <div id="features-content" class="text-content">
+    <p>This is where the information on the features will go.</p>
+  </div>
+  <div id="pricing-content" class="text-content">
+    <p>This is where the pricing information will go.</p>
+  </div>
+  <div id="subjects-content" class="text-content">
+    <p>This is where the subjects content will go.</p>
+  </div>
 </div>
