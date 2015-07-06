@@ -5,6 +5,18 @@
 @import url(http://fonts.googleapis.com/css?family=Playfair+Display:400,700italic);
 
 .student-auth {
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Lato', sans-serif;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  background: asset_url('home-bg.jpg') no-repeat 0 0;
+  background-size: cover;
+
   #topbar-logo {
     width: 50px;
   }
@@ -28,10 +40,15 @@
     }
 
     margin-bottom: 10px;
+    padding: 20px 100px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    background: white;
+    border: 1px solid #00aeef;
   }
 
   .center {
-    max-width: 300px;
+    max-width: 500px;
     width: 50%;
   }
 
@@ -43,12 +60,29 @@
     text-align: center;
     max-width: 700px !important;
     margin: 0 auto;
+    padding: 5px 10px !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: white;
+    background: darkgray;
 
     li {
       list-style: none;
+      font-size: inherit !important;
+    }
+  }
+
+  #auth-links {
+    font-family: 'Lato', sans-serif;
+    color: black;
+
+    a {
+      color: inherit;
     }
   }
 }
 
+
+@import 'menus';
 @import 'student/static_pages';
 @import 'static_pages';

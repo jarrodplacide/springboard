@@ -1,9 +1,16 @@
 <div class="topbar">
-  <div class="pull-left">
-    <%= link_to 'Home', '#' %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1 text-left" id="login-link">
+        <%= link_to "Login",  new_student_session_path, class: 'link' %>
+      </div>
+      <div class='col-sm-10 text-center' id="logo">
+        <%= image_tag 'logo', alt: 'Springboard Academy Logo', id: 'logo-image', class: 'img-responsive' %>
+      </div>
+      <div class="col-sm-1 text-right" id="signup-link">
+        <%= link_to "Register", register_path, class: 'link' %>
+      </div>
+      <div class="clearfix"></div>
+    </div>
   </div>
-  <div class="center-block" id="topbar-logo">
-    <%= image_tag 'logo.png', alt: 'Springboard Academy Logo', class: 'logo' %>
-  </div>
-  <div class="clearfix"></div>
 </div>

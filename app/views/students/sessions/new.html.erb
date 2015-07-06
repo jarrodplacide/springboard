@@ -1,8 +1,7 @@
-<h2 class="text-center">Log in</h2>
-
-<%= render partial: 'layouts/messages' %>
+<h2 class="text-center">Log in to Springboard Academy</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'center center-block'}) do |f| %>
+  <%= render partial: 'layouts/messages' %>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, class: 'form-control' %>
@@ -25,6 +24,6 @@
   </div>
 <% end %>
 
-<div class="center-block center">
+<div class="center-block center text-center" id="auth-links">
   <%= render "students/shared/links" %>
 </div>
