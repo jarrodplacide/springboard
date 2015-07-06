@@ -1,2 +1,33 @@
-<h1>Student::Portal#home</h1>
-<p>Find me in app/views/student/portal/home.html.erb</p>
+<%= render partial: 'layouts/messages' %>
+<% if @student_subjects.empty? %>
+    <div class="well well-lg alert alert-dismissible fade in text-center" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p>It seems that you haven't signed up for any subjects as yet. Let's get started!</p>
+      <br/>
+      <p><strong>I'd like to register for: </strong></p>
+      <br/>
+      <% @subjects.each do |subject| %>
+        <%= link_to subject.name, '#', class: 'btn btn-large btn-primary' %>
+      <% end %>
+    </div>
+ <% end %>
+<div class='jumbotron'>
+  <h1 class="text-center">Student Portal Home</h1>
+  <p class="text-left">Welcome, Student Name</p>
+  <div class="row">
+    <div class="col-xs-6 col-md-3 portal-option">
+        <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Subjects', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+    <div class="col-xs-6 col-md-3 portal-option">
+      <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Schedule', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+    <div class="col-xs-6 col-md-3 portal-option">
+      <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Performance', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+    <div class="col-xs-6 col-md-3 portal-option">
+      <%= link_to(image_tag('subjects-bg.jpg', alt: 'Personal Information', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+  </div>
+</div>

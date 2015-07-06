@@ -1,3 +1,23 @@
-// Place all the styles related to the student/portal controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.student-portal {
+  > .container-fluid {
+    padding-top: 70px;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Lato', sans-serif;
+  }
+
+  .well {
+    .close {
+      margin-right: 20px;
+    }
+  }
+
+  .jumbotron {
+    background: #bed630;
+    h1 {
+      font-size: 24px;
+      color: black;
+    }
+  }
+}

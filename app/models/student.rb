@@ -43,4 +43,9 @@ class Student < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+
+  # Convenience Methods
+  def name
+    first_name + ' ' + middle_initial + ' ' + last_name
+  end
 end

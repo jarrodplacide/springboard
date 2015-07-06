@@ -11,6 +11,8 @@
 #
 
 class Subject < ActiveRecord::Base
+  # Scopes
+  scope :available, -> {where(available: true)}
   # Can Have Many Sections
   has_many :sections, inverse_of: :subject
 end
