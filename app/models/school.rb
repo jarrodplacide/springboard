@@ -11,4 +11,11 @@
 #
 
 class School < ActiveRecord::Base
+  # Belongs to many Students
+  has_many :students, inverse_of: :school
+
+  # Convenience Methods
+  def name_with_country
+    name + ' - ' + country
+  end
 end

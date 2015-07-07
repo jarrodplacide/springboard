@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Use for Country Select Forms
+gem 'country_select', github: 'stefanpenner/country_select'
+
 # Use Devise for User Authentication
 gem 'devise'
 

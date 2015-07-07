@@ -1,0 +1,50 @@
+<%
+   @pagetitle = 'Add a Parent'
+   @page_class = 'default-modal-page'
+%>
+
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <% render partial: 'layouts/messages' %>
+        <%= image_tag 'small-logo.png', alt: 'Springboard Academy Logo' %>
+        <h2>Enter primary parent information:</h2>
+      </div>
+      <div class="modal-body">
+        <%= form_for @parent, url: student_create_parent_for_new_profile_path do |f| %>
+            <%= f.label :first_name, "First Name" %>
+            <%= f.text_field :first_name, class: 'form-control' %>
+
+            <%= f.label :last_name, "Last Name" %>
+            <%= f.text_field :last_name, class: 'form-control' %>
+
+            <%= f.label :email, "E-Mail Address" %>
+            <%= f.email_field :email, class: 'form-control' %>
+
+            <%= f.label :contact_no, "Contact Number" %>
+            <%= f.text_field :contact_no, class: 'form-control' %>
+
+            <%= f.label :street_address_1, "Address Line 1" %>
+            <%= f.text_field :street_address_1, class: 'form-control' %>
+
+            <%= f.label :street_address_2, "Address Line 2" %>
+            <%= f.text_field :street_address_2, class: 'form-control' %>
+
+            <%= f.label :city, "City" %>
+            <%= f.text_field :city, class: 'form-control' %>
+
+            <%= f.label :country, "Country" %>
+            <%= f.country_select :country, {priority_countries: ["TT"]}, class: 'form-control' %>
+
+            <br/>
+            <%= f.submit "Add Parent", class: 'btn btn-large btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-offset-2 col-sm-8 text-center" id='backdrop-logo'>
+  <%= image_tag 'logo.png', class: 'img-responsive center-block', alt: 'Springboard Academy' %>
+</div>

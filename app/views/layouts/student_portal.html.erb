@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Springboard Academy - <%= yield(:pagetitle) %></title>
+  <title>Springboard Academy - <%= @pagetitle %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <%= stylesheet_link_tag    'website', media: 'all' %>
 
   <%= csrf_meta_tags %>
 </head>
-<body id="website-interface" class="student-portal">
+<body id="website-interface" class="student-portal <%= @page_class %>">
 
 <%= render partial: 'student/shared/top_menu' %>
 

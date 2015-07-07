@@ -26,8 +26,7 @@ class Admin::SubjectsController < ApplicationController
 
   def update
     @subject = Subject.find(params[:id])
-    @subject.update_attributes(subject_params)
-    if @subject.save
+    if @subject.update_attributes(subject_params)
       flash[:success] = "Changes to the subject, #{@subject.name}, were successfully saved"
       redirect_to admin_subjects_path
     else

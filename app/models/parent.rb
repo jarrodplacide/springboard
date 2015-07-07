@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150703133312
+# Schema version: 20150707150407
 #
 # Table name: parents
 #
@@ -14,7 +14,15 @@
 #  country          :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  student_id       :integer
 #
 
 class Parent < ActiveRecord::Base
+  # Belongs to one student
+  belongs_to :student, inverse_of: :parents
+
+  # Convenience Methods
+  def name
+    first_name + ' ' + last_name
+  end
 end

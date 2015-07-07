@@ -44,6 +44,12 @@ class Student < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
 
+  # Belongs to School
+  belongs_to :school, inverse_of: :students
+
+  # Has at least one parent
+  has_many :parents, inverse_of: :student
+
   # Convenience Methods
   def name
     first_name + ' ' + middle_initial + ' ' + last_name
