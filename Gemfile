@@ -53,3 +53,8 @@ group :development, :test do
   gem 'spring'
 end
 
+# Rails Factor Gem for Heroku Environment
+gem 'rails_12factor', group: :production
+
+# Declare Ruby Version Explicitly.
+ruby '2.2.1'
