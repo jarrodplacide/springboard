@@ -8,6 +8,8 @@
   }
 
   .well {
+    margin-bottom: 20px;
+
     .close {
       margin-right: 20px;
     }
@@ -29,6 +31,18 @@
   .alert {
     li {
       list-style: none;
+    }
+  }
+
+  #personal-information {
+    line-height: 25px;
+  }
+
+  #parents {
+    .parent {
+      &:first-child {
+        margin-bottom: 15px;
+      }
     }
   }
 }

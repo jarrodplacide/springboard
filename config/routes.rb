@@ -2,6 +2,10 @@
 #
 #                                   Prefix Verb      URI Pattern                                              Controller#Action
 #                                     root GET       /                                                        static_pages#home
+#                          student_parents POST      /student/parents(.:format)                               student/parents#create
+#                           student_parent PATCH     /student/parents/:id(.:format)                           student/parents#update
+#                                          PUT       /student/parents/:id(.:format)                           student/parents#update
+#                                          DELETE    /student/parents/:id(.:format)                           student/parents#destroy
 #            student_verification_required GET       /student/verification_required(.:format)                 student/static_pages#verification_required
 # student_password_reset_instructions_sent GET       /student/password-reset-instructions-sent(.:format)      student/static_pages#password_reset
 #                           student_portal GET       /student/portal(.:format)                                student/portal#home
@@ -9,6 +13,8 @@
 #    student_portal_update_student_profile PATCH|PUT /student/portal/update-student-profile(.:format)         student/portal#update_profile
 #       student_new_parent_for_new_profile GET       /student/portal/add-parent-to-student(.:format)          student/portal#new_parent_for_new_profile
 #    student_create_parent_for_new_profile POST      /student/portal/create-parent-to-student(.:format)       student/portal#create_parent_for_new_profile
+#                     student_show_profile GET       /student/portal/my-profile(.:format)                     student/portal#show_profile
+#                   student_update_profile GET       /student/portal/update-profile(.:format)                 student/portal#update_profile
 #                      new_student_session GET       /login(.:format)                                         students/sessions#new
 #                          student_session POST      /login(.:format)                                         students/sessions#create
 #                  destroy_student_session DELETE    /logout(.:format)                                        students/sessions#destroy
@@ -85,6 +91,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   namespace :student do
+    resources :parents, only: [:create, :update, :destroy]
     get 'verification_required' => 'static_pages#verification_required'
     get 'password-reset-instructions-sent' => 'static_pages#password_reset'
     get 'portal/' => 'portal#home'
@@ -92,6 +99,8 @@ Rails.application.routes.draw do
     match 'portal/update-student-profile', to: 'portal#update_profile', via: [:patch, :put]
     get 'portal/add-parent-to-student', to: 'portal#new_parent_for_new_profile', as: :new_parent_for_new_profile
     post 'portal/create-parent-to-student', to: 'portal#create_parent_for_new_profile', as: :create_parent_for_new_profile
+    get 'portal/my-profile', to: 'portal#show_profile', as: :show_profile
+    get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
   end
 
   devise_for :students,

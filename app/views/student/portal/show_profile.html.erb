@@ -1,0 +1,178 @@
+<%
+   @page_class = 'student-profile'
+   @pagetitle = 'My Profile'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<h1 class="text-center">My Profile</h1>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-primary" id="personal-info">
+      <div class="panel-heading">
+        Personal Information
+      </div>
+      <div class="panel-body">
+          <div class="col-sm-4">
+            <strong>First Name:</strong><br/>
+            <strong>Middle Initial:</strong><br/>
+            <strong>Last Name:</strong><br/>
+            <strong>Date of Birth:</strong><br/>
+            <strong>Gender:</strong><br/>
+            <strong>School:</strong><br/>
+          </div>
+          <div class="col-sm-6">
+            <%= @student.first_name %><br/>
+            <%= @student.middle_initial %><br/>
+            <%= @student.last_name %><br/>
+            <%= @student.dob %><br/>
+            <%= @student.gender %><br/>
+            <%= @student.school.name_with_country %>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-default btn-large pull-right" type="button" id="edit-profile-button">Edit</button>
+          </div>
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-primary" id="parents">
+      <div class="panel-heading">
+        Parents
+        <button type="button" class="btn btn-default btn-sm pull-right" id="add-parent-button">Add New Parent</button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <% @student.parents.each do |parent| %>
+            <div class="parent">
+              <div class="col-sm-8">
+                <strong><%= parent.name %></strong><br/>
+                <address>
+                    <%= parent.street_address_1 + ', ' + parent.street_address_2 %><br/>
+                    <%= parent.city + ', ' + parent.country %>
+                </address>
+                <abbr title="Phone">P: </abbr><%= parent.contact_no %>
+                <% if not parent.contact_no.nil? %> <br/> <% end %>
+                <abbr title="Email">E: </abbr><%= parent.email %>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-sm-4">
+                <%= link_to "Remove", student_parent_path(parent), method: :delete, class: 'btn btn-large btn-danger pull-left' %>
+                <button type="button" class="btn btn-large btn-default pull-right edit-parent-button" data-parentid="<%= parent.id %>">Edit</button>
+                <div class="clearfix"></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="panel panel-success hidden" id="edit-profile-panel">
+      <div class="panel-heading">
+        Update Personal Information
+      </div>
+      <div class="panel-body">
+        <%= form_for @student, url: student_portal_update_student_profile_path do |f| %>
+          <%= f.label :first_name, "First Name" %>
+          <%= f.text_field :first_name, class: 'form-control' %>
+
+          <%= f.label :middle_initial, "Middle Initial" %>
+          <%= f.text_field :middle_initial, class: 'form-control' %>
+
+          <%= f.label :last_name, "Last Name" %>
+          <%= f.text_field :last_name, class: 'form-control' %>
+
+          <%= f.label :gender, "Gender" %>
+          <%= f.select :gender, ['Male', 'Female'], {}, {class: 'form-control'} %>
+          <br/>
+          <div class="form-inline">
+            <%= f.label :dob, "Date of Birth" %>
+            <%= f.date_select :dob, {start_year: Date.today.year - 25, end_year: Date.today.year - 8, order: [:day, :month, :year]}, class: 'form-control' %>
+            <br/><br/>
+          </div>
+
+          <%= f.label :school_id, "School" %>
+          <%= f.collection_select :school_id, School.all, :id, :name_with_country, {}, class: 'form-control' %>
+
+          <br/>
+          <%= f.submit "Save Profile", class: 'btn btn-large btn-primary' %>
+      <% end %>
+      </div>
+    </div>
+    <% @student.parents.each do |parent| %>
+        <div class="panel panel-success hidden" id="edit-parent-<%= parent.id %>">
+          <div class="panel-heading">
+            Edit Information for Parent, <%= parent.name %>
+          </div>
+          <div class="panel-body">
+            <%= form_for [:student, parent] do |f| %>
+              <%= f.label :first_name, "First Name" %>
+              <%= f.text_field :first_name, class: 'form-control' %>
+
+              <%= f.label :last_name, "Last Name" %>
+              <%= f.text_field :last_name, class: 'form-control' %>
+
+              <%= f.label :email, "E-Mail Address" %>
+              <%= f.email_field :email, class: 'form-control' %>
+
+              <%= f.label :contact_no, "Contact Number" %>
+              <%= f.text_field :contact_no, class: 'form-control' %>
+
+              <%= f.label :street_address_1, "Address Line 1" %>
+              <%= f.text_field :street_address_1, class: 'form-control' %>
+
+              <%= f.label :street_address_2, "Address Line 2" %>
+              <%= f.text_field :street_address_2, class: 'form-control' %>
+
+              <%= f.label :city, "City" %>
+              <%= f.text_field :city, class: 'form-control' %>
+
+              <%= f.label :country, "Country" %>
+              <%= f.country_select :country, {priority_countries: ["TT"]}, class: 'form-control' %>
+
+              <br/>
+              <%= f.submit "Save Changes to Parent Information", class: 'btn btn-large btn-primary' %>
+          <% end %>
+          </div>
+        </div>
+    <% end %>
+    <div class="panel panel-success hidden" id="add-parent-panel">
+      <div class="panel-heading">
+        Add New Parent
+      </div>
+      <div class="panel-body">
+        <%= form_for [:student, @parent] do |f| %>
+          <%= f.label :first_name, "First Name" %>
+          <%= f.text_field :first_name, class: 'form-control' %>
+
+          <%= f.label :last_name, "Last Name" %>
+          <%= f.text_field :last_name, class: 'form-control' %>
+
+          <%= f.label :email, "E-Mail Address" %>
+          <%= f.email_field :email, class: 'form-control' %>
+
+          <%= f.label :contact_no, "Contact Number" %>
+          <%= f.text_field :contact_no, class: 'form-control' %>
+
+          <%= f.label :street_address_1, "Address Line 1" %>
+          <%= f.text_field :street_address_1, class: 'form-control' %>
+
+          <%= f.label :street_address_2, "Address Line 2" %>
+          <%= f.text_field :street_address_2, class: 'form-control' %>
+
+          <%= f.label :city, "City" %>
+          <%= f.text_field :city, class: 'form-control' %>
+
+          <%= f.label :country, "Country" %>
+          <%= f.country_select :country, {priority_countries: ["TT"]}, class: 'form-control' %>
+
+          <br/>
+          <%= f.submit "Add Parent", class: 'btn btn-large btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

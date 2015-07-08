@@ -39,6 +39,21 @@ class Student::PortalController < ApplicationController
     end
   end
 
+  def show_profile
+    @student = Student.includes(:parents, :school).find(current_student.id)
+    @parent = Parent.new
+  end
+
+  def update_profile
+    @student = Student.find(current_student.id)
+    if @student.update_attributes(student_params)
+      flash[:success] = 'Your profile has been successfully updated'
+      redirect_to student_show_profile_path
+    else
+      flash[:error] = 'There was an error. Please try again'
+    end
+  end
+
   private
     def student_subjects
       @student_subjects ||= Array.new
