@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     root_path
   end
+
+  def student_subjects
+    @student_subjects ||= Array.new
+  end
+
+  def subjects
+    @subjects ||= Subject.available
+  end
 end

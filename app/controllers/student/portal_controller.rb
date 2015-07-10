@@ -55,13 +55,6 @@ class Student::PortalController < ApplicationController
   end
 
   private
-    def student_subjects
-      @student_subjects ||= Array.new
-    end
-
-    def subjects
-      @subjects ||= Subject.available
-    end
 
     def student_params
       params.require(:student).permit(:first_name, :middle_initial, :last_name, :school_id, :gender, :dob)

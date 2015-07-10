@@ -1,4 +1,5 @@
 class Student::ParentsController < ApplicationController
+  before_action :authenticate_student!
 
   def create
     parent = Parent.new(parent_params)

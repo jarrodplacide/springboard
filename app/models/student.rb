@@ -50,8 +50,13 @@ class Student < ActiveRecord::Base
   # Has at least one parent
   has_many :parents, inverse_of: :student
 
+  # Has Many Sections
+  has_many :student_sections
+  has_many :sections, through: :student_sections
+
   # Convenience Methods
   def name
     first_name + ' ' + middle_initial + ' ' + last_name
   end
+
 end

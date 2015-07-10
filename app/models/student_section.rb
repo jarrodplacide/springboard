@@ -12,4 +12,9 @@
 #
 
 class StudentSection < ActiveRecord::Base
+  # Belongs to a Student
+  belongs_to :student
+
+  # Belongs to a Section
+  belongs_to :section
 end

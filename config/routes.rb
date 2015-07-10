@@ -6,6 +6,14 @@
 #                           student_parent PATCH     /student/parents/:id(.:format)                           student/parents#update
 #                                          PUT       /student/parents/:id(.:format)                           student/parents#update
 #                                          DELETE    /student/parents/:id(.:format)                           student/parents#destroy
+#                 register_student_subject POST      /student/subjects/:id/register(.:format)                 student/subjects#register
+#                  payment_student_subject GET       /student/subjects/:id/payment(.:format)                  student/subjects#payment
+#                 student_subject_sections POST      /student/subjects/:subject_id/sections(.:format)         student/sections#create
+#              new_student_subject_section GET       /student/subjects/:subject_id/sections/new(.:format)     student/sections#new
+#                  student_subject_section GET       /student/subjects/:subject_id/sections/:id(.:format)     student/sections#show
+#                         student_subjects GET       /student/subjects(.:format)                              student/subjects#index
+#                                          POST      /student/subjects(.:format)                              student/subjects#create
+#                      new_student_subject GET       /student/subjects/new(.:format)                          student/subjects#new
 #            student_verification_required GET       /student/verification_required(.:format)                 student/static_pages#verification_required
 # student_password_reset_instructions_sent GET       /student/password-reset-instructions-sent(.:format)      student/static_pages#password_reset
 #                           student_portal GET       /student/portal(.:format)                                student/portal#home
@@ -92,6 +100,13 @@ Rails.application.routes.draw do
 
   namespace :student do
     resources :parents, only: [:create, :update, :destroy]
+    resources :subjects, only: [:new, :create, :index] do
+      member do
+        post 'register'
+        get 'payment'
+      end
+      resources :sections, only: [:new, :create, :show]
+    end
     get 'verification_required' => 'static_pages#verification_required'
     get 'password-reset-instructions-sent' => 'static_pages#password_reset'
     get 'portal/' => 'portal#home'

@@ -15,4 +15,6 @@ class Subject < ActiveRecord::Base
   scope :available, -> {where(available: true)}
   # Can Have Many Sections
   has_many :sections, inverse_of: :subject
+  # Can Have Many Subscription associated
+  has_many :subscriptions, inverse_of: :subject
 end

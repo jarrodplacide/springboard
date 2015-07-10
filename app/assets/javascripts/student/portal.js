@@ -19,4 +19,10 @@ $(document).ready(function() {
             $('#add-parent-panel').toggleClass('hidden');
         });
     }
+
+    if((body).hasClass('payment-options')) {
+        $('#offline-payment-button').click(function() {
+            $('#offline-payment-panel').toggleClass('hidden');
+        });
+    }
 });
