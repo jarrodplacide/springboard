@@ -1,0 +1,2 @@
+module Student::SectionsHelper
+end

@@ -25,4 +25,16 @@ $(document).ready(function() {
             $('#offline-payment-panel').toggleClass('hidden');
         });
     }
+
+    if((body).hasClass('section-page')) {
+        $('#offline-payment-button').click(function() {
+            $('#offline-payment-panel').toggleClass('hidden');
+        });
+    }
+
+    if((body).hasClass('renew-subscription')) {
+        $('#renew-subscription-button').click(function() {
+            $('#renew-subscription-panel').toggleClass('hidden');
+        });
+    }
 });

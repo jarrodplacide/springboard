@@ -1,0 +1,115 @@
+<%
+   @pagetitle = "Course: #{@section.subject.name}"
+   if not @subscription.end_date.nil? and @subscription.end_date < Date.Today
+     @page_class = 'section-page renew-subscription'
+   else
+     @page_class = 'section-page'
+   end
+%>
+
+<%= render partial: 'layouts/messages' %>
+<h1 class="text-center"><%= @section.subject.name %></h1>
+<!-- If The Subscription exists but it hasn't had it's first payment as yet -->
+<% if @subscription.end_date.nil? and @subscription.pending_payments.count == 0 %>
+    <div class="well well-lg text-center">
+      <p>You have registered for this subject's course, but you have not yet made payment.<br/>
+      If you wish to continue your registration process by making payment, please select a payment method below:</p>
+      <%= render partial: 'student/shared/payment_methods' %>
+    </div>
+    <div class="panel panel-primary hidden">
+        <div class="panel-heading">
+          Offline Payment
+        </div>
+      <!-- TODO Refine logic to unique error page that deals with access to section without actually being part of the section. -->
+        <div class="panel-body text-center" id="offline-payment-panel">
+          <p>This is where the offline payment instructions will go.</p>
+          <%= link_to "Confirm Offline Payment Request", student_subject_offline_payment_path(@section.subject), class: 'btn btn-primary btn-large' %>
+        </div>
+    </div>
+<!-- If there are pending payments -->
+<% elsif @subscription.end_date.nil? and @subscription.pending_payments.count > 0 %>
+    <div class="well well-lg text-center">
+      <p>We are still awaiting payment from you in order to permit you access this course.If you have already made payment, but you have not submitted the payment information to us as yet, please do so by clicking below:</p>
+      <%= link_to "Submit Offline Payment Information", '#', class: 'btn btn-large btn-default' %>
+    </div>
+<!-- If the Subscription exists but it has expired -->
+<% elsif @subscription.end_date < Date.today %>
+    <div class="well well-lg text-center">
+      <p>Your subscription for this subject's course has expired. Click below if you wish to extend it.</p>
+      <button class="btn btn-default btn-large" id="renew-subscription-button">Renew Subscription</button>
+    </div>
+    <div class="well well-lg text-center hidden" id="renew-subscription-panel">
+      <p>Please select a payment method to renew your subscription:</p>
+      <%= render partial: 'student/shared/payment_methods' %>
+    </div>
+    <div class="panel panel-primary hidden" id="offline-payment-panel">
+        <div class="panel-heading">
+          Offline Payment
+        </div>
+        <div class="panel-body">
+          <p>This is where the offline payment instructions will go.</p>
+          <%= link_to "Confirm Offline Payment Request", '#', class: 'btn btn-primary btn-large' %>
+        </div>
+    </div>
+<% else %>
+    <div class="col-sm-12">
+        <div class="panel panel-defautlt" id="announcements-panel">
+            <div class="panel-heading" role="tab" id="announcement-heading">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#announcements" aria-expanded="true" aria-controls="announcements">
+                  Course Announcements
+                </a>
+              </h4>
+            </div>
+            <div id="announcements" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="announcement-heading">
+              <div class="panel-body">
+                This is the announcements panel
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default" id="upcoming-schedule-panel">
+        <div class="panel-heading" role="tab" id="upcoming-schedule-heading">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#upcoming-schedule">
+              Upcoming Schedule
+            </a>
+          </h4>
+        </div>
+        <div id="upcoming-schedule" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="upcoming-schedule-heading">
+          <div class="panel-body">
+            This is the upcoming schedule.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default" id="past-classes-panel">
+        <div class="panel-heading" role="tab" id="past-classes-heading">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#past-classes">
+              Previous Classes
+            </a>
+          </h4>
+        </div>
+        <div id="past-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="past-classes-heading">
+          You can access previously recorded classes below:
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel panel-default" id="grades-panel">
+        <div class="panel-heading" role="tab" id="grades-heading">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#grades">
+              Grades
+            </a>
+          </h4>
+        </div>
+        <div id="grades" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="grades-heading">
+            This is the grades panel
+        </div>
+      </div>
+    </div>
+<% end %>

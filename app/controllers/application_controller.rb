@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def student_subjects
-    @student_subjects ||= Array.new
+    @student_subjects ||= StudentSection.includes(section: :subject).where(student_id: current_student.id)
   end
 
   def subjects

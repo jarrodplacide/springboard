@@ -16,6 +16,9 @@ class Subscription < ActiveRecord::Base
   # May have many payments
   has_many :payments, inverse_of: :subscription
 
+  # Has 0 or many pending payments
+  has_many :pending_payments, -> {where status: 'pending'}, class_name: 'OfflinePayment'
+
   # Belongs to a Student
   belongs_to :student, inverse_of: :subscriptions
 

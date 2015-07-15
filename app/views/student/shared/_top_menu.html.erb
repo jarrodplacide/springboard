@@ -18,8 +18,8 @@
           <%= link_to raw("My Subjects <span class='caret'></span>"), "#", class: 'dropdown-toggle', data: {toggle: 'dropdown'} %>
           <ul class="dropdown-menu" role="menu">
             <% unless @student_subjects.empty? %>
-                <% @student_subjects.each do |subject| %>
-                    <li><%= link_to subject.name, '#' %></li>
+                <% @student_subjects.each do |section| %>
+                    <li><%= link_to section.section.subject.name, '#' %></li>
                 <% end %>
             <% else %>
                 <li><%= link_to "You aren't currently subscribed to any subjects", '#' %></li>

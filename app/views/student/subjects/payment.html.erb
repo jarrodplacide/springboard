@@ -9,18 +9,15 @@
   <p>In order to complete your registration to <%= @subject.name %>, payment must be made</p>
   <p><i>Choose a payment method below:</i></p>
 
-  <div class="payment-methods">
-    <button class="btn btn-default btn-large" id="offline-payment-button">Offline Payment</button><br/>
-    <%= link_to "E-Payment via Paypal", '#', class: 'btn btn-default btn-large' %><br/>
-  </div>
+  <%= render partial: 'student/shared/payment_methods' %>
 </div>
 
 <div class="panel panel-primary hidden" id="offline-payment-panel">
     <div class="panel-heading">
         Offline Payment
     </div>
-    <div class="panel-body">
+    <div class="panel-body text-center">
       <p>This is where the offline payment instructions will go.</p>
-      <%= link_to "Enroll in Offline Payments", '#', class: 'btn btn-primary btn-large' %>
+      <%= link_to "Confirm Offline Payment Request", student_subject_offline_payment_path(@subject), method: :post, class: 'btn btn-primary btn-large' %>
     </div>
 </div>

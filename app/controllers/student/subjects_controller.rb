@@ -20,11 +20,11 @@ class Student::SubjectsController < ApplicationController
       else
         if subscription.end_date < Date.today
           flash[:notice] = 'You are already registered for this subject, but your subscription has expired. Please make a payment to renew access'
-          # Redirect to Existing Subject Page with Payment screen Option
+          # TODO Redirect to Existing Subject Page with Payment screen Option
         else
           flash[:notice] = 'You are already registered for this subject'
         end
-        # Redirect to Existing Subject Page
+        # TODO Redirect to Existing Subject Page
       end
     end
   end
