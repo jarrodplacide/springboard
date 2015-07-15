@@ -19,7 +19,7 @@
           <ul class="dropdown-menu" role="menu">
             <% unless @student_subjects.empty? %>
                 <% @student_subjects.each do |section| %>
-                    <li><%= link_to section.section.subject.name, '#' %></li>
+                    <li><%= link_to section.section.subject.name, student_subject_section_path(section.section.subject.id, section.section_id) %></li>
                 <% end %>
             <% else %>
                 <li><%= link_to "You aren't currently subscribed to any subjects", '#' %></li>
