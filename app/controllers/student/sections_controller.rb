@@ -7,9 +7,8 @@ class Student::SectionsController < ApplicationController
     subject = Subject.includes(:open_sections).find(params[:subject_id])
     if subject.open_sections.count == 1
       section = subject.open_sections.first
-      student = Student.find(current_student.id)
-      student.sections << section
-      if student.save
+      student_section = StudentSection.new(student_id: current_student.id, section_id: section.id, subject_id: subject.id)
+      if student_section.save
         flash[:notice] = "Welcome to Springboard Academy's #{subject.name} course"
         redirect_to student_subject_section_path(params[:subject_id], section.id)
       else

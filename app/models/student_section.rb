@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150703133312
+# Schema version: 20150715201324
 #
 # Table name: student_sections
 #
@@ -9,6 +9,7 @@
 #  withdrawn  :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  subject_id :integer
 #
 
 class StudentSection < ActiveRecord::Base
@@ -17,4 +18,7 @@ class StudentSection < ActiveRecord::Base
 
   # Belongs to a Section
   belongs_to :section
+
+  # Belongs to a Subject
+  belongs_to :subject
 end

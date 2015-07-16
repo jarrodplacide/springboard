@@ -10,7 +10,7 @@
 <%= render partial: 'layouts/messages' %>
 <h1 class="text-center"><%= @section.subject.name %></h1>
 <!-- If The Subscription exists but it hasn't had it's first payment as yet -->
-<% if @subscription.end_date.nil? and @subscription.pending_payments.count == 0 %>
+<% if @subscription.end_date.nil? and @subscription.pending_payments.count == 0 and @subscription.submitted_payments.count == 0 %>
     <div class="well well-lg text-center">
       <p>You have registered for this subject's course, but you have not yet made payment.<br/>
       If you wish to continue your registration process by making payment, please select a payment method below:</p>
@@ -27,10 +27,15 @@
         </div>
     </div>
 <!-- If there are pending payments -->
-<% elsif @subscription.end_date.nil? and @subscription.pending_payments.count > 0 %>
+<% elsif @subscription.end_date.nil? and @subscription.pending_payments.count == 1 %>
     <div class="well well-lg text-center">
       <p>We are still awaiting payment from you in order to permit you access this course.If you have already made payment, but you have not submitted the payment information to us as yet, please do so by clicking below:</p>
-      <%= link_to "Submit Offline Payment Information", '#', class: 'btn btn-large btn-default' %>
+      <%= link_to "Submit Offline Payment Information", student_subject_offline_payment_info_path(@section.subject), class: 'btn btn-large btn-default' %>
+    </div>
+<!-- If there are payments submitted but not verified -->
+<% elsif @subscription.end_date.nil? and @subscription.submitted_payments.count == 1 %>
+    <div class="well well-lg text-center">
+      <p>Our administrative team is yet to verify your payment information. You will receive an e-mail as soon as this process is complete.</p>
     </div>
 <!-- If the Subscription exists but it has expired -->
 <% elsif @subscription.end_date < Date.today %>

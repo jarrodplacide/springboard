@@ -48,6 +48,8 @@ GEM
       activerecord (>= 2.3.0)
       rake (~> 10.4.2, >= 10.4.2)
     arel (6.0.0)
+    autonumeric-rails (1.9.37)
+      jquery-rails (>= 2.0.2)
     autoprefixer-rails (5.2.1)
       execjs
       json
@@ -194,6 +196,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (= 2.6.6)
+  autonumeric-rails
   bootstrap-sass (~> 3.3.5)
   byebug
   coffee-rails (~> 4.1.0)
