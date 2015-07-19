@@ -22,6 +22,9 @@ class Subscription < ActiveRecord::Base
   # Has 0 or many submitted payments
   has_many :submitted_payments, -> {where status: 'submitted'}, class_name: 'OfflinePayment'
 
+  # Has 0 or many completed paymnets
+  has_many :completed_payments, -> {where status: 'verified'}, class_name: 'OfflinePayment'
+
   # Belongs to a Student
   belongs_to :student, inverse_of: :subscriptions
 

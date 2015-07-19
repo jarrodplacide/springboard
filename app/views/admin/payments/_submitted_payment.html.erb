@@ -1,0 +1,19 @@
+<tr>
+  <td><%= submitted_payment.payment_date.strftime('%v') %></td>
+  <td><%= submitted_payment.transaction_id %></td>
+  <td><%= submitted_payment.amount %></td>
+  <td><%= submitted_payment.student.name %></td>
+  <td><%= submitted_payment.subscription.subject.name %></td>
+  <td>
+    <div class="btn-group">
+      <%= link_to "Mark as Verified", admin_verify_offline_payment_path(submitted_payment), method: :post, class: 'btn btn-primary btn-sm' %>
+      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><%= link_to "Cancel Payment Process", admin_cancel_offline_payment_path(submitted_payment), method: :post, data: {confirm: 'Are you sure you want to cancel this payment process?'} %></li>
+      </ul>
+    </div>
+  </td>
+</tr>

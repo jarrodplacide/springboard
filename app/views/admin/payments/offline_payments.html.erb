@@ -1,0 +1,66 @@
+<%
+   @pagetitle = 'Offline Payments'
+   @page_class = 'payments offline-payments'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<h1 class="text-center">Offline Payments</h1>
+
+<!-- Nav Tabs -->
+<ul class="nav nav-tabs" role='tablist'>
+  <li role="presentation" class="active">
+    <a href="#submitted" aria-controls="submitted" role="tab" data-toggle="tab">Submitted</a>
+  </li>
+  <li role="presentation">
+    <a href="#pending" aria-controls="pending" role="tab" data-toggle="tab">Pending</a>
+  </li>
+  <li role="presentation">
+    <a href="#completed" aria-controls="completed" role="tab" data-toggle="tab">Completed</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="submitted">
+    <table class="table table-striped">
+      <thead>
+        <th>Payment Date</th>
+        <th>Transaction ID</th>
+        <th>Payment Amount</th>
+        <th>Student Name</th>
+        <th>Subject</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <%= render(partial: 'admin/payments/submitted_payment', collection: @payments.submitted) || content_tag(:tr, content_tag(:td, 'No submitted payments were found'))%>
+      </tbody>
+    </table>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="pending">
+    <table class="table table-striped">
+      <thead>
+        <th>Request Date</th>
+        <th>Student Name</th>
+        <th>Subject</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <%= render(partial: 'admin/payments/pending_payment', collection: @payments.pending) || content_tag(:tr, content_tag(:td, 'No pending payments were found')) %>
+      </tbody>
+    </table>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="completed">
+    <table class="table table-striped">
+        <thead>
+            <th>Payment Date</th>
+            <th>Transaction ID</th>
+            <th>Payment Amount</th>
+            <th>Student Name</th>
+            <th>Subject</th>
+        </thead>
+        <tbody>
+            <%= render(partial: 'admin/payments/completed_payment', collection: @payments.verified) || content_tag(:tr, content_tag(:td, 'No completed payments were found')) %>
+        </tbody>
+    </table>
+  </div>
+</div>

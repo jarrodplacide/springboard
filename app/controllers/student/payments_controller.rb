@@ -47,6 +47,6 @@ class Student::PaymentsController < ApplicationController
 
   private
     def payment_params
-      params.permit(:payment_date, :amount, :transaction_id)
+      params.require(:offline_payment).permit(:payment_date, :amount, :transaction_id)
     end
 end

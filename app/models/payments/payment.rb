@@ -24,7 +24,7 @@ class Payment < ActiveRecord::Base
   belongs_to :subscription, inverse_of: :payments
 
   # Belongs to a Student
-  belongs_to :student, inverse_of: :student
+  belongs_to :student, inverse_of: :payments
 
   # Apply Money Adapter
   monetize :amount_cents, allow_nil: true

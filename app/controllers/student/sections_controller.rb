@@ -20,7 +20,7 @@ class Student::SectionsController < ApplicationController
   end
 
   def show
-    if not (@subscription = Subscription.includes(:pending_payments).find_by(subject_id: params[:subject_id], student_id: current_student.id)).nil?
+    if not (@subscription = Subscription.includes(:pending_payments, :submitted_payments, :completed_payments).find_by(subject_id: params[:subject_id], student_id: current_student.id)).nil?
       @section = Section.includes(:subject, :instructor).find(params[:id])
     else
       @subject = Subject.find(params[:subject_id])

@@ -54,6 +54,9 @@ class Student < ActiveRecord::Base
   has_many :student_sections
   has_many :sections, through: :student_sections
 
+  # Has Many Payments
+  has_many :payments, inverse_of: :student
+
   # Convenience Methods
   def name
     first_name + ' ' + middle_initial + ' ' + last_name

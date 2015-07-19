@@ -95,6 +95,11 @@
 #                                          PATCH     /admin/instructors/:id(.:format)                                      admin/instructors#update
 #                                          PUT       /admin/instructors/:id(.:format)                                      admin/instructors#update
 #                                          DELETE    /admin/instructors/:id(.:format)                                      admin/instructors#destroy
+#                   admin_offline_payments GET       /admin/payments/offline-payments(.:format)                            admin/payments#offline_payments
+#             admin_verify_offline_payment POST      /admin/payments/:id/verify-offline-payment(.:format)                  admin/payments#verify_offline_payment
+#             admin_cancel_offline_payment POST      /admin/payments/:id/cancel(.:format)                                  admin/payments#cancel_payment
+#               admin_offline_payment_info GET       /admin/payments/:id/offline-payment-info(.:format)                    admin/payments#offline_payment_information
+#           admin_complete_offline_payment PATCH|PUT /admin/payments/:id/complete-offline-payment(.:format)                admin/payments#complete_offline_payment
 #
 
 Rails.application.routes.draw do
@@ -160,6 +165,11 @@ Rails.application.routes.draw do
         get 'sections'
       end
     end
+    get 'payments/offline-payments', to: 'payments#offline_payments', as: :offline_payments
+    post 'payments/:id/verify-offline-payment', to: 'payments#verify_offline_payment', as: :verify_offline_payment
+    post 'payments/:id/cancel', to: 'payments#cancel_payment', as: :cancel_offline_payment
+    get 'payments/:id/offline-payment-info', to: 'payments#offline_payment_information', as: :offline_payment_info
+    match 'payments/:id/complete-offline-payment', to: 'payments#complete_offline_payment', as: :complete_offline_payment, via: [:patch, :put]
   end
 
 

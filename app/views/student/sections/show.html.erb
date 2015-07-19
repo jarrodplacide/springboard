@@ -10,7 +10,7 @@
 <%= render partial: 'layouts/messages' %>
 <h1 class="text-center"><%= @section.subject.name %></h1>
 <!-- If The Subscription exists but it hasn't had it's first payment as yet -->
-<% if @subscription.end_date.nil? and @subscription.pending_payments.count == 0 and @subscription.submitted_payments.count == 0 %>
+<% if @subscription.end_date.nil? and @subscription.payments == 0 %>
     <div class="well well-lg text-center">
       <p>You have registered for this subject's course, but you have not yet made payment.<br/>
       If you wish to continue your registration process by making payment, please select a payment method below:</p>

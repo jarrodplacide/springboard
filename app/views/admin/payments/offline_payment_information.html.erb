@@ -1,0 +1,28 @@
+<%
+   @pagetitle = 'Complete Payment Process By Entering Verification Information'
+   @page_class = 'payment verify-payment'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<h1 class='text-center'>Complete Payment Process</h1>
+
+<%= form_for @payment, url: admin_complete_offline_payment_path(@payment) do |f| %>
+    <h4>Offline Payment requested on <%= @payment.created_at.strftime('%r %v') %></h4>
+    <div class="form-group">
+      <%= f.label :payment_date, "Payment Date" %>
+      <%= f.date_select :payment_date, {}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :amount, "Payment Amount" %>
+      <%= f.text_field :amount, data: {autonumeric: {aSign: '$', wEmpty: 'zero'}}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :transaction_id, "Transaction ID" %>
+      <%= f.text_field :transaction_id, class: 'form-control' %>
+    </div>
+
+    <%= f.submit "Submit Payment Information", class: 'btn btn-large btn-default', data: {confirm: 'Are you sure you want to continue? This will mark the payment as verified.'} %>
+<% end %>
