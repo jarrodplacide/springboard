@@ -1,0 +1,22 @@
+<%
+   @pagetitle = 'Instructor Portal'
+   @page_class = 'portal-home'
+%>
+
+
+<% render partial: 'layouts/messages' %>
+
+<div class="jumbotron">
+  <h1 class="text-center">
+    Instructor Portal
+  </h1>
+  <p class="text-left">Welcome, <%= current_instructor.name %></p>
+  <div class="row">
+    <div class="col-xs-6 portal-option">
+      <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Sections', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+    <div class="col-xs-6 portal-option">
+      <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Schedule', class: 'img-responsive'), '#', class: 'thumbnail') %>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@
 #
 #                                   Prefix Verb      URI Pattern                                                           Controller#Action
 #                                     root GET       /                                                                     static_pages#home
+#                             student_root GET       /student(.:format)                                                    student/portal#home
 #                          student_parents POST      /student/parents(.:format)                                            student/parents#create
 #                           student_parent PATCH     /student/parents/:id(.:format)                                        student/parents#update
 #                                          PUT       /student/parents/:id(.:format)                                        student/parents#update
@@ -49,24 +50,32 @@
 #                                          GET       /unlock(.:format)                                                     students/unlocks#show
 #                                 register GET       /register(.:format)                                                   students/registrations#new
 #                           reset_password GET       /reset-password(.:format)                                             students/passwords#new
-#                   new_instructor_session GET       /instructors/sign_in(.:format)                                        devise/sessions#new
-#                       instructor_session POST      /instructors/sign_in(.:format)                                        devise/sessions#create
-#               destroy_instructor_session DELETE    /instructors/sign_out(.:format)                                       devise/sessions#destroy
-#                      instructor_password POST      /instructors/password(.:format)                                       devise/passwords#create
-#                  new_instructor_password GET       /instructors/password/new(.:format)                                   devise/passwords#new
-#                 edit_instructor_password GET       /instructors/password/edit(.:format)                                  devise/passwords#edit
-#                                          PATCH     /instructors/password(.:format)                                       devise/passwords#update
-#                                          PUT       /instructors/password(.:format)                                       devise/passwords#update
-#           cancel_instructor_registration GET       /instructors/cancel(.:format)                                         devise/registrations#cancel
-#                  instructor_registration POST      /instructors(.:format)                                                devise/registrations#create
-#              new_instructor_registration GET       /instructors/sign_up(.:format)                                        devise/registrations#new
-#             edit_instructor_registration GET       /instructors/edit(.:format)                                           devise/registrations#edit
-#                                          PATCH     /instructors(.:format)                                                devise/registrations#update
-#                                          PUT       /instructors(.:format)                                                devise/registrations#update
-#                                          DELETE    /instructors(.:format)                                                devise/registrations#destroy
-#                        instructor_unlock POST      /instructors/unlock(.:format)                                         devise/unlocks#create
-#                    new_instructor_unlock GET       /instructors/unlock/new(.:format)                                     devise/unlocks#new
-#                                          GET       /instructors/unlock(.:format)                                         devise/unlocks#show
+#                   new_instructor_session GET       /instructor/login(.:format)                                           instructors/sessions#new
+#                       instructor_session POST      /instructor/login(.:format)                                           instructors/sessions#create
+#               destroy_instructor_session DELETE    /instructor/logout(.:format)                                          instructors/sessions#destroy
+#                      instructor_password POST      /instructor/password(.:format)                                        instructors/passwords#create
+#                  new_instructor_password GET       /instructor/password/new(.:format)                                    instructors/passwords#new
+#                 edit_instructor_password GET       /instructor/password/edit(.:format)                                   instructors/passwords#edit
+#                                          PATCH     /instructor/password(.:format)                                        instructors/passwords#update
+#                                          PUT       /instructor/password(.:format)                                        instructors/passwords#update
+#           cancel_instructor_registration GET       /instructor/cancel(.:format)                                          devise/registrations#cancel
+#                  instructor_registration POST      /instructor(.:format)                                                 devise/registrations#create
+#              new_instructor_registration GET       /instructor/sign_up(.:format)                                         devise/registrations#new
+#             edit_instructor_registration GET       /instructor/edit(.:format)                                            devise/registrations#edit
+#                                          PATCH     /instructor(.:format)                                                 devise/registrations#update
+#                                          PUT       /instructor(.:format)                                                 devise/registrations#update
+#                                          DELETE    /instructor(.:format)                                                 devise/registrations#destroy
+#                        instructor_unlock POST      /instructor/unlock(.:format)                                          instructors/unlocks#create
+#                    new_instructor_unlock GET       /instructor/unlock/new(.:format)                                      instructors/unlocks#new
+#                                          GET       /instructor/unlock(.:format)                                          instructors/unlocks#show
+#                          instructor_root GET       /instructor(.:format)                                                 instructor/portal#home
+#                        instructor_portal GET       /instructor/portal(.:format)                                          instructor/portal#home
+#                  instructor_show_profile GET       /instructor/portal/my-profile(.:format)                               instructor/portal#show_profile
+#                instructor_update_profile GET       /instructor/portal/update-profile(.:format)                           instructor/portal#update_profile
+#         instructor_section_announcements POST      /instructor/sections/:section_id/announcements(.:format)              instructor/announcements#create
+#      new_instructor_section_announcement GET       /instructor/sections/:section_id/announcements/new(.:format)          instructor/announcements#new
+#                      instructor_sections GET       /instructor/sections(.:format)                                        instructor/sections#index
+#                       instructor_section GET       /instructor/sections/:id(.:format)                                    instructor/sections#show
 #                               admin_root GET       /admin(.:format)                                                      admin/static_pages#home
 #               open_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/open(.:format)               admin/sections#open
 #              close_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/close(.:format)              admin/sections#close
@@ -107,6 +116,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   namespace :student do
+    root to: 'portal#home'
     resources :parents, only: [:create, :update, :destroy]
     resources :subjects, only: [:new, :create, :index] do
       member do
@@ -149,7 +159,26 @@ Rails.application.routes.draw do
     get 'register', to: 'students/registrations#new'
     get 'reset-password', to: 'students/passwords#new'
   end
-  devise_for :instructors
+  devise_for :instructors,
+             controllers: {
+                 sessions: 'instructors/sessions',
+                 passwords: 'instructors/passwords',
+                 unlocks: 'instructors/unlocks'
+             },
+             path: '/instructor/',
+             path_names: {
+                 sign_in: 'login',
+                 sign_out: 'logout'
+             }
+  namespace :instructor do
+    root :to => 'portal#home'
+    get 'portal' => 'portal#home'
+    get 'portal/my-profile', to: 'portal#show_profile', as: :show_profile
+    get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
+    resources :sections, only: [:index, :show] do
+      resources :announcements, only: [:new, :create]
+    end
+  end
   namespace :admin do
     root :to => 'static_pages#home'
     resources :subjects do

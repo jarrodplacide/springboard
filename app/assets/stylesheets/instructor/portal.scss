@@ -1,0 +1,23 @@
+.instructor-portal {
+  > .container-fluid {
+    padding-top: 70px;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Lato', sans-serif;
+  }
+
+  .jumbotron {
+    background: #00aeef;
+    h1 {
+      font-size: 24px;
+      color: white;
+    }
+  }
+
+  #backdrop-logo {
+    margin-top: 100px;
+    opacity: 0.6;
+  }
+
+}

@@ -29,3 +29,5 @@ class Payment < ActiveRecord::Base
   # Apply Money Adapter
   monetize :amount_cents, allow_nil: true
 end
+
+# TODO Add Verification Date to record

@@ -1,0 +1,29 @@
+<h2 class="text-center">Instructors: Log in to your Springboard Academy Portal</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'center center-block'}) do |f| %>
+  <%= render partial: 'layouts/messages' %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "Log in", class: 'btn btn-large btn-primary' %>
+  </div>
+<% end %>
+
+<div class="center-block center text-center" id="auth-links">
+  <%= render "instructors/shared/links" %>
+</div>

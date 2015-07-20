@@ -1,6 +1,6 @@
 <%
    @pagetitle = "Course: #{@section.subject.name}"
-   if not @subscription.end_date.nil? and @subscription.end_date < Date.Today
+   if not @subscription.end_date.nil? and @subscription.end_date < Date.today
      @page_class = 'section-page renew-subscription'
    else
      @page_class = 'section-page'
@@ -58,7 +58,7 @@
     </div>
 <% else %>
     <div class="col-sm-12">
-        <div class="panel panel-defautlt" id="announcements-panel">
+        <div class="panel panel-default" id="announcements-panel">
             <div class="panel-heading" role="tab" id="announcement-heading">
               <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#announcements" aria-expanded="true" aria-controls="announcements">
@@ -68,7 +68,9 @@
             </div>
             <div id="announcements" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="announcement-heading">
               <div class="panel-body">
-                This is the announcements panel
+                <ul class="announcement-list">
+                  <%= render partial: 'student/sections/announcement', collection: @section.announcements %>
+                </ul>
               </div>
             </div>
         </div>

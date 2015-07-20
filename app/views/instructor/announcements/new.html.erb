@@ -1,0 +1,24 @@
+<%
+   @pagetitle = 'Add New Course Announcement'
+   @page_class = 'announcements new-announcement'
+%>
+
+<!-- Add TinyMCE Assets -->
+<%= tinymce_assets %>
+
+<h1 class="text-center">Add New Announcement</h1>
+<%= render partial: 'layouts/messages' %>
+
+<div class="well well-lg">
+  <%= form_for @announcement, url: instructor_section_announcements_path(@announcement.section_id), method: :post do |f| %>
+      <div class="form-group">
+        <%= f.label :content, "Type Announcement here:" %>
+        <%= f.text_area :content, class: 'tinymce' %>
+      </div>
+
+      <%= f.submit "Add Announcement", class: 'btn btn-large btn-primary', rows: 40, cols: 120 %>
+  <% end %>
+</div>
+
+<!-- Initialize TinyMCE -->
+<%= tinymce %>

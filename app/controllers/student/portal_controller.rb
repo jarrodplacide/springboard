@@ -16,7 +16,7 @@ class Student::PortalController < ApplicationController
   def update_profile
     @student = Student.find(current_student.id)
     if @student.update_attributes(student_params)
-      flash[:success] = 'Your profile has successfully been created. Please proceed by adding a parent to your account.'
+      flash[:sucess] = 'Your profile has successfully been created. Please proceed by adding a parent to your account.'
       redirect_to student_new_parent_for_new_profile_path
     else
       redirect_to student_new_student_profile_path

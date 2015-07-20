@@ -15,8 +15,10 @@ class Admin::InstructorsController < ApplicationController
 
   def create
     @instructor = Instructor.new(instructor_params)
-    @instructor.password = Devise.friendly_token.first(8)
+    generated_password = Devise.friendly_token.first(8)
+    @instructor.password = generated_password
     if @instructor.save
+      InstructorMailer.account_created(@instructor, generated_password).deliver_now
       flash[:success] = "#{@instructor.name} was successfully added to the list of instructors. An e-mail was sent to them with their access information"
       redirect_to admin_instructors_path
     else

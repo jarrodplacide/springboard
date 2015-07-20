@@ -1,0 +1,2 @@
+module Instructor::AnnouncementsHelper
+end

@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715201324) do
+ActiveRecord::Schema.define(version: 20150720140427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.integer  "section_id"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "instructors", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -33,10 +40,14 @@ ActiveRecord::Schema.define(version: 20150715201324) do
     t.string   "last_name"
     t.string   "middle_initial"
     t.string   "contact_no"
+    t.datetime "locked_at"
+    t.string   "unlock_token"
+    t.integer  "failed_attempts"
   end
 
   add_index "instructors", ["email"], name: "index_instructors_on_email", unique: true, using: :btree
   add_index "instructors", ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true, using: :btree
+  add_index "instructors", ["unlock_token"], name: "index_instructors_on_unlock_token", using: :btree
 
   create_table "parents", force: :cascade do |t|
     t.string   "first_name"

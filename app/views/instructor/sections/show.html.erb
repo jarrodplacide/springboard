@@ -1,0 +1,28 @@
+<%
+   @pagetitle = @section.subject.name + ' - ' + @section.codename
+   @page_class = 'instructor-portal section_page'
+%>
+
+<h1 class="text-center"><%= @section.subject.name + ' - ' + @section.codename %></h1>
+<%= render partial: 'layouts/messages' %>
+
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="announcement-heading">
+        <h4 class="panel-title">
+          <a href="#announcements" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="announcements">
+            Course Announcements
+            <%= link_to "Add New Announcement", new_instructor_section_announcement_path(@section), class: 'btn btn-default btn-sm pull-right' %>
+            <div class="clearfix"></div>
+          </a>
+        </h4>
+    </div>
+    <div id="announcements" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="announcement-heading">
+      <div class="panel-body">
+        <ul class="announcement-list">
+            <%= render partial: 'instructor/sections/announcement', collection: @section.announcements %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

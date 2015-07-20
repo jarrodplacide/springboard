@@ -1,6 +1,7 @@
 <%
    @pagetitle = 'Student Portal'
    @page_class = 'portal-home'
+
 %>
 
 <%= render partial: 'layouts/messages' %>
@@ -20,7 +21,7 @@
  <% end %>
 <div class='jumbotron'>
   <h1 class="text-center">Student Portal Home</h1>
-  <p class="text-left">Welcome, Student Name</p>
+  <p class="text-left">Welcome <%= current_student.name %></p>
   <div class="row">
     <div class="col-xs-6 col-md-3 portal-option">
         <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Subjects', class: 'img-responsive'), '#', class: 'thumbnail') %>

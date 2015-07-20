@@ -1,0 +1,12 @@
+.announcement-list {
+  list-style: none;
+
+  li {
+    border-bottom: 1px solid grey;
+    padding: 15px 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

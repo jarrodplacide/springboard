@@ -1,0 +1,24 @@
+<div class='topbar'>
+  <div class='container-fluid'>
+    <div class='row'>
+      <% if instructor_signed_in? %>
+          <div class='col-sm-1 text-left' id='portal-link'>
+            <%= link_to 'Instructor Portal Home',  instructor_portal_path, class: 'link' %>
+          </div>
+      <% else %>
+          <div class='col-sm-1 text-left' id='login-link'>
+            <%= link_to "Login", new_instructor_session_path, class: 'link' %>
+          </div>
+      <% end %>
+      <div class='col-sm-10 text-center' id="logo">
+        <%= link_to(image_tag('logo.png', alt: 'Springboard Academy Logo', id: 'logo-image', class: 'img-responsive'), root_path) %>
+      </div>
+      <% if student_signed_in? %>
+          <div class='col-sm-1 text-right' id='logout-link'>
+            <%= link_to 'Logout', destroy_instructor_session_path, method: :delete, class: 'link' %>
+          </div>
+      <% end %>
+      <div class='clearfix'></div>
+    </div>
+  </div>
+</div>

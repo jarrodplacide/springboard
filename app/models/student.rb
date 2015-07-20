@@ -50,6 +50,9 @@ class Student < ActiveRecord::Base
   # Has at least one parent
   has_many :parents, inverse_of: :student
 
+  # Has 0 or many subscriptions
+  has_many :subscriptions, inverse_of: :student
+
   # Has Many Sections
   has_many :student_sections
   has_many :sections, through: :student_sections

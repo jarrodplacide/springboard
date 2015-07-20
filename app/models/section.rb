@@ -22,4 +22,7 @@ class Section < ActiveRecord::Base
 
   # Belongs to an Instructor
   belongs_to :instructor, inverse_of: :sections
+
+  # Has Many Announcements
+  has_many :announcements, -> {order(created_at: :desc)}, inverse_of: :section
 end

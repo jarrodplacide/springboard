@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150703133312
+# Schema version: 20150720115544
 #
 # Table name: instructors
 #
@@ -20,11 +20,15 @@
 #  last_name              :string
 #  middle_initial         :string
 #  contact_no             :string
+#  locked_at              :datetime
+#  unlock_token           :string
+#  failed_attempts        :integer
 #
 # Indexes
 #
 #  index_instructors_on_email                 (email) UNIQUE
 #  index_instructors_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_instructors_on_unlock_token          (unlock_token)
 #
 
 class Instructor < ActiveRecord::Base

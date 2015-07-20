@@ -4,11 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    sign_in_url = new_student_session_url
-    if request.referer == sign_in_url
-      student_portal_path
-    else
-      stored_location_for(resource) || request.referer || student_portal_path
+    if resource.is_a?(Student)
+      sign_in_url = new_student_session_url
+      if request.referer == sign_in_url
+        student_portal_path
+      else
+        stored_location_for(resource) || request.referer || student_portal_path
+      end
+    elsif resource.is_a?(Instructor)
+      instructor_portal_path
     end
   end
 
@@ -22,5 +26,9 @@ class ApplicationController < ActionController::Base
 
   def subjects
     @subjects ||= Subject.available
+  end
+
+  def instructor_subjects
+    @instructor_subjects ||= Section.includes(:subject).where(instructor_id: current_instructor.id)
   end
 end

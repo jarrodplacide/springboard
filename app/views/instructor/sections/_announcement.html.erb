@@ -1,0 +1,5 @@
+<li>
+  <p class="announcement-date pull-left"><em><%= announcement.created_at.strftime("%v") %></em></p>
+  <div class="clearfix"></div>
+  <%= announcement.content.html_safe %>
+</li>

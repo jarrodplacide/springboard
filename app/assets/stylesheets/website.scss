@@ -4,7 +4,7 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
 @import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700italic);
 
-.student-auth {
+.auth {
 
   h1, h2, h3, h4, h5 {
     font-family: 'Lato', sans-serif;
@@ -98,4 +98,6 @@
 @import 'menus';
 @import 'student/static_pages';
 @import 'static_pages';
+@import 'portal';
 @import 'student/portal';
+@import 'instructor/portal';
