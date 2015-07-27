@@ -6,6 +6,19 @@
 
 <% render partial: 'layouts/messages' %>
 
+<% if current_instructor.sign_in_count == 1 %>
+    <div class="well well-lg">
+      <p>Please change your password: </p>
+      <%= form_for current_instructor, url:'#' do |f| %>
+        <div class="form-group">
+          <%= f.label :password, "New Password" %>
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          
+        </div>
+    </div>
 <div class="jumbotron">
   <h1 class="text-center">
     Instructor Portal

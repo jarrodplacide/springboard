@@ -72,6 +72,7 @@
 #                        instructor_portal GET       /instructor/portal(.:format)                                          instructor/portal#home
 #                  instructor_show_profile GET       /instructor/portal/my-profile(.:format)                               instructor/portal#show_profile
 #                instructor_update_profile GET       /instructor/portal/update-profile(.:format)                           instructor/portal#update_profile
+#               instructor_change_password PATCH|PUT /instructor/portal/change-password(.:format)                          instructor/portal#change_password
 #         instructor_section_announcements POST      /instructor/sections/:section_id/announcements(.:format)              instructor/announcements#create
 #      new_instructor_section_announcement GET       /instructor/sections/:section_id/announcements/new(.:format)          instructor/announcements#new
 #                      instructor_sections GET       /instructor/sections(.:format)                                        instructor/sections#index
@@ -175,6 +176,7 @@ Rails.application.routes.draw do
     get 'portal' => 'portal#home'
     get 'portal/my-profile', to: 'portal#show_profile', as: :show_profile
     get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
+    match 'portal/change-password', to: 'portal#change_password', as: :change_password, via: [:patch, :put]
     resources :sections, only: [:index, :show] do
       resources :announcements, only: [:new, :create]
     end
