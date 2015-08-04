@@ -10,3 +10,18 @@
     }
   }
 }
+
+.col-xs-3.fixed,
+.col-sm-3.fixed,
+.col-md-3.fixed {
+	position: fixed;
+	width: 25%;
+}
+
+.col-xs-3.scrollable
+.col-sm-9.scrollable,
+.col-md-9.scrollable {
+	float: left;
+	width: 71%;
+	margin-left: 25%;
+}

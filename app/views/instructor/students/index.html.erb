@@ -1,0 +1,30 @@
+<%
+	@pagetitle = 'Student Roster'
+	@page_class = 'students roster'
+%>
+
+<%= render partial: 'layouts/messages'  %>
+
+<div class='row'>
+	<div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+	    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+	      <%= link_to 'Back to Section Home Page', instructor_section_path(@section), class: 'btn btn-default' %>
+	      <%= link_to 'Viewing Student Roster', '#', class: 'btn btn-primary active' %>
+	    </div>
+	</div>
+	<div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+	<h1><%= @section.subject.name %> <%= @section.codename %>: Student Roster</h1>
+		<table class='table table-striped'>
+			<thead>
+				<th>Name</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<%= render @section.students %>
+			</tbody>
+		</table>
+	</div>
+	<div class='clearfix'></div>
+</div>		
+
+

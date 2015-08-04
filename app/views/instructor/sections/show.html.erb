@@ -6,23 +6,32 @@
 <h1 class="text-center"><%= @section.subject.name + ' - ' + @section.codename %></h1>
 <%= render partial: 'layouts/messages' %>
 
-<div class="col-md-12">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="announcement-heading">
-        <h4 class="panel-title">
-          <a href="#announcements" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="announcements">
-            Course Announcements
-            <%= link_to "Add New Announcement", new_instructor_section_announcement_path(@section), class: 'btn btn-default btn-sm pull-right' %>
-            <div class="clearfix"></div>
-          </a>
-        </h4>
+<div class='row'>
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@section), class: 'btn btn-primary' %>
     </div>
-    <div id="announcements" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="announcement-heading">
-      <div class="panel-body">
-        <ul class="announcement-list">
-            <%= render partial: 'instructor/sections/announcement', collection: @section.announcements %>
-        </ul>
+  </div>
+  <div class="col-xs-9 col-sm-9 col-md-9 scrollable">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="announcement-heading">
+          <h4 class="panel-title">
+            <a href="#announcements" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="announcements">
+              Course Announcements
+              <%= link_to "Add New Announcement", new_instructor_section_announcement_path(@section), class: 'btn btn-default btn-sm pull-right' %>
+              <div class="clearfix"></div>
+            </a>
+          </h4>
+      </div>
+      <div id="announcements" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="announcement-heading">
+        <div class="panel-body">
+          <ul class="announcement-list">
+              <%= render partial: 'instructor/sections/announcement', collection: @section.announcements %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
+  <div class='clearfix'></div>
 </div>
+
