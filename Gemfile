@@ -33,6 +33,9 @@ gem 'country_select', github: 'stefanpenner/country_select'
 # Use Devise for User Authentication
 gem 'devise'
 
+# Use HTTP for External API Access
+gem 'httparty'
+
 # Use Money Rails for Money Formatting & Autonumeric for Front End Money Formatting
 gem 'money-rails'
 gem 'autonumeric-rails'
