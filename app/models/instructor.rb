@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150720115544
+# Schema version: 20150819134339
 #
 # Table name: instructors
 #
@@ -28,7 +28,7 @@
 #
 #  index_instructors_on_email                 (email) UNIQUE
 #  index_instructors_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_instructors_on_unlock_token          (unlock_token)
+#  index_instructors_on_unlock_token          (unlock_token) UNIQUE
 #
 
 class Instructor < ActiveRecord::Base
@@ -39,6 +39,12 @@ class Instructor < ActiveRecord::Base
 
   # Can be associated with many sections
   has_many :sections, inverse_of: :instructor
+
+  # Creates many topic threads
+  has_many :topic_threads, inverse_of: :instructor
+
+  # Creates many thread posts
+  has_many :thread_posts, inverse_of: :instructor
 
   # Convenience Methods
   def name

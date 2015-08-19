@@ -29,4 +29,7 @@ class Section < ActiveRecord::Base
 
   # Has Many Announcements
   has_many :announcements, -> {order(created_at: :desc)}, inverse_of: :section
+
+  # Has Zero or One Discussion Board
+  has_one :discussion_board, inverse_of: :section
 end

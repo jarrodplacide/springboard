@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720140427) do
+ActiveRecord::Schema.define(version: 20150819135430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,21 @@ ActiveRecord::Schema.define(version: 20150720140427) do
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "board_topics", force: :cascade do |t|
+    t.integer  "discussion_board_id"
+    t.string   "name"
+    t.integer  "rank"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "discussion_boards", force: :cascade do |t|
+    t.integer  "section_id"
+    t.boolean  "available_to_students"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -47,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150720140427) do
 
   add_index "instructors", ["email"], name: "index_instructors_on_email", unique: true, using: :btree
   add_index "instructors", ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true, using: :btree
-  add_index "instructors", ["unlock_token"], name: "index_instructors_on_unlock_token", using: :btree
+  add_index "instructors", ["unlock_token"], name: "index_instructors_on_unlock_token", unique: true, using: :btree
 
   create_table "parents", force: :cascade do |t|
     t.string   "first_name"
@@ -151,6 +166,24 @@ ActiveRecord::Schema.define(version: 20150720140427) do
     t.integer  "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "thread_posts", force: :cascade do |t|
+    t.integer  "thread_id"
+    t.text     "content"
+    t.integer  "student_id"
+    t.integer  "instructor_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "topic_threads", force: :cascade do |t|
+    t.integer  "board_topic_id"
+    t.string   "title"
+    t.integer  "student_id"
+    t.integer  "instructor_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end

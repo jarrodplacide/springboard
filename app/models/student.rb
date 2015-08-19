@@ -60,6 +60,12 @@ class Student < ActiveRecord::Base
   # Has Many Payments
   has_many :payments, inverse_of: :student
 
+  # Creates Many Topic Threads
+  has_many :topic_threads, inverse_of: :student
+
+  # Creates Many Thread Posts
+  has_many :thread_posts, inverse_of: :student
+
   # Convenience Methods
   def name
     first_name + ' ' + middle_initial + ' ' + last_name
