@@ -1,0 +1,6 @@
+<%= form_for topic, url: instructor_section_discussion_topics_path(section, board) do |f| %>
+    <%= f.label :name, "Topic" %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.submit "Add Topic", class: 'btn btn-default' %>
+<% end %>

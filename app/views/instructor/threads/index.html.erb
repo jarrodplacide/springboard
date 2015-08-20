@@ -46,10 +46,8 @@
                 <% else %>
                     <p class="pull-left">Created by <strong><%= thread.instructor.name %></strong></p>
                 <% end %>
-                <!-- If Thread was created by instructor, show delete button with confirmation required -->
-                <% if thread.instructor_id == current_instructor.id %>
-                    <%= link_to "Delete Thread", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, topic, thread), method: :delete, class: 'btn btn-default pull-right', data: {confirm: 'Are you sure you want to delete this thread and all of its posts?'} %>
-                <% end %>
+                <!-- Show delete button for instructor with confirmation required -->
+                <%= link_to "Delete Thread", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, topic, thread), method: :delete, class: 'btn btn-default pull-right', data: {confirm: 'Are you sure you want to delete this thread and all of its posts?'} %>
                 <div class="clearfix"></div>
               </li>
           <% end %>

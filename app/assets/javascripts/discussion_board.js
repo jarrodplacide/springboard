@@ -16,4 +16,10 @@ $(document).ready(function() {
             $('#new-thread-form').toggleClass('hidden');
         });
     }
+
+    if((body).hasClass('discussion-board') && (body).hasClass('show')) {
+        $('#new-topic-button').click(function() {
+            $('#new-topic-form').toggleClass('hidden');
+        });
+    }
 });

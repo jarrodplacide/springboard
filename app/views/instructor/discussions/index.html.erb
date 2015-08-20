@@ -6,6 +6,7 @@
 <%= render partial: 'layouts/messages' %>
 
 <div class='row'>
+  <!-- Side Menu -->
   <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
       <%= link_to 'Back to Section Home Page', instructor_section_path(@discussion_board.section), class: 'btn btn-default' %>
@@ -13,18 +14,32 @@
       <%= link_to 'Viewing Discussion Board', '#', class: 'btn btn-primary active' %>
     </div>
   </div>
+
+  <!-- Main Content -->
   <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
     <h1><%= @discussion_board.section.subject.name %> <%= @discussion_board.section.codename %>: Discussion Board</h1>
-    <%= link_to 'New Topic', new_instructor_section_discussion_topic_path(@discussion_board.section), class: 'btn btn-default pull-right' %>
+
+    <!-- New Topic Button -->
+    <button type="button" class="btn btn-default btn-sm pull-right" id="new-topic-button">New Topic</button>
     <div class="clearfix"></div>
+
+    <!-- New Topic Form -->
+    <div class="well well-lg hidden" id="new-topic-form">
+        <%= render partial: 'new_topic', locals: {topic: @board_topic, section: @discussion_board.section, board: @discussion_board} %>
+    </div>
+
+    <!-- Board Body -->
     <div class="panel panel-default">
       <div class="panel-body">
         <ul class="list-group">
-        <% @discussion_board.board_topics.each do |topic| %>
-          <li class="list-group-item">
-            <h4><%= link_to "#{topic.name}", instructor_section_discussion_topic_threads_path(@discussion_board.section, @discussion_board, topic) %></h4>
-          </li>
-        <% end %>
+          <!-- List of Board Topics -->
+            <% @discussion_board.board_topics.each do |topic| %>
+              <li class="list-group-item">
+                <h4><%= link_to "#{topic.name}", instructor_section_discussion_topic_threads_path(@discussion_board.section, @discussion_board, topic) %></h4>
+                <!-- Delete Option for Instructors -->
+                <%= link_to "Delete", instructor_section_discussion_topic_path(@discussion_board.section, @discussion_board, topic), method: :delete, class: 'btn btn-sm btn-default pull-right', data: {confirm: 'Are you sure you wish to delete this topic and all its related threads'} %>
+              </li>
+            <% end %>
         </ul>
       </div>
     </div>
