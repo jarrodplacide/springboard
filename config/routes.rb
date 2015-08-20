@@ -1,10 +1,6 @@
 # == Route Map
 #
 #                                                           Prefix Verb      URI Pattern                                                                                                                                       Controller#Action
-#                                         instructor_threads_index GET       /instructor/threads/index(.:format)                                                                                                               instructor/threads#index
-#                                          instructor_threads_show GET       /instructor/threads/show(.:format)                                                                                                                instructor/threads#show
-#                                       instructor_discussions_new GET       /instructor/discussions/new(.:format)                                                                                                             instructor/discussions#new
-#                                      instructor_discussions_show GET       /instructor/discussions/show(.:format)                                                                                                            instructor/discussions#show
 #                                                             root GET       /                                                                                                                                                 static_pages#home
 #                                                     student_root GET       /student(.:format)                                                                                                                                student/portal#home
 #                                                  student_parents POST      /student/parents(.:format)                                                                                                                        student/parents#create
@@ -103,7 +99,12 @@
 #                                                                  PUT       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id(.:format)                        instructor/thread_posts#update
 #                                                                  DELETE    /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id(.:format)                        instructor/thread_posts#destroy
 #                      instructor_section_discussion_topic_threads GET       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads(.:format)                                                    instructor/threads#index
+#                                                                  POST      /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads(.:format)                                                    instructor/threads#create
+#                   new_instructor_section_discussion_topic_thread GET       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/new(.:format)                                                instructor/threads#new
+#                  edit_instructor_section_discussion_topic_thread GET       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id/edit(.:format)                                           instructor/threads#edit
 #                       instructor_section_discussion_topic_thread GET       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                                                instructor/threads#show
+#                                                                  PATCH     /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                                                instructor/threads#update
+#                                                                  PUT       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                                                instructor/threads#update
 #                                                                  DELETE    /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                                                instructor/threads#destroy
 #                             instructor_section_discussion_topics GET       /instructor/sections/:section_id/discussions/:discussion_id/topics(.:format)                                                                      instructor/topics#index
 #                                                                  POST      /instructor/sections/:section_id/discussions/:discussion_id/topics(.:format)                                                                      instructor/topics#create
@@ -156,22 +157,6 @@
 #
 
 Rails.application.routes.draw do
-
-  namespace :instructor do
-  get 'threads/index'
-  end
-
-  namespace :instructor do
-  get 'threads/show'
-  end
-
-  namespace :instructor do
-  get 'discussions/new'
-  end
-
-  namespace :instructor do
-  get 'discussions/show'
-  end
 
   root 'static_pages#home'
 
@@ -253,9 +238,9 @@ Rails.application.routes.draw do
    	  	  post 'sendemailtoparents'
    	  	end
       end
-      resources :discussions, only: [:new,:index, :create] do
+      resources :discussions, only: [:new, :index, :create] do
         resources :topics do
-          resources :threads, only: [:index, :show, :destroy] do
+          resources :threads do
             resources :thread_posts, only: [:create, :destroy, :edit, :update]
           end
         end

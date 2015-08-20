@@ -4,3 +4,4 @@
 //= require autonumeric
 //= require static_pages
 //= require student/portal
+//= require discussion_board

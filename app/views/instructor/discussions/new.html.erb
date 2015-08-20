@@ -1,2 +1,11 @@
-<h1>Instructor::Discussions#new</h1>
-<p>Find me in app/views/instructor/discussions/new.html.erb</p>
+<%
+   @pagetitle = 'Create Discussion Forum'
+   @page_class = 'discussion-board new'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class="well well-lg">
+  <p>Click below to create the discussion board for this class:</p>
+  <%= link_to "Create Discussion Board", instructor_section_discussions_path(@section_id), method: :post, class: 'btn btn-primary btn-large' %>
+</div>

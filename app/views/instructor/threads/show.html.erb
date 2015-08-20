@@ -1,2 +1,78 @@
-<h1>Instructor::Threads#show</h1>
-<p>Find me in app/views/instructor/threads/show.html.erb</p>
+<%
+   @pagetitle = "Discussion Board - Thread: #{@thread.title}"
+   @page_class = 'discussion-board thread show'
+%>
+
+<!-- Add TinyMCE Assets -->
+<%= tinymce_assets %>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class='row'>
+
+  <!-- Side Menu -->
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
+      <%= link_to "Back to Discussion Board Topic - #{@thread.board_topic.name}", instructor_section_discussion_topic_threads_path(@thread.board_topic.discussion_board.section, @thread.board_topic.discussion_board, @thread.board_topic), class: 'btn btn-default' %>
+      <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
+      <%= link_to "Viewing Discussion Board - #{@thread.title}", '#', class: 'btn btn-primary active' %>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+
+    <!-- Add New Post Form at Top -->
+    <button type="button" class="btn btn-default btn-sm pull-right" id="top-add-thread-post">New Post</button>
+    <div class="clearfix"></div>
+
+    <!-- New Post Form (Hidden Until Button is Clicked) -->
+    <div class="well well-lg hidden" id="top-add-thread-form">
+      <% render partial: 'new_thread_post', locals: {post: @thread_post, section: @thread.board_topic.discussion_board.section, board: @thread.board_topic.discussion_board, topic: @thread.board_topic, thread: @thread} %>
+    </div>
+
+    <!-- Board Body: Thread Posts -->
+    <div class="panel panel-default">
+
+      <!-- Thread Title -->
+      <div class="panel-heading">
+        <%= @thread.title %>
+      </div>
+      <div class="panel-body">
+        <!-- List Thread Posts -->
+        <ul class="list-group">
+          <% @thread.thread_posts.each do |post| %>
+              <li class="list-group-item">
+                <%= post.content.html_safe %>
+                <!-- Show Post Creator -->
+                <% if post.instructor_id.nil? %>
+                    <p class="pull-left">Posted by <strong><%= post.student.name %></strong></p>
+                <% else %>
+                    <p class="pull-left">Posted by <strong><%= post.instructor.name %> (Instructor)</strong></p>
+                <% end %>
+                <!-- If Post belongs to Instructor, show Delete Button -->
+                <% if post.instructor_id == current_instructor.id %>
+                    <%= link_to "Delete", instructor_section_discussion_topic_thread_thread_post_path(@thread.board_topic.discussion_board.section, @thread.board_topic.discussion_board, @thread.board_topic, @thread, post), method: :delete, class: 'pull-right btn btn-sm btn-default' %>
+                <% end %>
+                <div class="clearfix"></div>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Add New Post Form at Bottom -->
+    <button type="button" class="btn btn-default btn-sm pull-left" id="bottom-add-thread-post">New Post</button>
+    <div class="clearfix"></div>
+
+    <!-- New Post Form (Hidden Until Button is Clicked -->
+    <div class="well well-lg hidden" id="bottom-add-thread-form">
+      <% render partial: 'new_thread_post', locals: {post: @thread_post, section: @thread.board_topic.discussion_board.section, board: @thread.board_topic.discussion_board, topic: @thread.board_topic, thread: @thread} %>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>
+
+<!-- Initialize TinyMCE -->
+<%= tinymce %>

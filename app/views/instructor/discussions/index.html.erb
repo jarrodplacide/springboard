@@ -1,0 +1,33 @@
+<%
+   @pagetitle = "#{@discussion_board.section.codename} - Discussion Board"
+   @page_class = 'discussion-board show'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class='row'>
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@discussion_board.section), class: 'btn btn-default' %>
+      <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
+      <%= link_to 'Viewing Discussion Board', '#', class: 'btn btn-primary active' %>
+    </div>
+  </div>
+  <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+    <h1><%= @discussion_board.section.subject.name %> <%= @discussion_board.section.codename %>: Discussion Board</h1>
+    <%= link_to 'New Topic', new_instructor_section_discussion_topic_path(@discussion_board.section), class: 'btn btn-default pull-right' %>
+    <div class="clearfix"></div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="list-group">
+        <% @discussion_board.board_topics.each do |topic| %>
+          <li class="list-group-item">
+            <h4><%= link_to "#{topic.name}", instructor_section_discussion_topic_threads_path(@discussion_board.section, @discussion_board, topic) %></h4>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>

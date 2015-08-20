@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#edit-profile-button').click(function() {
             $('#edit-profile-panel').toggleClass('hidden');
         });
+
         $('.edit-parent-button').click(function() {
             var parentid = $(this).data('parentid');
             $('#edit-parent-' + parentid).toggleClass('hidden');

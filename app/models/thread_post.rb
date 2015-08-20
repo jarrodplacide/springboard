@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20150819134339
+# Schema version: 20150820142219
 #
 # Table name: thread_posts
 #
-#  id            :integer          not null, primary key
-#  thread_id     :integer
-#  content       :text
-#  student_id    :integer
-#  instructor_id :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id              :integer          not null, primary key
+#  topic_thread_id :integer
+#  content         :text
+#  student_id      :integer
+#  instructor_id   :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class ThreadPost < ActiveRecord::Base
