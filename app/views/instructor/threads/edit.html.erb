@@ -1,0 +1,34 @@
+<%
+   @pagetitle = "Discussion Board - Edit Thread Title - #{@thread.title}"
+   @page_class = 'discussion-board topic-thread edit'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class='row'>
+  <!-- Side Menu-->
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
+      <%= link_to 'Back to Discussion Board Home', instructor_section_discussions_path(@thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
+      <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
+      <%= link_to "Viewing Discussion Board - Edit #{@thread.title}", '#', class: 'btn btn-primary active' %>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+    <h1><%= @thread.board_topic.discussion_board.section.codename %> - Discussion Board: Edit Thread Title: <%= @thread.title %></h1>
+
+    <!-- Edit Thread Title Form -->
+    <div class="well well-lg text-center">
+        <%= form_for @thread, url: instructor_section_discussion_topic_thread_path(@thread.board_topic.discussion_board.section, @thread.board_topic.discussion_board, @thread.board_topic, @thread) do |f| %>
+            <%= f.label :title, "Edit Thread Title here:" %>
+            <%= f.text_field :title, class: 'form-control' %>
+            <br/>
+            <%= f.submit "Save Change", class: 'btn btn-default btn-large' %>
+        <% end %>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>

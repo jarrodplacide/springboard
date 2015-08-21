@@ -8,7 +8,7 @@ class Instructor::ThreadPostsController < ApplicationController
     post.instructor_id = current_instructor.id
     post.topic_thread_id = params[:thread_id]
     if post.save
-      flash[:success] = 'Post successfull added'
+      flash[:success] = 'Post successfully added'
       redirect_to instructor_section_discussion_topic_thread_path(params[:section_id], params[:discussion_id], params[:topic_id], params[:thread_id])
     else
       flash[:error] = 'There was a problem adding your post. Please try again later'

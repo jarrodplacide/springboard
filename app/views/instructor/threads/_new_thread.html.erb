@@ -1,6 +1,6 @@
 <%= form_for thread, url: instructor_section_discussion_topic_threads_path(section, board, topic) do |f| %>
     <%= f.label :title, "Thread Title" %>
     <%= f.text_field :title, class: 'form-control' %>
-
-    <% f.submit "Create Thread", class: 'btn btn-default btn-large' %>
+    <br/>
+    <%= f.submit "Create Thread", class: 'btn btn-default btn-large' %>
 <% end %>
