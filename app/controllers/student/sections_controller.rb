@@ -21,7 +21,7 @@ class Student::SectionsController < ApplicationController
 
   def show
     if not (@subscription = Subscription.includes(:pending_payments, :submitted_payments, :completed_payments).find_by(subject_id: params[:subject_id], student_id: current_student.id)).nil?
-      @section = Section.includes(:subject, :instructor, :announcements).find(params[:id])
+      @section = Section.includes(:subject, :instructor, :announcements, :discussion_board).find(params[:id])
     else
       @subject = Subject.find(params[:subject_id])
       flash[:error] = "You are not registered for #{@subject.name}. If you are interested, please use the 'My Subjects' menu to register."

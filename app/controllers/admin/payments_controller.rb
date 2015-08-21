@@ -31,11 +31,16 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def complete_offline_payment
-    @payment = OfflinePayment.find(params[:id])
+    @payment = OfflinePayment.includes(subscription: [:subject, :student]).find(params[:id])
     @payment.status = 'verified'
     if @payment.update_attributes(payment_params)
-      StudentMailer.verified_payment(current_student, @payment).deliver_now
-      flash[:success] = "The payment, with transaction ID: #{@payment.transaction_id}, was successfully verified and an e-mail was sent to the student notifiying them of the course's availability"
+      if update_subscription(@payment.subscription)
+        student = Student.find(@payment.subscription.student_id)
+        StudentMailer.verified_payment(student, @payment).deliver_now
+        flash[:success] = "The payment, with transaction ID: #{@payment.transaction_id}, was successfully verified and an e-mail was sent to the student notifiying them of the course's availability"
+      else
+        raise ActiveRecord::Rollback, 'Subscription Extension Failed Silently!'
+      end
     else
       flash[:error] = "There was an error attempting to complete the payment process with the information provided. Please try again. If the problem persists, contact an administrator"
     end

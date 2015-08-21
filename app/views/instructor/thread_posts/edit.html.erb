@@ -13,9 +13,9 @@
   <!-- Side Menu -->
   <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
-      <%= link_to 'Back to Section Home Page', instructor_section_path(@thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
-      <%= link_to "Back to Discussion Board Topic - #{@thread.board_topic.name}", instructor_section_discussion_topic_threads_path(@thread.board_topic.discussion_board.section, @thread.board_topic.discussion_board, @thread.board_topic), class: 'btn btn-default' %>
-      <%= link_to 'View Student Roster', instructor_section_students_path(@thread.board_topic.discussion_board.section), class: 'btn btn-primary' %>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@post.topic_thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
+      <%= link_to "Back to Discussion Board Topic - #{@post.topic_thread.board_topic.name}", instructor_section_discussion_topic_threads_path(@thread.board_topic.discussion_board.section, @thread.board_topic.discussion_board, @thread.board_topic), class: 'btn btn-default' %>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@post.topic_thread.board_topic.discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to "Viewing Discussion Board - #{@thread.title}", '#', class: 'btn btn-primary active' %>
     </div>
   </div>
