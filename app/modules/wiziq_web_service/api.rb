@@ -1,0 +1,3 @@
+class WiziqWebService::Api
+
+end
