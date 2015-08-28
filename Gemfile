@@ -37,6 +37,9 @@ gem 'devise'
 gem 'httparty'
 gem 'httmultiparty'
 
+# Ruby HMAC Gem
+gem 'ruby-hmac'
+
 # Use Money Rails for Money Formatting & Autonumeric for Front End Money Formatting
 gem 'money-rails'
 gem 'autonumeric-rails'
