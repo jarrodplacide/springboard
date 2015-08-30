@@ -10,39 +10,63 @@
   <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
       <%= link_to 'Back to Section Home Page', instructor_section_path(@discussion_board.section), class: 'btn btn-default' %>
-      <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to 'Viewing Discussion Board', '#', class: 'btn btn-primary active' %>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
-    <h1><%= @discussion_board.section.subject.name %> <%= @discussion_board.section.codename %>: Discussion Board</h1>
+    <% if @discussion_board.board_topics.count > 0 %>
+        <!-- Open or Close Discussion Board -->
+        <% if @discussion_board.available_to_students == true %>
+            <%= link_to "Close Discussion Board", close_instructor_section_discussion_path(@discussion_board.section, @discussion_board), method: :post, class: 'btn btn-primary pull-left' %>
+        <% else %>
+            <%= link_to "Open Discussion Board", open_instructor_section_discussion_path(@discussion_board.section, @discussion_board), method: :post, class: 'btn btn-primary pull-left' %>
+        <% end %>
+        <!-- New Topic Button -->
+        <button type="button" class="btn btn-primary pull-right" id="new-topic-button">New Topic</button>
+        <div class="clearfix"></div>
 
-    <!-- New Topic Button -->
-    <button type="button" class="btn btn-default btn-sm pull-right" id="new-topic-button">New Topic</button>
-    <div class="clearfix"></div>
-
-    <!-- New Topic Form -->
-    <div class="well well-lg hidden" id="new-topic-form">
-        <%= render partial: 'new_topic', locals: {topic: @board_topic, section: @discussion_board.section, board: @discussion_board} %>
-    </div>
-
-    <!-- Board Body -->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <ul class="list-group">
-          <!-- List of Board Topics -->
-            <% @discussion_board.board_topics.each do |topic| %>
-              <li class="list-group-item">
-                <h4><%= link_to "#{topic.name}", instructor_section_discussion_topic_threads_path(@discussion_board.section, @discussion_board, topic) %></h4>
-                <!-- Delete Option for Instructors -->
-                <%= link_to "Delete", instructor_section_discussion_topic_path(@discussion_board.section, @discussion_board, topic), method: :delete, class: 'btn btn-sm btn-default pull-right', data: {confirm: 'Are you sure you wish to delete this topic and all its related threads'} %>
-              </li>
-            <% end %>
-        </ul>
-      </div>
-    </div>
+        <!-- New Topic Form -->
+        <div class="well text-center hidden" id="new-topic-form">
+            <%= render partial: 'new_topic', locals: {topic: @new_topic, section: @discussion_board.section, board: @discussion_board} %>
+        </div>
+        <br/>
+        <!-- Board Body -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2><%= @discussion_board.section.subject.name %>: <%= @discussion_board.section.codename %>: Discussion Board</h2>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <!-- List of Board Topics -->
+                <% @discussion_board.board_topics.each do |topic| %>
+                  <li class="list-group-item">
+                    <h4>
+                        <%= link_to "#{topic.name}", instructor_section_discussion_topic_threads_path(@discussion_board.section, @discussion_board, topic), class: 'pull-left' %>
+                        <!-- Delete Option for Instructors -->
+                        <%= link_to "Edit Topic Name", edit_instructor_section_discussion_topic_path(@discussion_board.section, @discussion_board, topic), class: 'btn btn-sm btn-default pull-right' %>
+                        <%= link_to "Delete", instructor_section_discussion_topic_path(@discussion_board.section, @discussion_board, topic), method: :delete, class: 'btn btn-sm btn-default pull-right', data: {confirm: 'Are you sure you wish to delete this topic and all its related threads'} %>
+                        <div class="clearfix"></div>
+                    </h4>
+                  </li>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+    <% else %>
+        <h1><%= @discussion_board.section.subject.name %>: <%= @discussion_board.section.codename %>: Discussion Board</h1>
+        <div class="well well-lg text-center">
+          <p>You have not created a topic as yet for your discussion board. Please do so below to get started:</p>
+          <%= form_for @new_topic, url: instructor_section_discussion_topics_path(@discussion_board.section, @discussion_board) do |f| %>
+            <%= f.label :name, "Enter Topic" %>
+            <%= f.text_field :name, class: 'form-control' %>
+            <br/>
+            <%= f.submit "Create Topic", class: 'btn btn-default btn-large' %>
+          <% end %>
+        </div>
+    <% end %>
   </div>
   <div class='clearfix'></div>
 </div>

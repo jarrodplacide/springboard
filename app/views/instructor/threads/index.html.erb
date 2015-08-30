@@ -11,49 +11,63 @@
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
       <%= link_to 'Back to Section Home Page', instructor_section_path(@topic.discussion_board.section), class: 'btn btn-default' %>
       <%= link_to 'Back to Discussion Board Home', instructor_section_discussions_path(@topic.discussion_board.section), class: 'btn btn-default' %>
-      <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@topic.discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to "Viewing Discussion Board - #{@topic.name}", '#', class: 'btn btn-primary active' %>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
-    <!-- New Thread Button -->
-    <button type="button" class="btn btn-default pull-right" id="new-thread-button">New Thread</button>
-    <div class="clearfix"></div>
+    <% if @topic.topic_threads.count > 0 %>
+        <!-- New Thread Button -->
+        <button type="button" class="btn btn-primary pull-right" id="new-thread-button">New Thread</button>
+        <div class="clearfix"></div>
 
-    <!-- New Thread Form -->
-    <div class="well well-lg hidden" id="new-thread-form">
-        <%= render partial: 'new_thread', locals: {thread: @topic_thread, section: @topic.discussion_board.section, board: @topic.discussion_board, topic: @topic} %>
-    </div>
-
-    <!-- Board Body: Threads -->
-    <div class="panel panel-default">
-
-      <!-- Topic Name -->
-      <div class="panel-heading">
-        <%= @topic.name %>
-      </div>
-      <div class="panel-body">
-        <ul class="list-group">
-          <!-- List of Threads -->
-          <% @topic.topic_threads.each do |thread| %>
-              <li class="list-group-item">
-                <h4><%= link_to "#{thread.title}", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, @topic, thread) %></h4>
-                <!-- Show Thread Creator -->
-                <% if thread.instructor_id.nil? %>
-                    <p class="pull-left">Created by <strong><%= thread.student.name %></strong></p>
-                <% else %>
-                    <p class="pull-left">Created by <strong><%= thread.instructor.name %></strong></p>
-                <% end %>
-                <!-- Show delete button for instructor with confirmation required -->
-                <%= link_to "Delete Thread", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, topic, thread), method: :delete, class: 'btn btn-default pull-right', data: {confirm: 'Are you sure you want to delete this thread and all of its posts?'} %>
-                <div class="clearfix"></div>
-              </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+        <!-- New Thread Form -->
+        <div class="well well-lg hidden text-center" id="new-thread-form">
+            <%= render partial: 'new_thread', locals: {thread: @new_thread, section: @topic.discussion_board.section, board: @topic.discussion_board, topic: @topic} %>
+        </div>
+        <br/>
+        <!-- Board Body: Threads -->
+        <div class="panel panel-default">
+          <!-- Discussion Board Name -->
+          <div class="panel-heading">
+            <h3><strong><%= @topic.discussion_board.section.codename %>: Discussion Board: <%= @topic.name %></strong></h3>
+          </div>
+          <!-- Topic Name -->
+          <div class="panel-heading">
+            <%= @topic.name %>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <!-- List of Threads -->
+              <% @topic.topic_threads.each do |thread| %>
+                  <li class="list-group-item">
+                    <h4><%= link_to "#{thread.title}", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, @topic, thread) %></h4>
+                    <!-- Show Thread Creator -->
+                    <p>
+                      <span class="pull-left">
+                        <% if thread.instructor_id.nil? %>
+                            Created by <strong><%= thread.student.name %></strong>
+                        <% else %>
+                            Created by <strong>Instructor</strong>
+                        <% end %>
+                      </span>
+                      <%= link_to "Delete Thread", instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, @topic, thread), method: :delete, class: 'btn btn-default btn-sm pull-right', data: {confirm: 'Are you sure you want to delete this thread and all of its posts?'} %>
+                      <%= link_to "Edit Thread Title", edit_instructor_section_discussion_topic_thread_path(@topic.discussion_board.section, @topic.discussion_board, @topic, thread), class: 'btn btn-default btn-sm pull-right' %>
+                      <div class="clearfix"></div>
+                    </p>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% else %>
+        <h1><%= @topic.discussion_board.section.codename %>: Discussion Board: <%= @topic.name %></h1>
+        <div class="well well-lg text-center">
+          <%= render partial: 'new_thread', locals: {thread: @new_thread, section: @topic.discussion_board.section, board: @topic.discussion_board, topic: @topic} %>
+        </div>
+    <% end %>
   </div>
   <div class='clearfix'></div>
 </div>

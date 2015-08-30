@@ -25,3 +25,11 @@
 	width: 71%;
 	margin-left: 25%;
 }
+
+.btn-group-vertical {
+  width: 100%;
+
+  .btn {
+    white-space: normal !important;
+  }
+}

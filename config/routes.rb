@@ -93,6 +93,8 @@
 #                    sendemailtoparents_instructor_section_student POST      /instructor/sections/:section_id/students/:id/sendemailtoparents(.:format)                                                                        instructor/students#sendemailtoparents
 #                                      instructor_section_students GET       /instructor/sections/:section_id/students(.:format)                                                                                               instructor/students#index
 #                                       instructor_section_student GET       /instructor/sections/:section_id/students/:id(.:format)                                                                                           instructor/students#show
+#                               open_instructor_section_discussion POST      /instructor/sections/:section_id/discussions/:id/open(.:format)                                                                                   instructor/discussions#open
+#                              close_instructor_section_discussion POST      /instructor/sections/:section_id/discussions/:id/close(.:format)                                                                                  instructor/discussions#close
 #          instructor_section_discussion_topic_thread_thread_posts POST      /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts(.:format)                            instructor/thread_posts#create
 #      edit_instructor_section_discussion_topic_thread_thread_post GET       /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id/edit(.:format)                   instructor/thread_posts#edit
 #           instructor_section_discussion_topic_thread_thread_post PATCH     /instructor/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id(.:format)                        instructor/thread_posts#update
@@ -239,6 +241,10 @@ Rails.application.routes.draw do
    	  	end
       end
       resources :discussions, only: [:new, :index, :create] do
+        member do
+          post 'open'
+          post 'close'
+        end
         resources :topics do
           resources :threads do
             resources :thread_posts, only: [:create, :destroy, :edit, :update]
