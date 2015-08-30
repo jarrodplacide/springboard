@@ -2,7 +2,7 @@ class WiziqWebService::Api::WiziqClass
 
   BASE_URL = 'http://class.api.wiziq.com'
 
-  PRESENTER_EMAIL = 'catousse@me.com'
+  PRESENTER_EMAIL = 'cahsan@springboard.academy'
   TIME_ZONE = 'America/Port_of_Spain'
   STATUS_PING_URL = 'http://localhost:3000/api/class-status'
 
@@ -11,18 +11,22 @@ class WiziqWebService::Api::WiziqClass
 
   # Create A Class
   def create(title, start_time, create_recording, return_url, duration = 60)
+    create_recording = create_recording == true ? 1 : 0
     response WiziqWebService::Api.postrequest(BASE_URL, '', 'create', {title: title, start_time: start_time, create_recording: create_recording, duration: duration, return_url: return_url, presenter_email:
                                                       PRESENTER_EMAIL, time_zone: TIME_ZONE, status_ping_url: STATUS_PING_URL})
   end
 
   # Create a Recurring Class
+  # class_occurrence -> Number of Recurring Classes to Schedule. Not Required When class_end_date is given
+  # class_repeat_type -> 1: Daily 2: Mon-Sat 3: Mon-Fri 4:Weekly 5:Monthly
   def create_recurring(title, start_time, class_repeat_type, class_occurrence, class_end_date, create_recording, return_url, duration = 60)
+    create_recording = create_recording == true ? 1 : 0
     params = {title: title, start_time: start_time, create_recording: create_recording, duration: duration, return_url: return_url, class_repeat_type: class_repeat_type, presenter_email: PRESENTER_EMAIL,
               time_zone: TIME_ZONE, status_ping_url: STATUS_PING_URL}
     if class_occurrence.nil?
-      params.merge(class_end_date: class_end_date)
+      params.merge!(class_end_date: class_end_date)
     else
-      params.merge(class_occurrence: class_occurrence)
+      params.merge!(class_occurrence: class_occurrence)
     end
     response WiziqWebService::Api.postrequest(BASE_URL, 'apimanager.ashx', 'create_recurring', params)
   end
