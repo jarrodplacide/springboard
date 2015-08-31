@@ -1,6 +1,9 @@
 # == Route Map
 #
 #                                                           Prefix Verb      URI Pattern                                                                                                                                       Controller#Action
+#                                          admin_wiz_classes_index GET       /admin/wiz_classes/index(.:format)                                                                                                                admin/wiz_classes#index
+#                                   admin_wiz_classes_new_one_time GET       /admin/wiz_classes/new_one_time(.:format)                                                                                                         admin/wiz_classes#new_one_time
+#                                  admin_wiz_classes_new_recurring GET       /admin/wiz_classes/new_recurring(.:format)                                                                                                        admin/wiz_classes#new_recurring
 #                                                             root GET       /                                                                                                                                                 static_pages#home
 #                                                     student_root GET       /student(.:format)                                                                                                                                student/portal#home
 #                                                  student_parents POST      /student/parents(.:format)                                                                                                                        student/parents#create
@@ -126,6 +129,11 @@
 #                                                       admin_root GET       /admin(.:format)                                                                                                                                  admin/static_pages#home
 #                                       open_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/open(.:format)                                                                                           admin/sections#open
 #                                      close_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/close(.:format)                                                                                          admin/sections#close
+#                       admin_subject_section_classes_classes_list GET       /admin/subjects/:subject_id/sections/:section_id/classes/list(.:format)                                                                           admin/classes/wiz_classes#index
+#                          admin_subject_section_classes_new_class GET       /admin/subjects/:subject_id/sections/:section_id/classes/new(.:format)                                                                            admin/classes/wiz_classes#new
+#                admin_subject_section_classes_new_recurring_class GET       /admin/subjects/:subject_id/sections/:section_id/classes/new/recurring(.:format)                                                                  admin/classes/wiz_classes#new_recurring
+#                       admin_subject_section_classes_create_class POST      /admin/subjects/:subject_id/sections/:section_id/classes/create(.:format)                                                                         admin/classes/wiz_class#create
+#             admin_subject_section_classes_create_recurring_class POST      /admin/subjects/:subject_id/sections/:section_id/classes/create/recurring(.:format)                                                               admin/classes/wiz_class#create_recurring
 #                                           admin_subject_sections GET       /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#index
 #                                                                  POST      /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#create
 #                                        new_admin_subject_section GET       /admin/subjects/:subject_id/sections/new(.:format)                                                                                                admin/sections#new
@@ -159,6 +167,18 @@
 #
 
 Rails.application.routes.draw do
+
+  namespace :admin do
+  get 'wiz_classes/index'
+  end
+
+  namespace :admin do
+  get 'wiz_classes/new_one_time'
+  end
+
+  namespace :admin do
+  get 'wiz_classes/new_recurring'
+  end
 
   root 'static_pages#home'
 
@@ -261,6 +281,13 @@ Rails.application.routes.draw do
         member do
           get 'open'
           get 'close'
+        end
+        namespace :classes do
+          get 'list', to: 'wiz_classes#index', as: :classes_list
+          get 'new', to: 'wiz_classes#new', as: :new_class
+          get 'new/recurring', to: 'wiz_classes#new_recurring', as: :new_recurring_class
+          post 'create', to: 'wiz_class#create', as: :create_class
+          post 'create/recurring', to: 'wiz_class#create_recurring', as: :create_recurring_class
         end
       end
     end

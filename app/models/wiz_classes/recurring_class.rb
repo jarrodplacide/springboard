@@ -1,0 +1,3 @@
+class RecurringClass < WizClass
+
+end

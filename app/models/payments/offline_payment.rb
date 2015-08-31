@@ -22,7 +22,9 @@
 class OfflinePayment < Payment
   # Pending Payments
   scope :pending, -> {where(status: 'pending')}
+  # Submitted Payments
   scope :submitted, -> {where(status: 'submitted')}
+  # Verified Payments
   scope :verified, -> {where(status: 'verified')}
 
 end
