@@ -2,16 +2,19 @@ class WiziqWebService::Api::WiziqClass
 
   BASE_URL = 'http://class.api.wiziq.com'
 
-  PRESENTER_EMAIL = 'cahsan@springboard.academy'
+  PRESENTER_EMAIL = 'royaltyclubvp@royalty-club.com'
   TIME_ZONE = 'America/Port_of_Spain'
   STATUS_PING_URL = 'http://localhost:3000/api/class-status'
+  DEFAULT_CLASS_DURATION = 60
 
   def initialize
   end
 
   # Create A Class
-  def create(title, start_time, create_recording, return_url, duration = 60)
-    create_recording = create_recording == true ? 1 : 0
+  def create(title, start_time, create_recording, return_url, duration)
+    if duration.nil?
+      duration = DEFAULT_CLASS_DURATION
+    end
     response WiziqWebService::Api.postrequest(BASE_URL, '', 'create', {title: title, start_time: start_time, create_recording: create_recording, duration: duration, return_url: return_url, presenter_email:
                                                       PRESENTER_EMAIL, time_zone: TIME_ZONE, status_ping_url: STATUS_PING_URL})
   end
@@ -20,7 +23,6 @@ class WiziqWebService::Api::WiziqClass
   # class_occurrence -> Number of Recurring Classes to Schedule. Not Required When class_end_date is given
   # class_repeat_type -> 1: Daily 2: Mon-Sat 3: Mon-Fri 4:Weekly 5:Monthly
   def create_recurring(title, start_time, class_repeat_type, class_occurrence, class_end_date, create_recording, return_url, duration = 60)
-    create_recording = create_recording == true ? 1 : 0
     params = {title: title, start_time: start_time, create_recording: create_recording, duration: duration, return_url: return_url, class_repeat_type: class_repeat_type, presenter_email: PRESENTER_EMAIL,
               time_zone: TIME_ZONE, status_ping_url: STATUS_PING_URL}
     if class_occurrence.nil?
@@ -56,6 +58,11 @@ class WiziqWebService::Api::WiziqClass
 
   def download_recording(class_id, recording_format = 'zip')
     response WiziqWebService::Api.postrequest(BASE_URL, '', 'download_recording', {class_id: class_id, recording_format: recording_format})
+  end
+
+  # Accessor Methods
+  def default_duration
+    DEFAULT_CLASS_DURATION
   end
 
   private

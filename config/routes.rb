@@ -87,8 +87,18 @@
 #                                          instructor_show_profile GET       /instructor/portal/my-profile(.:format)                                                                                                           instructor/portal#show_profile
 #                                        instructor_update_profile GET       /instructor/portal/update-profile(.:format)                                                                                                       instructor/portal#update_profile
 #                                       instructor_change_password PATCH|PUT /instructor/portal/change-password(.:format)                                                                                                      instructor/portal#change_password
+#                                       instructor_section_classes GET       /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#index
+#                                                                  POST      /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#create
+#                                     new_instructor_section_class GET       /instructor/sections/:section_id/classes/new(.:format)                                                                                            instructor/classes#new
+#                                    edit_instructor_section_class GET       /instructor/sections/:section_id/classes/:id/edit(.:format)                                                                                       instructor/classes#edit
+#                                         instructor_section_class GET       /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#show
+#                                                                  PATCH     /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#update
+#                                                                  PUT       /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#update
+#                                                                  DELETE    /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#destroy
+#                          instructor_section_classes_newrecurring GET       /instructor/sections/:section_id/classes/newrecurring(.:format)                                                                                   instructor/classes#newrecurring
+#                       instructor_section_classes_createrecurring POST      /instructor/sections/:section_id/classes/createrecurring(.:format)                                                                                instructor/classes#createrecurring
 #                                 email_instructor_section_student GET       /instructor/sections/:section_id/students/:id/email(.:format)                                                                                     instructor/students#email
-#                         email_parents_instructor_section_student GET       /instructor/sections/:section_id/students/:id/email-parents(.:format)                                                                             instructor/students#email_parents
+#                          emailparents_instructor_section_student GET       /instructor/sections/:section_id/students/:id/emailparents(.:format)                                                                              instructor/students#emailparents
 #                             sendemail_instructor_section_student POST      /instructor/sections/:section_id/students/:id/sendemail(.:format)                                                                                 instructor/students#sendemail
 #                    sendemailtoparents_instructor_section_student POST      /instructor/sections/:section_id/students/:id/sendemailtoparents(.:format)                                                                        instructor/students#sendemailtoparents
 #                                      instructor_section_students GET       /instructor/sections/:section_id/students(.:format)                                                                                               instructor/students#index
@@ -126,6 +136,16 @@
 #                                                       admin_root GET       /admin(.:format)                                                                                                                                  admin/static_pages#home
 #                                       open_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/open(.:format)                                                                                           admin/sections#open
 #                                      close_admin_subject_section GET       /admin/subjects/:subject_id/sections/:id/close(.:format)                                                                                          admin/sections#close
+#                                    admin_subject_section_classes GET       /admin/subjects/:subject_id/sections/:section_id/classes(.:format)                                                                                admin/classes#index
+#                                                                  POST      /admin/subjects/:subject_id/sections/:section_id/classes(.:format)                                                                                admin/classes#create
+#                                  new_admin_subject_section_class GET       /admin/subjects/:subject_id/sections/:section_id/classes/new(.:format)                                                                            admin/classes#new
+#                                 edit_admin_subject_section_class GET       /admin/subjects/:subject_id/sections/:section_id/classes/:id/edit(.:format)                                                                       admin/classes#edit
+#                                      admin_subject_section_class GET       /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#show
+#                                                                  PATCH     /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
+#                                                                  PUT       /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
+#                                                                  DELETE    /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#destroy
+#                       admin_subject_section_classes_newrecurring GET       /admin/subjects/:subject_id/sections/:section_id/classes/newrecurring(.:format)                                                                   admin/classes#newrecurring
+#                    admin_subject_section_classes_createrecurring POST      /admin/subjects/:subject_id/sections/:section_id/classes/createrecurring(.:format)                                                                admin/classes#createrecurring
 #                                           admin_subject_sections GET       /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#index
 #                                                                  POST      /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#create
 #                                        new_admin_subject_section GET       /admin/subjects/:subject_id/sections/new(.:format)                                                                                                admin/sections#new
@@ -232,10 +252,13 @@ Rails.application.routes.draw do
     get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
     match 'portal/change-password', to: 'portal#change_password', as: :change_password, via: [:patch, :put]
     resources :sections, only: [:index, :show] do
+      resources :classes
+      get 'classes/newrecurring', to: 'classes#newrecurring', as: :newrecurring
+      post 'classes/createrecurring', to: 'classes#createrecurring', as: :createrecurring
    	  resources :students, only: [:index, :show] do
    	  	member do
    	  	  get 'email'
-   	  	  get 'email-parents'
+   	  	  get 'emailparents'
    	  	  post 'sendemail'
    	  	  post 'sendemailtoparents'
    	  	end
@@ -262,6 +285,9 @@ Rails.application.routes.draw do
           get 'open'
           get 'close'
         end
+        resources :classes
+        get 'classes/newrecurring', to: 'classes#newrecurring', as: :newrecurring
+        post 'classes/createrecurring', to: 'classes#createrecurring', as: :createrecurring
       end
     end
     resources :instructors do

@@ -46,6 +46,9 @@ class Instructor < ActiveRecord::Base
   # Creates many thread posts
   has_many :thread_posts, inverse_of: :instructor
 
+  # Has many Classes
+  has_many :wiz_iq_classes, inverse_of: :instructor
+
   # Convenience Methods
   def name
     first_name + ' ' + middle_initial + ' ' + last_name

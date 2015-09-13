@@ -13,6 +13,7 @@ module Springboard
     # -- all .rb files in that directory are automatically loaded.
     # Add Autoload Paths
     config.autoload_paths += %W(#{config.root}/app/models/payments)
+    config.autoload_paths += %W(#{config.root}/app/models/wiz_iq_classes)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

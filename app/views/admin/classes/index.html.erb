@@ -1,0 +1,13 @@
+<h1 class="text-center"><%= @section.codename %>: Classes</h1>
+<table class="table table-striped">
+  <thead>
+      <th>Class Name</th>
+      <th>Date</th>
+      <th>Start Time</th>
+      <th>Duration (mins)</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <%= render partial: 'admin/classes/single_class', collection: @section.wiz_iq_classes_single_classes %>
+  </tbody>
+</table>

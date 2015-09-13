@@ -18,7 +18,7 @@ class Instructor::StudentsController < ApplicationController
     @email = Email.new
   end
 
-  def email_parents
+  def emailparents
     @student = Student.find(params[:id])
     @section = Section.find(params[:section_id])
     @email = Email.new

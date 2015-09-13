@@ -23,6 +23,9 @@ class Section < ActiveRecord::Base
   # Belongs to an Instructor
   belongs_to :instructor, inverse_of: :sections
 
+  # Has Many Classes
+  has_many :wiz_iq_classes_single_classes, :class_name => 'SingleClass', inverse_of: :section
+
   # Has Many Students
   has_many :student_sections
   has_many :students, through: :student_sections

@@ -9,6 +9,7 @@
 <div class='row'>
   <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Schedule Class', new_instructor_section_class_path(@section), class: 'btn btn-primary' %>
       <%= link_to 'View Student Roster', instructor_section_students_path(@section), class: 'btn btn-primary' %>
       <%= link_to 'Discussion Board', instructor_section_discussions_path(@section), class: 'btn btn-primary' %>
     </div>
