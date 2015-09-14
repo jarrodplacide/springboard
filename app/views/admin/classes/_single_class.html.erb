@@ -12,7 +12,7 @@
         <li><%= link_to 'View Class Details', admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class) %></li>
         <li role='separator' class='divider'></li>
         <li><%= link_to 'Edit Class Details', edit_admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class) %></li>
-        <li><%= link_to 'Cancel Class', admin_subject_section_classes_path(single_class.section.subject, single_class.section, single_class), method: :delete, data: {confirm: 'Are you sure?'} %></li>
+        <li><%= link_to 'Cancel Class', admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class), method: :delete, data: {confirm: 'Are you sure?'} %></li>
       </ul>
     </div>
   </td>

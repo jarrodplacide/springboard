@@ -30,11 +30,10 @@ class SingleClass < WizIqClass
   belongs_to :section, inverse_of: :wiz_iq_classes_single_classes
 
   # Custom Setters
-
   def wiziqdetails(attributes)
-    @wiziqclass_id = attributes[:class_details][:class_id]
-    @instructor_url = attributes[:class_details][:presenter_list][:presenter][:presenter_url]
-    @administrator_url = attributes[:class_details][:presenter_list][:presenter][:co_presenter_url]
-    @recording_url = attributes[:class_details][:recording_url]
+    self.wiziqclass_id = attributes[:class_details][:class_id]
+    self.instructor_url = attributes[:class_details][:presenter_list][:presenter][:presenter_url]
+    self.administrator_url = attributes[:class_details][:presenter_list][:presenter][:co_presenter_url]
+    self.recording_url = attributes[:class_details][:recording_url]
   end
 end

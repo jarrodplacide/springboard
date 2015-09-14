@@ -22,7 +22,7 @@ class Admin::ClassesController < ApplicationController
     response = symbolize(wiz.create(wiziqclass.name, wiziqclass.start_time, wiziqclass.recording_requested, admin_subject_section_path(params[:subject_id], params[:section_id]), wiziqclass.duration))
     if not response[:rsp].try(:[], :error).nil?
       # TODO Improve Error Handling in Order to Specific Errors. Write Error Handler Method
-      flash[:success] = 'A problem occurred with the system. Please contact an administrator'
+      flash[:error] = 'A problem occurred with the system. Please contact an administrator'
       # TODO Register Currently Enrolled Students (if any) as Attendees in Wiz IQ System
       redirect_to new_admin_subject_section_class_path(params[:subject_id], params[:section_id])
     else
@@ -51,14 +51,19 @@ class Admin::ClassesController < ApplicationController
     # TODO Implement Catch & Silent Note Error
     wiziqclass_id = wiziqclass.wiziqclass_id
     if wiziqclass.destroy
-      flash[:success] = 'The class was successfully canceled'
       wiz = WiziqWebService::Api::WiziqClass.new
-      response = wiz.cancel(wiziqclass_id)
-      # TODO Error Check
+      response = symbolize(wiz.cancel(wiziqclass_id))
+      if not response[:rsp].try(:[], :error).nil?
+        flash[:error] = 'An error occurred'
+        redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
+      else
+        flash[:success] = 'The class was successfully deleted'
+        redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
+      end
     else
       flash[:error] = 'An error occurred while attempting to delete the class. Please try again later. If hte problem persists, please contact a system administrator.'
+      redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
     end
-    redirect_to admin_subject_section_class_path(params[:subject_id], params[:section_id])
   end
 
   def edit
@@ -68,8 +73,19 @@ class Admin::ClassesController < ApplicationController
   def update
     wiziqclass = SingleClass.find(params[:id])
     wiz = WiziqWebService::Api::WiziqClass.new
-    response = wiz.modify(wiziqclass.wiziqclass_id, {title: params[:single_class][:name], create_recording: params[:single_class][:recording_requested], start_time: params[:single_class][:start_time], duration: params[:single_class][:duration]})
-    # TODO Error Check
+    if wiziqclass.update_attributes(class_params)
+      response = symbolize(wiz.modify(wiziqclass.wiziqclass_id, {title: wiziqclass.name, create_recording: wiziqclass.recording_requested, start_time: wiziqclass.start_time, duration: wiziqclass.duration}))
+      if not response[:rsp].try(:[], :error).nil?
+        flash[:error] = 'Error occurred'
+        redirect_to edit_admin_subject_section_class_path(params[:subject_id], params[:section_id], params[:id])
+      else
+        flash[:success] = 'Class details were successfully updated.'
+        redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
+      end
+    else
+      flash[:success] = 'Your changes have been saved successfully'
+      redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
+    end
   end
 
   private

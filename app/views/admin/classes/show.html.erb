@@ -1,0 +1,28 @@
+<%= link_to 'Back to Class List', admin_subject_section_classes_path(@wiziqclass.section.subject, @wiziqclass.section), class: 'btn btn-default text-center center-block' %>
+<h1 class="text-center">Section <%= @wiziqclass.section.codename %>: <%= @wiziqclass.name %></h1>
+<div class="well well-lg">
+  <div class="col-xs-12 col-sm-2"><strong>Class Name: </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= @wiziqclass.name %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Class Date: </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= @wiziqclass.start_time.strftime("%a %d %b %Y") %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Class Time: </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= @wiziqclass.start_time.strftime("%I:%M%p") %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Duration (minutes): </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= @wiziqclass.duration %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Instructor: </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= @wiziqclass.instructor.name %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Access URL (Administrator Only): </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= link_to "#{@wiziqclass.administrator_url}", "#{@wiziqclass.administrator_url}" %></div>
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-2"><strong>Recording URL: </strong></div>
+  <div class="col-xs-12 col-sm-10"><%= link_to "#{@wiziqclass.recording_url}", "#{@wiziqclass.recording_url}" %></div>
+  <div class="clearfix"></div>
+</div>
+<%= link_to 'Edit Class Details', edit_admin_subject_section_class_path(@wiziqclass.section.subject, @wiziqclass.section, @wiziqclass), class: 'btn btn-primary text-center center-block' %>
+<br/>
+<%= link_to 'Cancel Class', admin_subject_section_class_path(@wiziqclass.section.subject, @wiziqclass.section, @wiziqclass), method: :delete, class: 'btn btn-danger text-center center-block', data: {confirm: 'Are you sure?'} %>
