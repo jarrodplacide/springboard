@@ -11,7 +11,6 @@
     <div class='btn-group-vertical' role='group' aria-label='side-menu'>
       <%= link_to 'Back to Section Home Page', instructor_section_path(@topic.discussion_board.section), class: 'btn btn-default' %>
       <%= link_to 'Back to Discussion Board Home', instructor_section_discussions_path(@topic.discussion_board.section), class: 'btn btn-default' %>
-      <%= link_to 'Schedule Class', new_instructor_section_class_path(@topic.discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to 'View Student Roster', instructor_section_students_path(@topic.discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to "Viewing Discussion Board - #{@topic.name}", '#', class: 'btn btn-primary active' %>
     </div>

@@ -1,4 +1,12 @@
+<%
+   @pagetitle = "#{@subject.name}: Sections"
+   @page_class = 'sections index'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
 <h1 class="text-center"><%= @subject.name %>: Sections</h1>
+
 <table class="table table-striped">
   <thead>
     <th>Section Name</th>

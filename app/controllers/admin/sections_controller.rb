@@ -23,10 +23,16 @@ class Admin::SectionsController < ApplicationController
   end
 
   def update
-    @section = Section.find(params[:id])
-    # TODO Update WiziqClass Instructor_ids
+    @section = Section.includes(:wiz_iq_classes_single_classes).find(params[:id])
+    previous_instructor_id = @section.instructor_id
     if @section.update_attributes(section_params)
       flash[:success] = "The changes to section, #{params[:section][:codename]}, were successfully saved."
+      if previous_instructor_id != @section.instructor_id
+        @section.wiz_iq_classes_single_classes.each do |c|
+          c.instructor_id = @section.instructor_id
+          c.save
+        end
+      end
       redirect_to admin_subject_sections_path(@section.subject)
     else
       flash[:error] = "The changes to section, #{params[:section][:codename]}, could not be saved. Please try again. If the problem persists, contact an administrator"
