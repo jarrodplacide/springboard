@@ -24,6 +24,7 @@ class Admin::SectionsController < ApplicationController
 
   def update
     @section = Section.find(params[:id])
+    # TODO Update WiziqClass Instructor_ids
     if @section.update_attributes(section_params)
       flash[:success] = "The changes to section, #{params[:section][:codename]}, were successfully saved."
       redirect_to admin_subject_sections_path(@section.subject)

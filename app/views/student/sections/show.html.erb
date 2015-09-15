@@ -75,6 +75,15 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-12">
+      <div class="panel panel-default" id="discussion-panel">
+        <div class="panel-heading" role="tab" id="grades-heading">
+          <h4 class="panel-title">
+            <%= link_to "Discussion Board", student_subject_section_discussions_path(@section.subject, @section) %>
+          </h4>
+        </div>
+      </div>
+    </div>
     <div class="col-sm-4">
       <div class="panel panel-default" id="upcoming-schedule-panel">
         <div class="panel-heading" role="tab" id="upcoming-schedule-heading">
@@ -86,7 +95,9 @@
         </div>
         <div id="upcoming-schedule" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="upcoming-schedule-heading">
           <div class="panel-body">
-            This is the upcoming schedule.
+            <ul class="class-list">
+                <%= render partial: 'student/sections/upcoming_class', collection: @section.upcoming_classes %>
+            </ul>
           </div>
         </div>
       </div>
@@ -101,7 +112,11 @@
           </h4>
         </div>
         <div id="past-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="past-classes-heading">
-          You can access previously recorded classes below:
+          <div class="panel-body">
+            <ul class="class-list">
+                <%= render partial: 'student/sections/past_class', collection: @section.past_classes %>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -115,16 +130,7 @@
           </h4>
         </div>
         <div id="grades" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="grades-heading">
-            This is the grades panel
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="panel panel-default" id="discussion-panel">
-        <div class="panel-heading" role="tab" id="grades-heading">
-            <h4 class="panel-title">
-              <%= link_to "Discussion Board", student_subject_section_discussions_path(@section.subject, @section) %>
-            </h4>
+            <div class="panel-body"></div>
         </div>
       </div>
     </div>

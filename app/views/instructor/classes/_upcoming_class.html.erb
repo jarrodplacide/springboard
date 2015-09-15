@@ -1,0 +1,7 @@
+<tr>
+  <td><%= upcoming_class.start_time.strftime("%m/%d/%Y") %></td>
+  <td><%= upcoming_class.start_time.strftime("%I:%M %p") %></td>
+  <td><%= upcoming_class.duration %></td>
+  <td><%= upcoming_class.name %></td>
+  <td><%= link_to 'Enter Class', upcoming_class.instructor_url, class: 'btn btn-primary' %></td>
+</tr>

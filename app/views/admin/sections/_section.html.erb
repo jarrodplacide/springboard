@@ -33,6 +33,10 @@
         <li role='separator' class='divider'></li>
         <li><%= link_to 'View Section Statistics', '#' %></li>
         <li role='separator' class='divider'></li>
+        <li><%= link_to 'Add Class', new_admin_subject_section_class_path(section.subject, section) %></li>
+        <li><%= link_to 'Add Weekly Recurring Class', admin_subject_section_newweekly_path(section.subject, section) %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= link_to 'View Classes', admin_subject_section_classes_path(section.subject, section) %></li>
       </ul>
     </div>
   </td>

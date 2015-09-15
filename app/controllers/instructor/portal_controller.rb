@@ -22,6 +22,10 @@ class Instructor::PortalController < ApplicationController
   		flash[:error] = 'The passwords you entered did not match'
   		redirect_to instructor_portal_path
   	end
-  end
+	end
+
+	def schedule
+		@instructor = Instructor.includes(:upcoming_classes, :past_classes).find(current_instructor.id)
+	end
 
 end

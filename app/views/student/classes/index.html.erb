@@ -1,0 +1,8 @@
+<%
+   @pagetitle = "Course: #{@section.subject.name} - Classes"
+   if not @subscription.end_date.nil? and @subscription.end_date < Date.today
+     @page_class = 'classes-page index'
+   else
+     @page_class = 'classes-page'
+   end
+%>

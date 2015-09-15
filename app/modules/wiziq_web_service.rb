@@ -1,0 +1,2 @@
+class WiziqWebService
+end

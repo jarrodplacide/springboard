@@ -1,0 +1,5 @@
+<tr>
+  <td><%= past_class.start_time.strftime("%m/%d/%Y") %></td>
+  <td><%= past_class.name %></td>
+  <td><%= link_to 'View Recording', past_class.recording_url, class: 'btn btn-primary' %></td>
+</tr>

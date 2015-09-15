@@ -10,6 +10,7 @@
 	    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
 	      <%= link_to 'Back to Section Home Page', instructor_section_path(@section), class: 'btn btn-default' %>
 	      <%= link_to 'Viewing Student Roster', '#', class: 'btn btn-primary active' %>
+          <%= link_to 'Schedule Class', new_instructor_section_class_path(@section), class: 'btn btn-primary' %>
           <%= link_to 'Discussion Board', instructor_section_discussions_path(@section), class: 'btn btn-primary' %>
 	    </div>
 	</div>

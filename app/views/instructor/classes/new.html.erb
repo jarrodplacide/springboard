@@ -1,0 +1,35 @@
+<%
+   @pagetitle = 'Add New Class'
+   @page_class = 'classes new'
+%>
+
+
+<h1 class="text-center">Add New Class</h1>
+<%= render partial: 'layouts/messages' %>
+
+<div class="well well-lg">
+  <%= form_for @wiziqclass, url: instructor_section_classes_path(@wiziqclass.section_id), method: :post do |f| %>
+      <div class="form-group">
+        <%= f.label :title, 'Class Title' %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_time, 'Class Date & Start Time' %>
+        <%= f.datetime_select :start_time, {}, {class: 'form-control'} %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :create_recording, 'Create Recording' %>
+        <%= f.check_box :create_recording %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :duration, 'Duration (in minutes)' %>
+        <%= f.number_field :duration %>
+      </div>
+
+      <%= f.submit "Add Class", class: 'btn btn-large btn-primary' %>
+  <% end %>
+</div>
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820142219) do
+ActiveRecord::Schema.define(version: 20150910003908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,5 +185,25 @@ ActiveRecord::Schema.define(version: 20150820142219) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
+
+  create_table "wiz_iq_classes", force: :cascade do |t|
+    t.integer  "wiziqclass_id"
+    t.integer  "instructor_id"
+    t.string   "instructor_url"
+    t.string   "administrator_url"
+    t.string   "name"
+    t.datetime "start_time"
+    t.integer  "duration"
+    t.boolean  "recording_requested"
+    t.string   "recording_url"
+    t.integer  "section_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "type"
+  end
+
+  add_index "wiz_iq_classes", ["instructor_id"], name: "index_wiz_iq_classes_on_instructor_id", using: :btree
+  add_index "wiz_iq_classes", ["section_id"], name: "index_wiz_iq_classes_on_section_id", using: :btree
+  add_index "wiz_iq_classes", ["wiziqclass_id"], name: "index_wiz_iq_classes_on_wiziqclass_id", unique: true, using: :btree
 
 end

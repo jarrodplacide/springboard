@@ -10,3 +10,32 @@
 .single-column-form {
   width: 70%;
 }
+
+.alert {
+  text-align: center;
+  margin: 0 auto 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+
+  &.alert-alert {
+    background: #f2dede;
+    color: #a94442;
+    border-color: #ebccd1;
+  }
+
+  &.alert-notice {
+    background: #d9edf7;
+    color: #31708f;
+    border-color: #bce8f1;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      font-size: inherit !important;
+    }
+  }
+}

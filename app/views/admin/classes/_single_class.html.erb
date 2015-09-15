@@ -1,0 +1,19 @@
+<tr>
+  <td><%= single_class.name %></td>
+  <td><%= single_class.start_time.strftime("%a %d %b %Y") %></td>
+  <td><%= single_class.start_time.strftime("%I:%M%p") %></td>
+  <td><%= single_class.duration %></td>
+  <td>
+    <div class='btn-group'>
+      <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Options <span class='caret'></span>
+      </button>
+      <ul class='dropdown-menu'>
+        <li><%= link_to 'View Class Details', admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class) %></li>
+        <li role='separator' class='divider'></li>
+        <li><%= link_to 'Edit Class Details', edit_admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class) %></li>
+        <li><%= link_to 'Cancel Class', admin_subject_section_class_path(single_class.section.subject, single_class.section, single_class), method: :delete, data: {confirm: 'Are you sure?'} %></li>
+      </ul>
+    </div>
+  </td>
+</tr>
