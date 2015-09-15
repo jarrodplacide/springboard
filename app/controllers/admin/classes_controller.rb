@@ -11,15 +11,31 @@ class Admin::ClassesController < ApplicationController
     @section = Section.includes(:subject).find(params[:section_id])
   end
 
-  def newrecurring
+  def newweekly
+    @recurring_class = RecurringClass.new
+    @section = Section.includes(:subject).find(params[:section_id])
+  end
 
+  def createweekly
+    recurring_class = RecurringClass.new(recurring_class_params)
+    recurring_class.section_id = params[:section_id]
+    section = Section.includes(:instructor).find(params[:section_id])
+    recurring_class.instructor_id = section.instructor_id
+    recurring_class.set_start_time = params[:recurring_class]
+    if recurring_class.save_weekly
+      flash[:success] = 'Your classes have been scheduled successfully.'
+      redirect_to admin_subject_section_classes_path(params[:subject_id], params[:section_id])
+    else
+      flash[:error] = 'An error occurred'
+      redirect_to admin_subject_section_newweekly_path(params[:subject_id], params[:section_id])
+    end
   end
 
   def create
     wiziqclass = SingleClass.new(class_params)
     section = Section.includes(:instructor).find(params[:section_id])
     wiz = WiziqWebService::Api::WiziqClass.new
-    response = symbolize(wiz.create(wiziqclass.name, wiziqclass.start_time, wiziqclass.recording_requested, admin_subject_section_path(params[:subject_id], params[:section_id]), wiziqclass.duration))
+    response = symbolize(wiz.create(wiziqclass.name, wiziqclass.start_time.strftime("%m/%d/%Y %H:%M"), wiziqclass.recording_requested, admin_subject_section_path(params[:subject_id], params[:section_id]), wiziqclass.duration))
     if not response[:rsp].try(:[], :error).nil?
       # TODO Improve Error Handling in Order to Specific Errors. Write Error Handler Method
       flash[:error] = 'A problem occurred with the system. Please contact an administrator'
@@ -92,5 +108,9 @@ class Admin::ClassesController < ApplicationController
 
   def class_params
     params.require(:single_class).permit(:name, :recording_requested, :start_time, :duration)
+  end
+
+  def recurring_class_params
+    params.require(:recurring_class).permit(:name, :recording_requested, :duration, :no_of_classes)
   end
 end

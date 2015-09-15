@@ -95,8 +95,8 @@
 #                                                                  PATCH     /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#update
 #                                                                  PUT       /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#update
 #                                                                  DELETE    /instructor/sections/:section_id/classes/:id(.:format)                                                                                            instructor/classes#destroy
-#                          instructor_section_classes_newrecurring GET       /instructor/sections/:section_id/classes/newrecurring(.:format)                                                                                   instructor/classes#newrecurring
-#                       instructor_section_classes_createrecurring POST      /instructor/sections/:section_id/classes/createrecurring(.:format)                                                                                instructor/classes#createrecurring
+#                                  instructor_section_newrecurring GET       /instructor/sections/:section_id/classes/newrecurring(.:format)                                                                                   instructor/classes#newrecurring
+#                               instructor_section_createrecurring POST      /instructor/sections/:section_id/classes/createrecurring(.:format)                                                                                instructor/classes#createrecurring
 #                                 email_instructor_section_student GET       /instructor/sections/:section_id/students/:id/email(.:format)                                                                                     instructor/students#email
 #                          emailparents_instructor_section_student GET       /instructor/sections/:section_id/students/:id/emailparents(.:format)                                                                              instructor/students#emailparents
 #                             sendemail_instructor_section_student POST      /instructor/sections/:section_id/students/:id/sendemail(.:format)                                                                                 instructor/students#sendemail
@@ -144,8 +144,8 @@
 #                                                                  PATCH     /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
 #                                                                  PUT       /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
 #                                                                  DELETE    /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#destroy
-#                       admin_subject_section_classes_newrecurring GET       /admin/subjects/:subject_id/sections/:section_id/classes/newrecurring(.:format)                                                                   admin/classes#newrecurring
-#                    admin_subject_section_classes_createrecurring POST      /admin/subjects/:subject_id/sections/:section_id/classes/createrecurring(.:format)                                                                admin/classes#createrecurring
+#                                  admin_subject_section_newweekly GET       /admin/subjects/:subject_id/sections/:section_id/classes/newweekly(.:format)                                                                      admin/classes#newweekly
+#                               admin_subject_section_createweekly POST      /admin/subjects/:subject_id/sections/:section_id/classes/createweekly(.:format)                                                                   admin/classes#createweekly
 #                                           admin_subject_sections GET       /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#index
 #                                                                  POST      /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#create
 #                                        new_admin_subject_section GET       /admin/subjects/:subject_id/sections/new(.:format)                                                                                                admin/sections#new
@@ -286,8 +286,8 @@ Rails.application.routes.draw do
           get 'close'
         end
         resources :classes
-        get 'classes/newrecurring', to: 'classes#newrecurring', as: :newrecurring
-        post 'classes/createrecurring', to: 'classes#createrecurring', as: :createrecurring
+        get 'class/newweekly', to: 'classes#newweekly', as: :newweekly
+        post 'class/createweekly', to: 'classes#createweekly', as: :createweekly
       end
     end
     resources :instructors do

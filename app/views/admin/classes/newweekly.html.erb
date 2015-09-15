@@ -1,0 +1,29 @@
+<h1 class='text-center'>Add New Weekly Class for <%= @section.codename %></h1>
+<%= form_for @recurring_class, url: admin_subject_section_createweekly_path(@section.subject, @section), html: {class: 'single-column-form center-block'} do |f| %>
+    <div class="form-group">
+      <%= f.label :name, 'Class Title' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :start_time, 'Class Date & Start Time' %>
+      <%= f.datetime_select :start_time, ampm: true, order: [:hour, :minute, :day, :month, :year] %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :recording_requested, 'Create Recording' %>
+      <%= f.check_box :recording_requested %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :duration, 'Duration (in minutes)' %>
+      <%= f.number_field :duration, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :no_of_classes, 'Number of Classes' %>
+      <%= f.number_field :no_of_classes, class: 'form-control' %>
+    </div>
+
+    <%= f.submit "Add Classes", class: 'btn btn-large btn-primary' %>
+<% end %>
