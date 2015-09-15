@@ -1,0 +1,58 @@
+<%
+   @pagetitle = 'Schedule'
+   @page_class = 'portal-schedule'
+%>
+
+
+<%= render partial: 'layouts/messages' %>
+
+<div class="col-sm-12">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="upcomingclasses-heading">
+      <h4 class="panel-title">
+        <a href="#upcomingclasses" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="announcements">
+          Upcoming Classes
+        </a>
+      </h4>
+    </div>
+    <div id="upcomingclasses" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="upcomingclasses-heading">
+      <div class="panel-body">
+        <table class="table table-striped">
+          <thead>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Duration (mins)</th>
+          <th>Title</th>
+          <th></th>
+          </thead>
+          <tbody>
+          <%= render partial: 'instructor/classes/upcoming_class', collection: @instructor.upcoming_classes %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="pastclasses-heading">
+      <h4 class="panel-title">
+        <a href="#pastclasses" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="pastclasses">
+          Past Classes
+        </a>
+      </h4>
+    </div>
+    <div id="pastclasses" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="pastclasses-heading">
+      <div class="panel-body">
+        <table class="table table-striped">
+          <thead>
+          <th>Date</th>
+          <th>Title</th>
+          <th></th>
+          </thead>
+          <tbody>
+          <%= render partial: 'instructor/classes/past_class', collection: @instructor.past_classes %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

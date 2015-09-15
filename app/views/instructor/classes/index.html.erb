@@ -1,2 +1,69 @@
-<h1>Instructor::Classes#index</h1>
-<p>Find me in app/views/instructor/classes/index.html.erb</p>
+<%
+   @pagetitle = 'Class Schedule'
+   @page_class = 'classes index'
+%>
+
+<%= render partial: 'layouts/messages'  %>
+
+<div class='row'>
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@section), class: 'btn btn-default' %>
+      <%= link_to 'Viewing Class Schedule', '#', class: 'btn btn-primary active' %>
+      <%= link_to 'Discussion Board', instructor_section_discussions_path(@section), class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="upcomingclasses-heading">
+        <h4 class="panel-title">
+          <a href="#upcomingclasses" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="announcements">
+            Upcoming Classes
+          </a>
+        </h4>
+      </div>
+      <div id="upcomingclasses" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="upcomingclasses-heading">
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Duration (mins)</th>
+                <th>Title</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <%= render partial: 'instructor/classes/upcoming_class', collection: @section.upcoming_classes %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="pastclasses-heading">
+        <h4 class="panel-title">
+          <a href="#pastclasses" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="pastclasses">
+            Past Classes
+          </a>
+        </h4>
+      </div>
+      <div id="pastclasses" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="pastclasses-heading">
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+                <th>Date</th>
+                <th>Title</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <%= render partial: 'instructor/classes/past_class', collection: @section.past_classes %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>		
+
+

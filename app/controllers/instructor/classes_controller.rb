@@ -13,7 +13,7 @@ class Instructor::ClassesController < ApplicationController
   end
 
   def index
-
+    @section = Section.includes(:upcoming_classes, :past_classes).find(params[:section_id])
   end
 
   def create

@@ -35,6 +35,7 @@
 #                                    student_verification_required GET       /student/verification_required(.:format)                                                                                                          student/static_pages#verification_required
 #                         student_password_reset_instructions_sent GET       /student/password-reset-instructions-sent(.:format)                                                                                               student/static_pages#password_reset
 #                                                   student_portal GET       /student/portal(.:format)                                                                                                                         student/portal#home
+#                                                student_schedules GET       /student/schedules(.:format)                                                                                                                      student/portal#schedule
 #                                      student_new_student_profile GET       /student/portal/new-student-profile(.:format)                                                                                                     student/portal#edit_profile
 #                            student_portal_update_student_profile PATCH|PUT /student/portal/update-student-profile(.:format)                                                                                                  student/portal#update_profile
 #                               student_new_parent_for_new_profile GET       /student/portal/add-parent-to-student(.:format)                                                                                                   student/portal#new_parent_for_new_profile
@@ -84,6 +85,7 @@
 #                                                                  GET       /instructor/unlock(.:format)                                                                                                                      instructors/unlocks#show
 #                                                  instructor_root GET       /instructor(.:format)                                                                                                                             instructor/portal#home
 #                                                instructor_portal GET       /instructor/portal(.:format)                                                                                                                      instructor/portal#home
+#                                       instructor_portal_schedule GET       /instructor/portal/schedule(.:format)                                                                                                             instructor/portal#schedule
 #                                          instructor_show_profile GET       /instructor/portal/my-profile(.:format)                                                                                                           instructor/portal#show_profile
 #                                        instructor_update_profile GET       /instructor/portal/update-profile(.:format)                                                                                                       instructor/portal#update_profile
 #                                       instructor_change_password PATCH|PUT /instructor/portal/change-password(.:format)                                                                                                      instructor/portal#change_password
@@ -144,8 +146,8 @@
 #                                                                  PATCH     /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
 #                                                                  PUT       /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#update
 #                                                                  DELETE    /admin/subjects/:subject_id/sections/:section_id/classes/:id(.:format)                                                                            admin/classes#destroy
-#                                  admin_subject_section_newweekly GET       /admin/subjects/:subject_id/sections/:section_id/classes/newweekly(.:format)                                                                      admin/classes#newweekly
-#                               admin_subject_section_createweekly POST      /admin/subjects/:subject_id/sections/:section_id/classes/createweekly(.:format)                                                                   admin/classes#createweekly
+#                                  admin_subject_section_newweekly GET       /admin/subjects/:subject_id/sections/:section_id/class/newweekly(.:format)                                                                        admin/classes#newweekly
+#                               admin_subject_section_createweekly POST      /admin/subjects/:subject_id/sections/:section_id/class/createweekly(.:format)                                                                     admin/classes#createweekly
 #                                           admin_subject_sections GET       /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#index
 #                                                                  POST      /admin/subjects/:subject_id/sections(.:format)                                                                                                    admin/sections#create
 #                                        new_admin_subject_section GET       /admin/subjects/:subject_id/sections/new(.:format)                                                                                                admin/sections#new
@@ -206,6 +208,7 @@ Rails.application.routes.draw do
     get 'verification_required' => 'static_pages#verification_required'
     get 'password-reset-instructions-sent' => 'static_pages#password_reset'
     get 'portal/' => 'portal#home'
+    get 'schedules/' => 'portal#schedule'
     get 'portal/new-student-profile' => 'portal#edit_profile', as: :new_student_profile
     match 'portal/update-student-profile', to: 'portal#update_profile', via: [:patch, :put]
     get 'portal/add-parent-to-student', to: 'portal#new_parent_for_new_profile', as: :new_parent_for_new_profile
@@ -248,6 +251,7 @@ Rails.application.routes.draw do
   namespace :instructor do
     root :to => 'portal#home'
     get 'portal' => 'portal#home'
+    get 'portal/schedule' => 'portal#schedule'
     get 'portal/my-profile', to: 'portal#show_profile', as: :show_profile
     get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
     match 'portal/change-password', to: 'portal#change_password', as: :change_password, via: [:patch, :put]
