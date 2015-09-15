@@ -1,0 +1,6 @@
+<li>
+  <p class="class-date pull-left"><em><%= single_class.start_time.strftime("%d/%m/%Y") %></em></p>
+  <div class="clearfix"></div>
+  <h4><%= single_class.name %></h4>
+  <p><%= link_to 'Go To Recording', single_class.recording_url, class: 'btn btn-primary btn-sm' %></p>
+</li>

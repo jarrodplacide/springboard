@@ -26,6 +26,11 @@
 #
 
 class SingleClass < WizIqClass
+  # Scopes
+  #scope :upcoming, -> {where(start_time > DateTime.now)}
+  # TODO Change to Class Status to Differentiate between Past & Current
+  #scope :past, -> {where(start_time < DateTime.now)}
+
   # Belongs to a Section
   belongs_to :section, inverse_of: :wiz_iq_classes_single_classes
 

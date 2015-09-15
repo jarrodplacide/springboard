@@ -17,6 +17,10 @@
 class Section < ActiveRecord::Base
   scope :newest, -> { order(start_date: :desc) }
 
+  has_many :upcoming_classes, -> { where("start_time > ?", DateTime.now).order('start_time ASC') }, class_name: 'SingleClass'
+
+  has_many :past_classes, -> {where("start_time < ?", DateTime.now).order('start_time DESC') }, class_name: 'SingleClass'
+
   # Belongs to a Subject
   belongs_to :subject, inverse_of: :sections
 
