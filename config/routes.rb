@@ -184,6 +184,7 @@
 
 Rails.application.routes.draw do
 
+  devise_for :parents
   root 'static_pages#home'
 
   namespace :student do

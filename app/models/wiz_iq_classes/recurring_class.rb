@@ -38,7 +38,6 @@ class RecurringClass
   attr_reader :api
 
   def save_class
-    byebug
     response = WiziqWebService::Api.symbolize(api.create(name, start_time.strftime("%m/%d/%Y %H:%M"), recording_requested == '1' ? true : false, RETURN_URL, duration))
     if not response[:rsp].try(:[], :error).nil?
       false
