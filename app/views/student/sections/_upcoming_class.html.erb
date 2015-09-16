@@ -2,5 +2,7 @@
   <p class="class-date pull-left"><em><%= upcoming_class.start_time.strftime("%m/%d/%Y %I:%M %p") %></em></p>
   <div class="clearfix"></div>
   <h4><%= upcoming_class.name %></h4>
-  <p><%= link_to 'Enter Class', upcoming_class.instructor_url, class: 'btn btn-primary btn-sm' %></p>
+  <% if DateTime.now > (upcoming_class.start_time - 15.minutes) %>
+    <p><%= link_to 'Enter Class', upcoming_class.instructor_url, class: 'btn btn-primary btn-sm' %></p>
+  <% end %>
 </li>

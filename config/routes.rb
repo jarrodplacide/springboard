@@ -89,6 +89,8 @@
 #                                          instructor_show_profile GET       /instructor/portal/my-profile(.:format)                                                                                                           instructor/portal#show_profile
 #                                        instructor_update_profile GET       /instructor/portal/update-profile(.:format)                                                                                                       instructor/portal#update_profile
 #                                       instructor_change_password PATCH|PUT /instructor/portal/change-password(.:format)                                                                                                      instructor/portal#change_password
+#                                        upload_instructor_section GET       /instructor/sections/:id/upload(.:format)                                                                                                         instructor/sections#upload
+#                                     send_file_instructor_section POST      /instructor/sections/:id/send_file(.:format)                                                                                                      instructor/sections#send_file
 #                                       instructor_section_classes GET       /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#index
 #                                                                  POST      /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#create
 #                                     new_instructor_section_class GET       /instructor/sections/:section_id/classes/new(.:format)                                                                                            instructor/classes#new
@@ -256,6 +258,10 @@ Rails.application.routes.draw do
     get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
     match 'portal/change-password', to: 'portal#change_password', as: :change_password, via: [:patch, :put]
     resources :sections, only: [:index, :show] do
+      member do
+        get 'upload'
+        post 'send_file'
+      end
       resources :classes
       get 'classes/newrecurring', to: 'classes#newrecurring', as: :newrecurring
       post 'classes/createrecurring', to: 'classes#createrecurring', as: :createrecurring

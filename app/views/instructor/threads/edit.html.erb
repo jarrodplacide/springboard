@@ -13,6 +13,7 @@
       <%= link_to 'Back to Discussion Board Home', instructor_section_discussions_path(@thread.board_topic.discussion_board.section), class: 'btn btn-default' %>
       <%= link_to 'View Student Roster', '#', class: 'btn btn-primary' %>
       <%= link_to "Viewing Discussion Board - Edit #{@thread.title}", '#', class: 'btn btn-primary active' %>
+      <%= link_to 'Upload File', upload_instructor_section_path(@thread.board_topic.discussion_board.section), class: 'btn btn-primary' %>
     </div>
   </div>
 
