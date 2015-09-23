@@ -186,6 +186,7 @@ Rails.application.routes.draw do
 
   devise_for :parents
   root 'static_pages#home'
+  get 'contact-us' => 'static_pages#contactus'
 
   namespace :student do
     root to: 'portal#home'

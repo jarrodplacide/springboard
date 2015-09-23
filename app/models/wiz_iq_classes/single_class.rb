@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150910003908
+# Schema version: 20150916213052
 #
 # Table name: wiz_iq_classes
 #
@@ -17,6 +17,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  type                :string
+#  status              :integer          default(0)
 #
 # Indexes
 #
@@ -41,4 +42,7 @@ class SingleClass < WizIqClass
     self.administrator_url = attributes[:class_details][:presenter_list][:presenter][:co_presenter_url]
     self.recording_url = attributes[:class_details][:recording_url]
   end
+
+  # Enums for status
+  enum status: [:upcoming, :in_progress, :completed, :not_held]
 end
