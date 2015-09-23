@@ -1,16 +1,17 @@
+<% portal_or_login = student_signed_in? ? 'portal-link' : 'login-link' %>
+
 <div class='topbar' id="static-page-navbar">
   <div class='container-fluid'>
     <div class='row'>
-      <% if student_signed_in? %>
-          <div class='col-sm-1 text-left' id='portal-link'>
+      <div class="col-sm-2 text-left" id="<%= portal_or_login %>">
+          <% if student_signed_in? %>
             <%= link_to 'Student Portal Home',  student_portal_path, class: 'link' %>
-          </div>
-      <% else %>
-          <div class='col-sm-1 text-left' id='login-link'>
+          <% else %>
             <%= link_to "Login", new_student_session_path, class: 'link' %>
-          </div>
-      <% end %>
-      <div class='col-sm-10 text-center' id="logo">
+          <% end %>
+          <%= link_to "Contact Us", contact_us_path, class: 'link' %>
+      </div>
+      <div class='col-sm-9 text-center' id="logo">
         <%= link_to(image_tag('logo.png', alt: 'Springboard Academy Logo', id: 'logo-image', class: 'img-responsive'), root_path) %>
       </div>
       <% if student_signed_in? %>
