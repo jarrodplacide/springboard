@@ -39,4 +39,10 @@ class Section < ActiveRecord::Base
 
   # Has Zero or One Discussion Board
   has_one :discussion_board, inverse_of: :section
+
+  # Has many folders
+  has_many :folders, inverse_of: :section
+
+  # Has one top level folder
+  has_one :folder, -> {where(main_folder: true)}
 end

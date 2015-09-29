@@ -10,6 +10,8 @@ class Admin::SectionsController < ApplicationController
     @subject = Subject.find(params[:subject_id])
     if @subject.sections.create(section_params)
       flash[:success] = "The section, #{params[:section][:codename]}, was successfully added."
+      section = Section.last
+      Folder.create({section_id: section.id, main_folder: true})
       redirect_to admin_subject_sections_path(@subject)
     else
       flash[:error] = "The section, #{params[:section][:codename]}, could not be added to #{@subject.name}. Please try again. If the problem persists, contact an administrator"

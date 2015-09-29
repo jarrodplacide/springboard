@@ -33,6 +33,12 @@ gem 'country_select', github: 'stefanpenner/country_select'
 # Use Devise for User Authentication
 gem 'devise'
 
+# Use FOG for External Storage
+gem 'fog'
+
+# Use Carrierwave to manage file uploads
+gem 'carrierwave'
+
 # Use HTTP for External API Access
 gem 'httparty'
 gem 'httmultiparty'
