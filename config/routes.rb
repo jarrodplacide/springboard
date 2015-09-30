@@ -45,6 +45,7 @@
 #                                                                  PUT       /student/subjects/:subject_id/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                              student/threads#update
 #                                                                  DELETE    /student/subjects/:subject_id/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:id(.:format)                              student/threads#destroy
 #                              student_subject_section_discussions GET       /student/subjects/:subject_id/sections/:section_id/discussions(.:format)                                                                          student/discussions#index
+#                                  student_subject_section_folders POST      /student/subjects/:subject_id/sections/:section_id/folders(.:format)                                                                              student/folders#create
 #                                         student_subject_sections POST      /student/subjects/:subject_id/sections(.:format)                                                                                                  student/sections#create
 #                                      new_student_subject_section GET       /student/subjects/:subject_id/sections/new(.:format)                                                                                              student/sections#new
 #                                          student_subject_section GET       /student/subjects/:subject_id/sections/:id(.:format)                                                                                              student/sections#show
@@ -111,8 +112,16 @@
 #                                          instructor_show_profile GET       /instructor/portal/my-profile(.:format)                                                                                                           instructor/portal#show_profile
 #                                        instructor_update_profile GET       /instructor/portal/update-profile(.:format)                                                                                                       instructor/portal#update_profile
 #                                       instructor_change_password PATCH|PUT /instructor/portal/change-password(.:format)                                                                                                      instructor/portal#change_password
-#                                        upload_instructor_section GET       /instructor/sections/:id/upload(.:format)                                                                                                         instructor/sections#upload
-#                                     send_file_instructor_section POST      /instructor/sections/:id/send_file(.:format)                                                                                                      instructor/sections#send_file
+#                               instructor_section_folder_contents POST      /instructor/sections/:section_id/folders/:folder_id/contents(.:format)                                                                            instructor/contents#create
+#                            new_instructor_section_folder_content GET       /instructor/sections/:section_id/folders/:folder_id/contents/new(.:format)                                                                        instructor/contents#new
+#                                instructor_section_folder_content DELETE    /instructor/sections/:section_id/folders/:folder_id/contents/:id(.:format)                                                                        instructor/contents#destroy
+#                                       instructor_section_folders GET       /instructor/sections/:section_id/folders(.:format)                                                                                                instructor/folders#index
+#                                                                  POST      /instructor/sections/:section_id/folders(.:format)                                                                                                instructor/folders#create
+#                                   edit_instructor_section_folder GET       /instructor/sections/:section_id/folders/:id/edit(.:format)                                                                                       instructor/folders#edit
+#                                        instructor_section_folder GET       /instructor/sections/:section_id/folders/:id(.:format)                                                                                            instructor/folders#show
+#                                                                  PATCH     /instructor/sections/:section_id/folders/:id(.:format)                                                                                            instructor/folders#update
+#                                                                  PUT       /instructor/sections/:section_id/folders/:id(.:format)                                                                                            instructor/folders#update
+#                                                                  DELETE    /instructor/sections/:section_id/folders/:id(.:format)                                                                                            instructor/folders#destroy
 #                                       instructor_section_classes GET       /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#index
 #                                                                  POST      /instructor/sections/:section_id/classes(.:format)                                                                                                instructor/classes#create
 #                                     new_instructor_section_class GET       /instructor/sections/:section_id/classes/new(.:format)                                                                                            instructor/classes#new
@@ -226,6 +235,7 @@ Rails.application.routes.draw do
             end
           end
         end
+        resources :folders, only: [:create]
       end
       post 'payments/offline-payment', to: 'payments#offline_payment', as: :offline_payment
       get 'payments/offline-payment-info', to: 'payments#offline_payment_information', as: :offline_payment_info
@@ -282,9 +292,8 @@ Rails.application.routes.draw do
     get 'portal/update-profile', to: 'portal#update_profile', as: :update_profile
     match 'portal/change-password', to: 'portal#change_password', as: :change_password, via: [:patch, :put]
     resources :sections, only: [:index, :show] do
-      member do
-        get 'upload'
-        post 'send_file'
+      resources :folders, except: [:new] do
+        resources :contents, only: [:new, :create, :destroy]
       end
       resources :classes
       get 'classes/newrecurring', to: 'classes#newrecurring', as: :newrecurring

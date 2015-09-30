@@ -1,0 +1,40 @@
+<%
+   @pagetitle = "#{@content.folder.section.subject.name}: Upload File"
+   @page_class = 'instructor-portal upload_file'
+%>
+
+<h1 class="text-center"><%= @content.folder.section.subject.name %>: Upload File</h1>
+
+<%= render partial: 'layouts/messages' %>
+
+
+<div class='row'>
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'View Schedule', instructor_section_classes_path(@content.folder.section), class: 'btn btn-primary' %>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@content.folder.section), class: 'btn btn-primary' %>
+      <%= link_to 'Discussion Board', instructor_section_discussions_path(@content.folder.section), class: 'btn btn-primary' %>
+      <%= link_to 'Upload File', '#', class: 'active btn btn-primary' %>
+      <%= link_to 'Back to Folder', '#', class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="col-xs-9 col-sm-9 col-md-9 scrollable">
+    <h1 class="text-center">Upload File</h1>
+    <div class="well well-lg">
+        <%= form_for @content, url: '#', method: :post do |f| %>
+            <div class="form-group">
+              <%= f.label :name, "Upload Name" %>
+              <%= f.text_field :name, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :filename, "Select File" %>
+              <%= f.file_field :filename, class: 'form-control' %>
+            </div>
+
+            <%= f.submit "Upload", class: 'btn btn-primary' %>
+        <% end %>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>

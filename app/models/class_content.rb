@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20150929221255
+# Schema version: 20150929225602
 #
 # Table name: class_contents
 #
@@ -8,6 +8,7 @@
 #  folder_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  name       :string
 #
 
 class ClassContent < ActiveRecord::Base

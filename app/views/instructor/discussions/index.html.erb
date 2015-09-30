@@ -13,6 +13,7 @@
       <%= link_to 'Schedule Class', new_instructor_section_class_path(@discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to 'View Student Roster', instructor_section_students_path(@discussion_board.section), class: 'btn btn-primary' %>
       <%= link_to 'Viewing Discussion Board', '#', class: 'btn btn-primary active' %>
+      <%= link_to 'Course Content', instructor_section_folders_path(@discussion_board.section), class: 'btn btn-primary' %>
     </div>
   </div>
 

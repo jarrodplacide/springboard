@@ -16,6 +16,11 @@ class Instructor::ClassesController < ApplicationController
     @section = Section.includes(:upcoming_classes, :past_classes).find(params[:section_id])
   end
 
+  def show
+    @url = params[:url]
+    render :show, layout: 'iframe'
+  end
+
   def create
     wiziqclass = SingleClass.new
     wiziqclass.details(params[:single_class])

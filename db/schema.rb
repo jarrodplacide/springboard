@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929223716) do
+ActiveRecord::Schema.define(version: 20150930005536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150929223716) do
     t.integer  "folder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "discussion_boards", force: :cascade do |t|
@@ -47,14 +48,12 @@ ActiveRecord::Schema.define(version: 20150929223716) do
 
   create_table "folders", force: :cascade do |t|
     t.string   "name"
-    t.integer  "parent_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "section_id"
     t.boolean  "main_folder"
+    t.integer  "parent_id"
   end
-
-  add_index "folders", ["parent_id"], name: "index_folders_on_parent_id", using: :btree
 
   create_table "instructors", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -244,5 +243,4 @@ ActiveRecord::Schema.define(version: 20150929223716) do
   add_index "wiz_iq_classes", ["section_id"], name: "index_wiz_iq_classes_on_section_id", using: :btree
   add_index "wiz_iq_classes", ["wiziqclass_id"], name: "index_wiz_iq_classes_on_wiziqclass_id", unique: true, using: :btree
 
-  add_foreign_key "folders", "parents"
 end

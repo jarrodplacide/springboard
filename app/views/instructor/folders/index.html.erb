@@ -1,0 +1,121 @@
+<%
+   @pagetitle = "#{@section.subject.name}: #{@section.codename} - Course Documents"
+   @page_class = 'course-content index'
+%>
+
+<h1 class="text-center"><%= @section.subject.name %>: <%= @section.codename %> - Course Documents</h1>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class='row'>
+  <!-- Side Menu -->
+  <div class='col-xs-3 col-sm-3 col-md-3 fixed'>
+    <div class='btn-group-vertical' role='group' aria-label='side-menu'>
+      <%= link_to 'Back to Section Home Page', instructor_section_path(@section), class: 'btn btn-default' %>
+      <%= link_to 'Schedule Class', new_instructor_section_class_path(@section), class: 'btn btn-primary' %>
+      <%= link_to 'View Student Roster', instructor_section_students_path(@section), class: 'btn btn-primary' %>
+      <%= link_to 'Discussion Board', instructor_section_discussions_path(@section), class: 'btn btn-primary' %>
+      <%= link_to 'Viewing Course Content', '#', class: 'active btn btn-primary' %>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class='col-xs-9 col-sm-9 col-md-9 scrollable'>
+    <%= link_to 'Add New Folder', "#add-new-folder-form", class: 'btn btn-primary pull-left', id: 'new-folder', role: 'button', 'aria-expanded': 'false', 'aria-controls': 'add-new-folder-form', data: {toggle: 'collapse'} %>
+    <%= link_to 'Upload File', '#add-new-file-form', class: 'btn btn-primary pull-right', id: 'upload-file', role: 'button', 'aria-expanded': 'false', 'aria-controls': 'add-new-file-form', data: {toggle: 'collapse'} %>
+    <div class="clearfix"></div>
+    <br/><br/>
+    <!-- Add New Folder Form -->
+    <div class="collapse" id="add-new-folder-form">
+        <div class="well">
+            <%= form_for @folder, url: instructor_section_folders_path(@section), method: :post do |f| %>
+              <div class="form-group">
+                <%= f.label :name, "Folder Name" %>
+                <%= f.text_field :name, class: 'form-control' %>
+              </div>
+
+              <%= f.hidden_field :section_id, value: @section.id %>
+              <%= f.hidden_field :parent_id, value: @section.folder.id %>
+
+              <%= f.submit "Create", class: 'btn btn-primary' %>
+            <% end %>
+        </div>
+    </div>
+
+    <!-- Add New File Form -->
+    <div class="collapse" id="add-new-file-form">
+      <div class="well">
+        <%= form_for @file, url: instructor_section_folder_contents_path(@section, @section.folder), method: :post do |f| %>
+            <div class="form-group">
+              <%= f.label :name, "Content Name" %>
+              <%= f.text_field :name, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :filename, "Select File" %>
+              <%= f.file_field :filename, class: 'form-control' %>
+            </div>
+
+            <%= f.hidden_field :folder_id, value: @section.folder.id %>
+
+            <%= f.submit "Upload", class: 'btn btn-primary' %>
+         <% end %>
+      </div>
+    </div>
+
+    <div class="well well-lg">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <% @section.folder.subfolders.each_with_index do |subfolder, index| %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id='<%= subfolder.name.strip.gsub(/\s/,'') + index.to_s %>'>
+                    <h4 class="panel-title">
+                      <a class="collapsed pull-left" role="button" data-toggle="collapse" data-parent="#accordion" href="#<%= subfolder.name.strip.gsub(/\s/,'') + index.to_s %>collapse" aria-expanded="true" aria-controls="<%= subfolder.name.strip.gsub(/\s/,'') + index.to_s %>collapse">
+                        <%= subfolder.name %>
+                      </a>
+                      <%= link_to 'Add File', "#add-new-file-to-folder-form#{index.to_s}", class: 'btn btn-primary btn-sm pull-right', role: 'button', 'aria-expanded': 'false', 'aria-controls': "add-new-file-to-folder-for #{index.to_s}", data: {toggle: 'collapse'} %>
+                      <div class="clearfix"></div>
+                    </h4>
+                </div>
+                <div id="<%= subfolder.name.strip.gsub(/\s/,'') + index.to_s %>collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= subfolder.name.strip.gsub(/\s/,'') + index.to_s %>">
+                    <div class="panel-body">
+                      <div class="collapse" id="add-new-file-to-folder-form<%= index.to_s %>">
+                        <div class="well well-lg">
+                          <%= form_for @file, url: instructor_section_folder_contents_path(@section, subfolder.id), method: :post do |f| %>
+                              <div class="form-group">
+                                <%= f.label :name, "Content Name" %>
+                                <%= f.text_field :name, class: 'form-control' %>
+                              </div>
+
+                              <div class="form-group">
+                                <%= f.label :filename, "Select File" %>
+                                <%= f.file_field :filename, class: 'form-control' %>
+                              </div>
+
+                              <%= f.hidden_field :folder_id, value: subfolder.id %>
+
+                              <%= f.submit "Upload", class: 'btn btn-primary' %>
+                          <% end %>
+                        </div>
+                      </div>
+                        <ul class="list-group">
+                          <% subfolder.class_contents.each do |file| %>
+                            <li class="list-group-item"><%= link_to file.name, file.filename.url, target: "_blank" %></li>
+                          <% end %>
+                        </ul>
+                    </div>
+                </div>
+              </div>
+            <% end %>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @section.folder.class_contents.each do |file| %>
+                <li class="list-group-item"><%= link_to file.name, file.filename.url, target: "_blank" %></li>
+            <% end %>
+          </ul>
+        </div>
+    </div>
+  </div>
+  <div class='clearfix'></div>
+</div>
+

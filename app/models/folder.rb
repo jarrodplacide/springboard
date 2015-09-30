@@ -1,19 +1,15 @@
 # == Schema Information
-# Schema version: 20150929223716
+# Schema version: 20150930005536
 #
 # Table name: folders
 #
 #  id          :integer          not null, primary key
 #  name        :string
-#  parent_id   :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  section_id  :integer
 #  main_folder :boolean
-#
-# Indexes
-#
-#  index_folders_on_parent_id  (parent_id)
+#  parent_id   :integer
 #
 
 class Folder < ActiveRecord::Base
