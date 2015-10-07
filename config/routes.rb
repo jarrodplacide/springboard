@@ -59,8 +59,6 @@
 #                             student_subject_offline_payment_info GET       /student/subjects/:subject_id/payments/offline-payment-info(.:format)                                                                             student/payments#offline_payment_information
 #                            student_subject_register_payment_info PATCH|PUT /student/subjects/:subject_id/payments/register-payment/:id(.:format)                                                                             student/payments#register_payment_information
 #                                                 student_subjects GET       /student/subjects(.:format)                                                                                                                       student/subjects#index
-#                                                                  POST      /student/subjects(.:format)                                                                                                                       student/subjects#create
-#                                              new_student_subject GET       /student/subjects/new(.:format)                                                                                                                   student/subjects#new
 #                                    student_verification_required GET       /student/verification_required(.:format)                                                                                                          student/static_pages#verification_required
 #                         student_password_reset_instructions_sent GET       /student/password-reset-instructions-sent(.:format)                                                                                               student/static_pages#password_reset
 #                                                   student_portal GET       /student/portal(.:format)                                                                                                                         student/portal#home
@@ -228,7 +226,7 @@ Rails.application.routes.draw do
   namespace :student do
     root to: 'portal#home'
     resources :parents, only: [:create, :update, :destroy]
-    resources :subjects, only: [:new, :create, :index] do
+    resources :subjects, only: [:index] do
       member do
         post 'register'
         get 'payment'

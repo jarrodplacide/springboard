@@ -3,6 +3,9 @@ class Student::SubjectsController < ApplicationController
   before_action :student_subjects, :subjects, except: [:register]
   layout 'student_portal'
 
+  def index
+  end
+
   def register
     if not subscription = Subscription.where(student_id: current_student.id, subject_id: params[:id]).first
       subscription = Subscription.new(student_id: current_student.id, subject_id: params[:id])

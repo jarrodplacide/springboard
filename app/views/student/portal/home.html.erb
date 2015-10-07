@@ -5,6 +5,7 @@
 %>
 
 <%= render partial: 'layouts/messages' %>
+
 <% if @student_subjects.empty? %>
     <div class="well well-lg alert alert-dismissible fade in text-center" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -24,10 +25,10 @@
   <p class="text-left">Welcome <%= current_student.name %></p>
   <div class="row">
     <div class="col-xs-6 col-md-3 portal-option">
-        <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Subjects', class: 'img-responsive'), '#', class: 'thumbnail') %>
+        <%= link_to(image_tag('my-courses.jpg', alt: 'Course Center', class: 'img-responsive'), student_subjects_path, class: 'thumbnail') %>
     </div>
     <div class="col-xs-6 col-md-3 portal-option">
-      <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Schedule', class: 'img-responsive'), '#', class: 'thumbnail') %>
+      <%= link_to(image_tag('my-schedule.jpg', alt: 'My Schedule', class: 'img-responsive'), '#', class: 'thumbnail') %>
     </div>
     <div class="col-xs-6 col-md-3 portal-option">
       <%= link_to(image_tag('subjects-bg.jpg', alt: 'My Performance', class: 'img-responsive'), '#', class: 'thumbnail') %>

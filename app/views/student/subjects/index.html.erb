@@ -1,0 +1,23 @@
+<%
+   @pagetitle = 'Course Center'
+   @page_class = 'subjects index'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class="jumbotron">
+  <h1 class="text-center">Course Center</h1>
+  <% unless @student_subjects.empty? %>
+      <p>These are the subjects that you are currently registered for:</p>
+      <% @student_subjects.each do |section| %>
+        <%= link_to section.section.subject.name, student_subject_section_path(section.section.subject.id, section.section_id), class: 'btn btn-lg btn-primary' %>
+      <% end %>
+      <hr/>
+      <%= link_to "Register For A New Subject", '#', class: 'btn btn-danger' %>
+  <% else %>
+      <p>You aren't currently registered for any subjects. Select below to register for a subject:</p>
+      <% @subjects.each do |subject| %>
+          <%= link_to subject.name, register_student_subject_path(subject), method: :post, class: 'btn btn-primary' %>
+      <% end %>
+  <% end %>
+</div>
