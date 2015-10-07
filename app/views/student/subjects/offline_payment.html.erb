@@ -1,0 +1,25 @@
+<%
+   @pagetitle = 'Offline Payment Instructions'
+   @page_class = 'student offline-payment-instructions'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class="well well-lg" id="payment-months-selection">
+  <div class="form-group">
+      <%= label_tag :payment_months, "Select the number of months you would like to pay for:" %>
+      <%= select_tag :payment_months, options_for_select([['One Month', 1], ['Two Months', 2], ['Three Months', 3], ['Four Months', 4]], 1), class: 'form-control' %>
+  </div>
+  <%= submit_tag "Confirm Selection", class: 'btn btn-default', id: 'payment-months-select' %>
+</div>
+
+<div class="jumbotron" id="payment-instructions">
+  <div id="instructions">
+      <h1>Instructions for making an offline payment:</h1>
+      <p>Visit any Scotiabank branch in Trinidad &amp; Tobago. Deposit $<span id="payment-amount"></span> into A/C #1206010. Be sure to obtain and obtain a receipt from the cashier that should indicate the
+        amount, date, time &amp; transaction ID of the deposit.<br/>
+        Upon completion of deposit, return to the website through the student or parent portals, select this subject, and select the option to submit payment information.</p>
+      <p><strong>Please select below in order to initiate the process. This will also send a copy of the payment instructions to your e-mail.</strong></p>
+      <%= link_to 'Begin Offline Payment Process', initiate_offline_payment_student_subject_path(@subject), method: :post, class: 'btn btn-lg btn-primary' %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
 <div class="payment-methods">
-  <button class="btn btn-default btn-large" id="offline-payment-button">Offline Payment</button><br/>
-  <%= link_to "E-Payment via Paypal", '#', class: 'btn btn-default btn-large' %><br/>
+  <%= link_to "Offline Payment", offline_payment_student_subject_path(subject), class: 'btn btn-primary' %>
+  <%= link_to "E-Payment w/ Credit Card", e_payment_new_student_subject_path(subject), class: 'btn btn-primary' %>
 </div>

@@ -11,7 +11,7 @@ class Admin::PaymentsController < ApplicationController
       @payment = OfflinePayment.includes(subscription: [:subject, :student]).find(params[:id])
       @payment.status = 'verified'
       if @payment.save
-        if update_subscription(@payment.subscription)
+        if update_subscription(@payment.subscription, 1)
           student = Student.find(@payment.subscription.student_id)
           StudentMailer.verified_payment(student, @payment).deliver_now
           flash[:success] = "The payment, with transaction ID: #{@payment.transaction_id}, was successfully verified and an e-mail was sent to the student notifiying them of the course's availability"
@@ -31,13 +31,13 @@ class Admin::PaymentsController < ApplicationController
   end
 
   def complete_offline_payment
-    @payment = OfflinePayment.includes(subscription: [:subject, :student]).find(params[:id])
-    @payment.status = 'verified'
-    if @payment.update_attributes(payment_params)
-      if update_subscription(@payment.subscription)
-        student = Student.find(@payment.subscription.student_id)
-        StudentMailer.verified_payment(student, @payment).deliver_now
-        flash[:success] = "The payment, with transaction ID: #{@payment.transaction_id}, was successfully verified and an e-mail was sent to the student notifiying them of the course's availability"
+    payment = OfflinePayment.includes(subscription: [:subject, :student]).find(params[:id])
+    payment.status = 'verified'
+    if payment.update_attributes(payment_params)
+      if update_subscription(payment.subscription, (money_without_cents payment.amount)/200)
+        student = Student.find(payment.subscription.student_id)
+        StudentMailer.verified_payment(student, payment).deliver_now
+        flash[:success] = "The payment, with transaction ID: #{payment.transaction_id}, was successfully verified and an e-mail was sent to the student notifiying them of the course's availability"
       else
         raise ActiveRecord::Rollback, 'Subscription Extension Failed Silently!'
       end
@@ -50,22 +50,5 @@ class Admin::PaymentsController < ApplicationController
   private
   def payment_params
     params.require(:offline_payment).permit(:payment_date, :transaction_id, :amount)
-  end
-
-  def update_subscription(subscription)
-    student_section = StudentSection.includes(:section).find_by(student_id: subscription.student_id, subject_id: subscription.subject_id)
-    if subscription.start_date.nil?
-      subscription.start_date = student_section.section.start_date
-      subscription.end_date = student_section.section.start_date.next_month
-    elsif subscription.end_date > Date.today
-      subscription.end_date = subscription.end_date.next_month
-    elsif subscription.end_date < Date.today
-      subscription.end_date = Date.today.next_month
-    end
-    if subscription.save
-      return true
-    else
-      return false
-    end
   end
 end

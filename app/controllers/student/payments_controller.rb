@@ -42,7 +42,6 @@ class Student::PaymentsController < ApplicationController
       flash[:error] = 'An error occurred. Please try again'
       redirect_to student_subject_offline_payment_info_path(params[:subject_id])
     end
-
   end
 
   private

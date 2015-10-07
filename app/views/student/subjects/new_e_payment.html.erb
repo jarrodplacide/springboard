@@ -1,0 +1,127 @@
+<%
+   @pagetitle = "#{@subject.name}: E-Payment w/ Credit Card"
+   @page_class = 'student e-payment'
+%>
+
+<%= render partial: 'layouts/messages' %>
+
+<h1 class="text-center">E-Payment with Credit Card</h1>
+
+<div class="well well-lg" id="payment-months-select-container">
+  <div class="form-group">
+    <%= label_tag :payment_months, "Select the number of months you would like to pay for:" %>
+    <%= select_tag :payment_months, options_for_select([['One Month', 1], ['Two Months', 2], ['Three Months', 3], ['Four Months', 4]], 1), class: 'form-control' %>
+  </div>
+  <%= submit_tag "Confirm Selection", class: 'btn btn-default', id: 'payment-months-select' %>
+</div>
+
+<div class="well well-lg" id="checkout-form">
+  <p><strong>You have selected payment for <span id="months"></span> months. Therefore, a payment of $<span id="payment_amount"></span> is required.</strong></p>
+  <%= form_tag '#', id: 'credit-card-form' do %>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">
+          <%= label_tag :ccNo, "Card Number" %>
+          <%= text_field_tag :ccNo, nil, autocomplete: 'off', required: true, class: 'form-control' %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :expirationDate, "Expiration Date (MM/YYYY)" %>
+      <div class="row">
+        <div class="col-xs-1">
+          <%= text_field_tag :expMonth, nil, required: true, size: 2, placeholder: 'MM', class: 'form-control' %>
+        </div>
+        <div class="col-xs-1">
+          <%= text_field_tag :expYear, nil, required: true, size: 4, placeholder: 'YYYY', class: 'form-control' %>
+        </div>
+        <div class="clearfix"></div>
+       </div>
+    </div>
+    <br/>
+    <div class="form-group">
+      <%= label_tag :cvv, "CVC (3 Digit Security Code)" %>
+      <div class="row">
+        <div class="col-xs-1">
+          <%= text_field_tag :cvv, nil, required: true, class: 'form-control' %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <%= submit_tag "Authorize Transaction", class: 'btn btn-primary' %>
+  <% end %>
+
+  <%= form_tag e_payment_student_subject_path(@subject),  id: 'billing-address-form', method: :post do %>
+      <div class="form-group">
+        <%= label_tag :email, "E-Mail Address" %>
+        <%= email_field_tag :email, nil, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :phoneNumber, "Phone Number" %>
+        <%= text_field_tag :phoneNumber, nil, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :name, "Cardholder's Name" %>
+        <%= text_field_tag :name, nil, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :addrLine1, "Street Address" %>
+        <%= text_field_tag :addrLine1, nil, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :addrLine2, "Street Address" %>
+        <%= text_field_tag :addrLine2, nil, class: 'form-control' %>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-4">
+            <div class="form-group">
+              <%= label_tag :city, "City" %>
+              <%= text_field_tag :city, nil, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="col-xs-2">
+            <div class="form-group" id="state">
+              <%= label_tag :state, "State (2-Letter Code)" %>
+              <%= text_field_tag :state, nil, class: 'form-control' %>
+            </div>
+        </div>
+
+        <div class="col-xs-2">
+            <div class="form-group" id="zipcode">
+              <%= label_tag :zipCode, "Zip Code (5 digit zip code)" %>
+              <%= text_field_tag :zipCode, nil, class: 'form-control' %>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :country, "Country" %>
+        <%= country_select :billingAddr, :country, {priority_countries: ["TT"], format: :with_alpha3}, class: 'form-control' %>
+      </div>
+
+      <%= hidden_field_tag :total %>
+
+      <%= hidden_field_tag :tt_total %>
+
+      <%= hidden_field_tag :token %>
+
+      <%= hidden_field_tag :currency, 'USD' %>
+
+      <%= hidden_field_tag :no_of_months %>
+
+      <%= submit_tag "Make Payment", class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<!-- 2Checkout Script -->
+<%= javascript_include_tag "https://www.2checkout.com/checkout/api/2co.min.js" %>

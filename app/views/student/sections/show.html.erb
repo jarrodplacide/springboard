@@ -9,53 +9,36 @@
 
 <%= render partial: 'layouts/messages' %>
 <h1 class="text-center"><%= @section.subject.name %></h1>
+
 <!-- If The Subscription exists but it hasn't had it's first payment as yet -->
 <% if @subscription.end_date.nil? and @subscription.payments == 0 %>
     <div class="well well-lg text-center">
-      <p>You have registered for this subject's course, but you have not yet made payment.<br/>
+      <p>You have registered for this subject, but you have not yet made payment.<br/>
       If you wish to continue your registration process by making payment, please select a payment method below:</p>
-      <%= render partial: 'student/shared/payment_methods' %>
+      <%= render partial: 'student/shared/payment_methods', locals: {subject: @section.subject.id} %>
     </div>
-    <div class="panel panel-primary hidden">
-        <div class="panel-heading">
-          Offline Payment
-        </div>
-      <!-- TODO Refine logic to unique error page that deals with access to section without actually being part of the section. -->
-        <div class="panel-body text-center" id="offline-payment-panel">
-          <p>This is where the offline payment instructions will go.</p>
-          <%= link_to "Confirm Offline Payment Request", student_subject_offline_payment_path(@section.subject), class: 'btn btn-primary btn-large' %>
-        </div>
-    </div>
-<!-- If there are pending payments -->
-<% elsif @subscription.end_date.nil? and @subscription.pending_payments.count == 1 %>
+
+<!-- If there are pending payments and the subscription is not active or expired -->
+<% elsif (@subscription.end_date.nil? or @subscription.end_date < Date.today) and @subscription.pending_payments.count == 1 %>
     <div class="well well-lg text-center">
-      <p>We are still awaiting payment from you in order to permit you access this course.If you have already made payment, but you have not submitted the payment information to us as yet, please do so by clicking below:</p>
-      <%= link_to "Submit Offline Payment Information", student_subject_offline_payment_info_path(@section.subject), class: 'btn btn-large btn-default' %>
+      <p>Your offline payment is still pending. If you have made payment already, then please click below to submit the payment information.</p>
+      <%= link_to "Submit Offline Payment Information", offline_payment_info_student_subject_path(@section.subject), class: 'btn btn-large btn-default' %>
     </div>
+
 <!-- If there are payments submitted but not verified -->
 <% elsif @subscription.end_date.nil? and @subscription.submitted_payments.count == 1 %>
     <div class="well well-lg text-center">
-      <p>Our administrative team is yet to verify your payment information. You will receive an e-mail as soon as this process is complete.</p>
+      <p>Your offline payment has not been verified as yet. You will receive an e-mail as soon as this process is complete.</p>
     </div>
+
 <!-- If the Subscription exists but it has expired -->
 <% elsif @subscription.end_date < Date.today %>
     <div class="well well-lg text-center">
-      <p>Your subscription for this subject's course has expired. Click below if you wish to extend it.</p>
-      <button class="btn btn-default btn-large" id="renew-subscription-button">Renew Subscription</button>
+      <p>Your subscription for this subject has expired. Choose an option below if you wish to extend it.</p>
+      <%= render partial: 'student/shared/payment_methods', locals: {subject: @section.subject.id} %>
     </div>
-    <div class="well well-lg text-center hidden" id="renew-subscription-panel">
-      <p>Please select a payment method to renew your subscription:</p>
-      <%= render partial: 'student/shared/payment_methods' %>
-    </div>
-    <div class="panel panel-primary hidden" id="offline-payment-panel">
-        <div class="panel-heading">
-          Offline Payment
-        </div>
-        <div class="panel-body">
-          <p>This is where the offline payment instructions will go.</p>
-          <%= link_to "Confirm Offline Payment Request", '#', class: 'btn btn-primary btn-large' %>
-        </div>
-    </div>
+
+<!-- If Access to course is allowed -->
 <% else %>
     <div class="col-sm-12">
         <div class="panel panel-default" id="announcements-panel">
@@ -75,15 +58,20 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12">
-      <div class="panel panel-default" id="discussion-panel">
-        <div class="panel-heading" role="tab" id="grades-heading">
-          <h4 class="panel-title">
-            <%= link_to "Discussion Board", student_subject_section_discussions_path(@section.subject, @section) %>
-          </h4>
+
+    <!-- ONLY DISPLAY IF DISCUSSION BOARD HAS BEEN ACTIVATED -->
+    <% if not @section.discussion_board.nil? %>
+        <div class="col-sm-12">
+          <div class="panel panel-default" id="discussion-panel">
+            <div class="panel-heading" role="tab" id="grades-heading">
+              <h4 class="panel-title">
+                <%= link_to "Discussion Board", student_subject_section_discussions_path(@section.subject, @section) %>
+              </h4>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+    <% end %>
+
     <div class="col-sm-4">
       <div class="panel panel-default" id="upcoming-schedule-panel">
         <div class="panel-heading" role="tab" id="upcoming-schedule-heading">
@@ -102,6 +90,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-sm-4">
       <div class="panel panel-default" id="past-classes-panel">
         <div class="panel-heading" role="tab" id="past-classes-heading">
@@ -120,6 +109,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-sm-4">
       <div class="panel panel-default" id="grades-panel">
         <div class="panel-heading" role="tab" id="grades-heading">

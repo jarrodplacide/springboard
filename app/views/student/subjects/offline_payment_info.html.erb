@@ -1,0 +1,35 @@
+<%
+   @pagetitle = "Register Payment for #{@subscription.subject.name}"
+   @page_class = 'payment register-payment'
+
+   payment = @subscription.pending_payments.first
+%>
+
+<h1 class="text-center">Register Offline Payment for <%= @subscription.subject.name %></h1>
+
+<%= render partial: 'layouts/messages' %>
+
+<div class="well well-lg" id="register-offline-payment-form">
+  <%= form_for payment, url: student_subject_register_payment_info_path(@subscription.subject_id, payment.id) do |f| %>
+      <h4>Offline Payment requested on <%= payment.created_at.strftime('%r %v') %></h4>
+
+      <div class="form-group">
+        <%= f.label :payment_date, "Payment Date & Time" %>
+        <%= f.datetime_select :payment_date, {ampm: true, start_year: Date.today.year, order: [:hour, :minute, :day, :month, :year]}, { class: 'form-control' }  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :amount, "Payment Amount" %>
+        <%= f.text_field :amount, data: {autonumeric: {aSign: '$', wEmpty: 'zero'}}, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :transaction_id, "Transaction ID [Omit if not available]" %>
+        <%= f.text_field :transaction_id, class: 'form-control' %>
+      </div>
+
+      <%= hidden_field_tag :payment_id, value: payment.id %>
+
+      <%= f.submit "Submit Payment Information", class: 'btn btn-default' %>
+  <% end %>
+</div>

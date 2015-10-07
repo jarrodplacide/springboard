@@ -33,4 +33,30 @@ class ApplicationController < ActionController::Base
   def instructor_subjects
     @instructor_subjects ||= Section.includes(:subject).where(instructor_id: current_instructor.id)
   end
+
+  def update_subscription(subscription, months)
+    months = months.to_i
+    if (student_section = StudentSection.includes(:section).find_by(student_id: subscription.student_id, subject_id: subscription.subject_id)).nil?
+      subject = Subject.includes(:open_sections).find(subscription.subject_id)
+      if subject.open_sections.count == 1
+        section = subject.open_sections.first
+        student_section = StudentSection.create(student_id: subscription.student_id, section_id: section.id, subject_id: subject.id)
+      else
+        return false
+      end
+    end
+    if subscription.start_date.nil?
+      subscription.start_date = student_section.section.start_date
+      subscription.end_date = student_section.section.start_date.months_since(months)
+    elsif subscription.end_date > Date.today
+      subscription.end_date = subscription.end_date.months_since(months)
+    elsif subscription.end_date < Date.today
+      subscription.end_date = Date.today.months_since(months)
+    end
+    if subscription.save
+      true
+    else
+      false
+    end
+  end
 end

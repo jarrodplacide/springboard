@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20150715201324
+# Schema version: 20151007001911
 #
 # Table name: payments
 #
 #  id              :integer          not null, primary key
-#  payment_date    :date
+#  payment_date    :datetime
 #  subscription_id :integer
 #  amount_cents    :integer
 #  status          :string

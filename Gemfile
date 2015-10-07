@@ -46,6 +46,9 @@ gem 'httmultiparty'
 # Ruby HMAC Gem
 gem 'ruby-hmac'
 
+# Use Twocheckout Gem for 2Checkout API Access
+gem 'twocheckout'
+
 # Use Money Rails for Money Formatting & Autonumeric for Front End Money Formatting
 gem 'money-rails'
 gem 'autonumeric-rails'

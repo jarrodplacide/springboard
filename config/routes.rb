@@ -31,6 +31,12 @@
 #                                                                  DELETE    /student/parents/:id(.:format)                                                                                                                    student/parents#destroy
 #                                         register_student_subject POST      /student/subjects/:id/register(.:format)                                                                                                          student/subjects#register
 #                                          payment_student_subject GET       /student/subjects/:id/payment(.:format)                                                                                                           student/subjects#payment
+#                                  offline_payment_student_subject GET       /student/subjects/:id/offline-payment(.:format)                                                                                                   student/subjects#offline_payment
+#                         initiate_offline_payment_student_subject POST      /student/subjects/:id/initiate-offline-payment(.:format)                                                                                          student/subjects#initiate_offline_payment
+#                             offline_payment_info_student_subject GET       /student/subjects/:id/offline-payment-info(.:format)                                                                                              student/subjects#offline_payment_info
+#                         register_offline_payment_student_subject POST      /student/subjects/:id/register-offline-payment(.:format)                                                                                          student/subjects#register_offline_payment
+#                                    e_payment_new_student_subject GET       /student/subjects/:id/e-payment/new(.:format)                                                                                                     student/subjects#new_e_payment
+#                                        e_payment_student_subject POST      /student/subjects/:id/e-payment(.:format)                                                                                                         student/subjects#e_payment
 #     student_subject_section_discussion_topic_thread_thread_posts POST      /student/subjects/:subject_id/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts(.:format)          student/thread_posts#create
 # edit_student_subject_section_discussion_topic_thread_thread_post GET       /student/subjects/:subject_id/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id/edit(.:format) student/thread_posts#edit
 #      student_subject_section_discussion_topic_thread_thread_post PATCH     /student/subjects/:subject_id/sections/:section_id/discussions/:discussion_id/topics/:topic_id/threads/:thread_id/thread_posts/:id(.:format)      student/thread_posts#update
@@ -226,6 +232,16 @@ Rails.application.routes.draw do
       member do
         post 'register'
         get 'payment'
+
+        # Offline Payment Routes
+        get 'offline-payment', to: 'subjects#offline_payment'
+        post 'initiate-offline-payment', to: 'subjects#initiate_offline_payment'
+        get 'offline-payment-info', to: 'subjects#offline_payment_info'
+        post 'register-offline-payment', to: 'subjects#register_offline_payment'
+
+        #E-Payment Routes
+        get 'e-payment/new', to: 'subjects#new_e_payment'
+        post 'e-payment/', to: 'subjects#e_payment'
       end
       resources :sections, only: [:new, :create, :show] do
         resources :discussions, only: [:index] do
